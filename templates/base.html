@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content = "IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <title>{% block title %}Django Web Programming{% endblock %}</title>
+    <title>{% block title %}두부개미 주식저장소{% endblock %}</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     
@@ -18,7 +18,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
   <div class="container-fluid">
-    <span class="navbar-brand" href="#">Python Web Programming</span>
+    <span class="navbar-brand" href="#">두부개미 주식저장소</span>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -43,7 +43,7 @@
           <div class="dropdown-menu">
             <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="">검색</a>
+            <a class="dropdown-item" href="{% url 'blog:search' %}">검색</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{% url 'blog:post_archive'%}">아카이브</a>
           </div>

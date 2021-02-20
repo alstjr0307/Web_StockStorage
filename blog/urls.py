@@ -34,5 +34,7 @@ urlpatterns = [
 
     #/blog/archive/today/
     path('archive/today/', views.PostTAV.as_view(), name='post_today_archive'),
+
+    path('search/', views.SearchFormView.as_view(), name='search'),
     
 ]
