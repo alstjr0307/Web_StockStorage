@@ -5,13 +5,13 @@
 {% block extra-style %}
 <style type="text/css">
 .home-image {
-    background-image: url("{% static 'img/lion.jpg' %}");
+    background-image: url("{% static 'img/tofu_title.png' %}");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
-    height: 500px;
-    border-top: 10px solid #ccc;
-    border-bottom: 10px solid #ccc;
+    height: 100px;
+    border-top: 3px solid #ccc;
+    border-bottom: 3px solid #ccc;
     padding: 20px 0 0 20px;
 
 }
@@ -27,21 +27,33 @@
     top: 77%;
     color: #cc0;
     font-style: italic;
+}
+.footer{
+    width: 100%;
+    height: 50px;
+    position:absolute;
+    bottom:0;
+    background:black;
+    text-align:center;
+    color:white; 
+
 
 }
 </style>
 {%endblock%}
 {%block content %}
     <div class="home-image">
-    <h4 class="powered"><i class="fas fa-arrow-circle-right"></i> powered by django.</h4>
+    
     </div>
 
     <hr style="margin: 10px 0;">
     <div class="row text-center">
-        <div class="col-sm-6">
+        
+        <div style="cursor: pointer;" onclick="{% url 'home' %};" class="col-sm-6">
             <h3>Bookmark App</h3>
-            <p>Bookmark is a uniform resuorce identifier(URI)</p>
+           
         </div>
+        
         <div class="col-sm-6">
             <h3>Blog App</h3>
         </div>
@@ -50,8 +62,8 @@
 {%endblock%}
 
 {%block footer%}
-<footer class ="fixed-boottom bg-info">
-    <div class="text-white font-italic text-right mr-5">Copytight &copy; 2019</div>
+<footer class ="footer">
+    <div >Copytight &copy; 2019</div>
     
 </footer>
 {% endblock %}
