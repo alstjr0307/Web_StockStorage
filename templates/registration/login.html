@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %} login.html {%endblock%}
+
+{% block content %}
+    
+    <h1>로그인 하세요 </h1>
+    <p class="font-italic"> 아이디와 비밀번호를 입력하세요 </p>
+
+    {% if form.errors %}
+    <div class= "alert alert-danger">
+        <div class ="font-weight-bold">잘못된 입력입니다. 다시 입력해주세요.</div>
+        -올바른 아이디와 비밀번호를 입력해주세요
+    </div>
+    {% endif %}
+
+    <form action="." method="post" class="card pt-3">{% csrf_token%}
+
+        <div class = "form-group row">
+            &ensp;{{form.username|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold"}}
+            <div class="col-sm-5">
+                {{form.username|add_class:"form-control"|attr:"autofocus"}}
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+           &ensp; {{ form.password|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold"}}
+            <div class= "col-sm-5">
+                {{form.password|add_class:"form-control"}}
+            </div>
+        </div>
+        <br>
+        <div class= "form-group">
+            <div class="offset-sm-2 col-sm-5">
+                <input type="submit" value="로그인" class ="btn btn-light"/>
+                <input type="hidden" name ="next" value="{{next}}" />
+            </div>
+        </div>
+        <br>
+    </form>
+
+{% endblock %}
