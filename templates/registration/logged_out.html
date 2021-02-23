@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}logged_out.html{%endblock%}
+
+{%block content %}
+
+    <h1>Logged Out</h1>
+    <br>
+    <div>
+        <i class="fas fa-quote-left"></i>
+        <span class="h6">&ensp;방문해주셔서 감사합니다&ensp;</span>
+        <i class="fas fa-quote-right"></i>
+    </div>
+    <br>
+    <br>
+    <button type="button" class="btn btn-outline-primary btn-lg"><a href="{% url 'login' %}">재로그인</a></button>
+{% endblock %}

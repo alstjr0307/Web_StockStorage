@@ -3,7 +3,7 @@
 
 {% block content %}
 <h1>Blog Search </h1>
-<br>
+<hr>
 <form action="." method="post"> {% csrf_token %}
     {{ form.as_table }}
     <input type="submit" value="Submit" class = "btn btn-primary btn-sm">
