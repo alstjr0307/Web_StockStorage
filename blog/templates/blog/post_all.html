@@ -1,41 +1,29 @@
-{% extends "base.html" %}
+{% extends "blog.html" %}
 
 {% block title %}post_all.html{%endblock%}
 
 {%block content%}
-<h4>해외주식 게시판</h4>
 
-<hr style="height:8px">
-<br>
 
-{% for post in posts %}
-<div>
-<a href='{{post.get_absolute_url}}' style="text-decoration:none">
-    <table>
-    <tr>
-    <th class="col-sm-20" style="color:black"><h4>{{post.title}}</h4></th>
-    <td class="col-sm-2" style="color:grey">{{post.modify_dt|date:"작성일: Y년 m월 d일"}}</td>
-    </tr>
-    </table>
-</a>
-<hr>
-
+<div class="list-group-flush">
+    {% for post in posts %}
+     <a href='{{post.get_absolute_url}}' class="list-group-item text-dark">{{post.title}}<span class="badge text-dark" style="float:right; font-size:x-small">{{post.modify_dt|date:"작성일: Y년 m월 d일"}}</span><span style="font-size:x-small; float:right">작성자: {{post.owner}} |</span></a>
+    {% endfor %}
 
 </div>
-{% endfor %}
 
 <br>
 
 <div>
     <span>
         {% if page_obj.has_previous %}
-            <a href = "?page={{ page_obj.previous_page_number }}">PreviousPage</a>
+            <a href = "?page={{ page_obj.previous_page_number}}">PreviousPage</a>
         {% endif %}
 
         Page {{page_obj.number }} of {{page_obj.paginator.num_pages}}
 
         {% if page_obj.has_next %}
-            <a href="?page = {{page_obj.next_page_number}}">NextPage</a>
+            <a href="?page={{page_obj.next_page_number}}">NextPage</a>
         {% endif %}
     </span>
 </div>

@@ -1,0 +1,23 @@
+{%extends 'base.html' %}
+{%block extra-style%}
+<style type="text/css">
+.dropdown-menu > li > a {
+    position:relative;
+}
+.dropdown-menu > li> .badge > a  {
+    position:absolute;
+    right:5px
+}
+</style>
+{%endblock%}
+
+{%block list%}
+
+    <div class="row">
+    <a href="{% url 'blog:index'%}" style="text-decoration:none;"class="text-dark col-sm-11">해외주식 게시판</a>
+    <button  type="button" OnClick="location.href='/blog/add'" class="btn btn-sm btn-dark text-light col-sm-1" style="float:right">글작성</button>
+    </div>
+<hr style="height:8px">
+<br>
+
+{% endblock%}

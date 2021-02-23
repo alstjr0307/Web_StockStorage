@@ -19,7 +19,7 @@ class PostLV(ListView):
     model = Post
     template_name = 'blog/post_all.html'
     context_object_name = 'posts'
-    paginate_by=2
+    paginate_by=10
 
 class PostDV(DetailView):
     model = Post
@@ -85,7 +85,7 @@ class SearchFormView(FormView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model =Post
-    fields = ['title', 'slug', 'description', 'content', 'tags']
+    fields = ['title', 'content', 'tags']
     initial= {'slug': 'auto-filling-do-not-input'}
     success_url= reverse_lazy('blog:index')
     
