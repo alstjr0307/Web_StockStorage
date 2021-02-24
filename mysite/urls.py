@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from bookmark.views  import BookmarkDV, BookmarkLV
 from mysite.views import HomeView
-from mysite.views import UserCreateDoneTV, SignUp
+from mysite.views import UserCreateDoneTV, SignUp, ProfileView, ActivateAccount
 
 urlpatterns = [
 
@@ -29,6 +29,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/register/', SignUp.as_view(), name='register'),
     path('accounts/register/done/', UserCreateDoneTV.as_view(), name='register_done'),
-
-
+    path('accounts/<int:pk>/', ProfileView.as_view(), name='profile'),
+    path('activate/<uidb64>/<token>/', ActivateAccount.as_view(), name='activate'),
 ]

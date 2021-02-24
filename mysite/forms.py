@@ -6,7 +6,11 @@ class UserCreationForm(UserCreationForm):
     email = forms.EmailField(label='이메일',required=True)
     nickname = forms.CharField(label= '닉네임',max_length=12, min_length=2, required=True, help_text='Required: Nickname',
                                widget=(forms.TextInput(attrs={'class': 'form-control'})))
-
+    labels = {
+        'username': '닉네임',
+        'email': '이메일',
+        'password': '패스워드'
+    }
 
     class Meta:
         model = User
@@ -20,3 +24,16 @@ class UserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+class ProfileForm(forms.ModelForm):
+    first_name= forms.CharField(label='닉네임',max_length=12, min_length=2, required=True, help_text='Required: Nickname',
+                               widget=(forms.TextInput(attrs={'class': 'form-control'})))
+    
+    
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'first_name',
+            'email',
+            ]
