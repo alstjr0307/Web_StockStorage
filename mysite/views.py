@@ -1,12 +1,13 @@
 from django.views.generic import TemplateView
 from django.views.generic import CreateView
-from django.contrib.auth.forms import UserCreationForm
-from django.urls import reverse_lazy
+
 from django.views.generic import ListView
 from django.contrib.auth.mixins import AccessMixin
 from blog.models import Post
-from django.apps import apps
+
+from .forms import UserCreationForm
 from domestic.models import Post_Domestic
+from django.urls import reverse_lazy
 
 
 class HomeView(ListView):
@@ -23,10 +24,10 @@ class HomeView(ListView):
 
 
 
-class UserCreateView(CreateView):
-    template_name = 'registration/register.html'
+class SignUp(CreateView):
     form_class = UserCreationForm
     success_url = reverse_lazy('register_done')
+    template_name = 'registration/register.html'
 
 class UserCreateDoneTV(TemplateView):
     template_name = 'registration/register_done.html' 

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'taggit_templatetags2',
     'widget_tweaks',
     'domestic.apps.DomesticConfig',
+    'bootstrap4',
 
     
 ]
@@ -140,3 +141,9 @@ TAGGIT_LIMIT= 50
 DISQUS_SHORTNAME= 'pydjango-web-programming'
 DISQUS_MY_DOMAIN = '127.0.0.1:8000'
 
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'alswp26@gmail.com'
+EMAIL_HOST_PASSWORD = 'alstjr0307!!'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

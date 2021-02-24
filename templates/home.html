@@ -3,7 +3,9 @@
 {% load static %}
 {% block title %}home.html{%endblock%}
 {% block extra-style %}
+
 <style type="text/css">
+
 .home-image {
     background-image: url("{% static 'img/tofu_title.png' %}");
     background-repeat: no-repeat;
@@ -20,7 +22,9 @@
     color: #c80;
     font-weight: bold;
 
+
 }
+
 
 .powered {
     position: relative;
@@ -47,19 +51,20 @@
     
     </div>
 
-    <hr style="margin: 10px 0;">
-    <div class="row text-center">
-        <a href="{% url 'domestic:index' %}" class="col-sm-5 bg-danger rounded-pill border border-dark ">
-        <div style="width:6rem"  class="badge bg-danger text-center ">
-            <h3>국내주식</h3>
+    <hr style="margin: 10px 0; height:20px; color:black">
+    <div class="row text-left">
+        <a href="{% url 'domestic:index' %}" class="text-decoration-none col-sm-5 fw-bold">
+        <div class="text-body fw-bold ">
+            <h4 class="fw-bold">국내주식 게시판</h4>
            
         </div>
+        <hr style="color:black">
         </a>
         <a class="col-sm-2"></a>
         
         
         <a href="{% url 'blog:index' %}" class="col-sm-5 righh bg-danger rounded-pill border border-dark">
-        <div class="badge bg-danger text-center" style="width:6rem">
+        <div class="badge bg-danger text-center text-body" style="width:6rem">
             <h3>해외주식</h3>
         </div>
         </a>
