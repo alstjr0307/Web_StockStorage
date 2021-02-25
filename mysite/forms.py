@@ -8,7 +8,7 @@ class UserCreationForm(UserCreationForm):
     email = forms.EmailField(label='이메일',required=True, widget=(forms.TextInput(attrs={'class': 'form-control'})))
     nickname = forms.CharField(label= '닉네임',max_length=6, min_length=2, required=True,
                                widget=(forms.TextInput(attrs={'class': 'form-control', 'placeholder':'2자~6자까지 가능합니다.'})))
-    
+
     class Meta:
         model = User
         fields = ("username",  "email", "password1", "password2","nickname")
@@ -21,7 +21,7 @@ class UserCreationForm(UserCreationForm):
         }
 
 
-    def save(self, commit=True):
+    def save(self, commit=False):
         user = super(UserCreationForm, self).save(commit=False)
         user.first_name=self.cleaned_data["nickname"]
        

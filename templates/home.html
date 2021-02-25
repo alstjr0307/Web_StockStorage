@@ -63,17 +63,15 @@
         <a class="col-sm-2"></a>
         
         
-        <a href="{% url 'blog:index' %}" class="col-sm-5 righh bg-danger rounded-pill border border-dark">
-        <div class="badge bg-danger text-center text-body" style="width:6rem">
-            <h3>해외주식</h3>
+        <a href="{% url 'blog:index' %}" class="text-decoration-none col-sm-5 fw-bold">
+        <div class="text-body fw-bold " >
+             <h4 class="fw-bold">해외주식 게시판</h4>
         </div>
+        <hr style = "color:black; height:0.8px">
         </a>
     </div>
 
- 
-    &ensp;
-    
-    <div class="row text-center">
+    <div class="row">
       
 
         
@@ -90,17 +88,16 @@
         {% endfor %}
         </div>
         <div class="col-sm-2"></div>
-        <div class="col-sm-5 ">
+
+        <div class="list-group-flush col-sm-5">
         {% for post in posts %}
-        
-                <a href='{{post.get_absolute_url}}' style="text-decoration:none">
-                <div class="badge" style="color:black; float:left;">{{post.title}}</div>
-               
-                </a>
-                &#x2002;
-                <hr >
+            <a href='{{post.get_absolute_url}}' class="list-group-item text-dark">{{post.title}}
+            <span style="font-size:x-small; float:right">{{post.owner.get_short_name}} </span>
+            </a>
         {% endfor %}
+
         </div>
+
     </div>
 {%endblock%}
 

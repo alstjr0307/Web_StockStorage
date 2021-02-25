@@ -22,9 +22,18 @@ a {
 
 {% block content %}
 <div class="post-body">
-    <p><a> 글 제목: {{object.title }}</a>
-    {% if object.get_previous %}
-    <a href="{{object.get_previous.get_absolute_url}}"style="text-decoration:none; float:right;"   title="View next post">
+    <p><a href='{{post.get_absolute_url}}' class="fs-2 title text-dark"> {{object.title}}</a>
+   
+    <a href='{{post.owner_absolute_url}}'>{{object.owner.get_short_name}}</a>
+    </p>
+
+
+
+    <hr>
+
+    <p style="font-size:2px">{{object.modify_dt|date:"Y.m.d f:s" }}
+     {% if object.get_previous %}
+    <a href="{{object.get_previous.get_absolute_url}}"style="text-decoration:none; float:right;"  title="View next post">
     &nbsp;&nbsp;&nbsp;{{object.get_previous}}<i class="fas fa-arrow-circle-right"></i>
     </a>
     {% endif %}
@@ -33,31 +42,22 @@ a {
     <a href="{{object.get_next.get_absolute_url}}" style="text-decoration:none; display:inline-block; float:right"title="View previous post">
         <i class="fas fa-arrow-circle-left"></i>{{object.get_next}}
     </a>
-    {% endif%}
+    {% endif%}</p>
+    <br>
 
-    </p>
+    <div>
+        {{object.content|linebreaks}}
+    </div>
 
-
-
-<hr>
-
-
-<p>{{object.modify_dt|date:"j F Y" }}</p>
-<br>
-
-<div>
-    {{object.content|linebreaks}}
-</div>
-
-<br>
-<div>
-    <b>TAGS <i class="fas fa-tag"></i></b>
-    {% load taggit_templatetags2_tags %}
-    {% get_tags_for_object object as "tags" %}
-    {% for tag in tags %}
-    <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}</a>
-    {% endfor %}
-    &emsp;
+    <br>
+    <div>
+        <b>TAGS <i class="fas fa-tag"></i></b>
+        {% load taggit_templatetags2_tags %}
+        {% get_tags_for_object object as "tags" %}
+        {% for tag in tags %}
+        <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}</a>
+        {% endfor %}
+        &emsp;
 
     <a href="{% url 'blog:tag_cloud' %}"> <span class= "btn btn-info btn-sm">TagCloud</span> </a>
     </div>

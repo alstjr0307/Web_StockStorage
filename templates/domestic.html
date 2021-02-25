@@ -1,0 +1,12 @@
+{%extends 'base.html' %}
+
+{%block list%}
+
+    <div class="row">
+    <a href="{% url 'domestic:index'%}" style="text-decoration:none;"class="text-dark col-sm-11">국내주식 게시판</a>
+    <button  type="button" OnClick="location.href='/domestic/add'" class="btn btn-sm btn-dark text-light col-sm-1" style="float:right">글작성</button>
+    </div>
+<hr style="height:8px">
+<br>
+
+{% endblock%}

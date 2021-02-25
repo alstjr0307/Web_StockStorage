@@ -1,32 +1,20 @@
-{% extends "base.html" %}
+{% extends "domestic.html" %}
 
 {% block title %}post_all.html{%endblock%}
 
 {%block content%}
-<h4>국내주식 게시판</h4>
 
-
-<hr style="height:8px">
-<br>
-
-{% for post in posts %}
-<hr>
-
-<div>
-
-<a href='{{post.get_absolute_url}}' style="text-decoration:none">
-    <table>
-    <tr>
-    <th class="col-sm-10" style="color:black;"><h6>{{post.title}}</h6></th>
-    <td class="col-sm-2" style="color:grey; text-align:right;">{{post.modify_dt|date:"작성일: Y년 m월 d일"}}</td>
-    </tr>
-    </table>
-</a>
-
-
+<div class="list-group-flush">
+    {% for post in posts %}
+     <a href='{{post.get_absolute_url}}' class="list-group-item text-dark">{{post.title}}<span class="badge text-dark" style="float:right; font-size:x-small">{{post.modify_dt|date:"Y.m.d f:s"}}</span><span style="font-size:x-small; float:right">{{post.owner.get_short_name}} |</span></a>
+    {% endfor %}
 
 </div>
-{% endfor %}
+
+
+
+
+
 
 <br>
 

@@ -63,9 +63,9 @@ class SignUp(CreateView):
             })
             user.email_user(subject, message)
 
-            messages.success(request, ('Please Confirm your email to complete registration.'))
+            messages.success(request,'가입 완료를 위해 이메일 인증을 해주세요')
 
-            return redirect('login')
+            return redirect('register_done')
 
         return render(request, self.template_name, {'form': form})
 class UserCreateDoneTV(TemplateView):

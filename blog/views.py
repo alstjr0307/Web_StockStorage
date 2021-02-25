@@ -12,6 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from mysite.views import OwnerOnlyMixin
 
+
 from blog.models import Post
 # Create your views here.
 
@@ -101,9 +102,25 @@ class PostChangeLV(LoginRequiredMixin, ListView):
 
 class PostUpdateView(OwnerOnlyMixin, UpdateView):
     model= Post
-    fields= ['title', 'slug', 'description', 'content', 'tags']
+    fields= ['title', 'content', 'tags']
     success_url = reverse_lazy('blog:index')
 
 class PostDeleteView(OwnerOnlyMixin, DeleteView):
     model =Post
     success_url = reverse_lazy('blog:index')
+
+
+class PostUserLV(ListView):
+
+    template_name= 'blog/post_user.html'
+    context_object_name = 'posts'
+    paginate_by=10
+    
+    def get_context_data(self, **kwargs):
+        context= super().get_context_data(**kwargs)
+        context['owner_name']=self.kwargs['owner_name']
+        context['owner']= self.kwargs['owner']  
+        return context
+
+    def get_queryset(self):
+        return Post.objects.filter(owner=self.kwargs.get('owner'))

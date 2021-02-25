@@ -7,7 +7,7 @@
 
 <div class="list-group-flush">
     {% for post in posts %}
-     <a href='{{post.get_absolute_url}}' class="list-group-item text-dark">{{post.title}}<span class="badge text-dark" style="float:right; font-size:x-small">{{post.modify_dt|date:"Y.m.d"}}</span><span style="font-size:x-small; float:right">작성자: {{post.owner.get_short_name}} |</span></a>
+     <a href='{{post.get_absolute_url}}' class="list-group-item text-dark">{{post.title}}<span class="badge text-dark" style="float:right; font-size:x-small">{{post.modify_dt|date:"Y.m.d f:s"}}</span><span style="font-size:x-small; float:right">{{post.owner.get_short_name}} |</span></a>
     {% endfor %}
 
 </div>
