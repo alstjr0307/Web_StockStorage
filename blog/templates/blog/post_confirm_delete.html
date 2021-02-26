@@ -1,0 +1,17 @@
+{% extends "blog.html"%}
+
+{% block title %}post_confirm_delete.html{% endblock%}
+
+{%block content%}
+<div class="post-body">
+    <h1 class="text-weight-bold">게시물 삭제</h1>
+    <br>
+
+    <form action="." method="post">{% csrf_token%}
+        <p>정말 게시물을 지우시겠습니까?</p>
+        <input type= "submit" value="확인" class="btn btn-danger btn-sm"/>
+    </form>
+
+{% endblock %}
+
+    

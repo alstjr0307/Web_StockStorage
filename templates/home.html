@@ -53,7 +53,8 @@
 
     <hr style="margin: 10px 0; height:5px; color:black">
     <div class="row text-left">
-        
+   
+        <i class="glyphicon glyphicon-refresh"></i>
         <div class="text-body fw-bold col-sm-6">
             <a href="{% url 'domestic:index' %}" class="text-decoration-none fw-bold">
             <h4 class="fw-bold">국내주식 게시판</h4></a>
@@ -85,7 +86,7 @@
                             <span style="font-size:x-small; float:right">{{post.owner.get_short_name}} </span>
                         </a>
                     {% endfor %}
-                    <hr style = "color:black; height:0.8px">
+                    <hr style = "color:black;">
                 </div>
             </div>
 
@@ -95,8 +96,8 @@
 {%endblock%}
 
 {%block footer%}
-<footer class ="footer">
-    <div >Copytight &copy; 2019</div>
+<footer class ="footer" style="position:fixed; z-index:30; height:20px; font-size:10px">
+    <div >Copytight &copy; 2019 </div>
     
 </footer>
 {% endblock %}

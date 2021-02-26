@@ -1,12 +1,15 @@
 {%extends 'base.html' %}
+{%block extra-style%}
 
+{% endblock %}
 {%block list%}
 
-    <div class="row">
-    <a href="{% url 'blog:index'%}" style="text-decoration:none;"class="text-dark col-sm-11">해외주식 게시판</a>
-    <button  type="button" OnClick="location.href='/blog/add'" class="btn btn-sm btn-dark text-light col-sm-1" style="float:right">글작성</button>
+    <div class="post-body">
+    <a href="{% url 'blog:index'%}" style="text-decoration:none; width:fit-content;"class="text-dark">해외주식 게시판</a>
+    <button  type="button" OnClick="location.href='/blog/add'" class="btn btn-sm btn-dark text-light" style="float:right; font-size:5px; width:fit-content">글작성</button>
+    <hr style="height:8px">
     </div>
-<hr style="height:8px">
+
 <br>
 
 {% endblock%}

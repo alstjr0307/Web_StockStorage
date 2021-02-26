@@ -16,12 +16,17 @@
 {%block content%}
 
 
-<div class="list-group-flush">
+<div class="post-body">
+<div class="text-dark row fw-bold" style="box-sizing: border-box; border-top: 1px solid #c0c0c0;border-bottom: 1px solid #c0c0c0; margin-bottom:8px; " ><div class="col-7 text-center">제목</div><div class="col-3 text-center">작성자</div><div class="col-2 text-center">작성시간</div></div>
+<div class="list-group-flush row">
+    
     {% for post in posts %}
-     <a href='{{post.get_absolute_url}}' class="list-group-item text-dark">{{post.title}}<span class="badge text-dark" style="float:right; font-size:x-small">{{post.modify_dt|date:"Y.m.d f:s"}}</span><span style="font-size:x-small; float:right">{{post.owner.get_short_name}} |</span></a>
+
+    <a href='{{post.get_absolute_url}}' style="box-sizing: border-box;border-bottom: 1px solid #c0c0c0;text-decoration:none;margin-bottom:1px;margin-top:0px"><div class="row text-dark"><div class="col-7">&ensp;{{post.title}}</div><div class="col-3 text-center"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</div><div class="col-2 text-center" style="font-size:5px"><i class="fas fa-clock"></i>&ensp;{{post.modify_dt|date:"f:s"}}</div></div>
+    </a>
     {% endfor %}
 
-</div>
+
 
 <br>
 
