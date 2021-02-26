@@ -24,12 +24,13 @@ class HomeView(ListView):
     template_name='home.html'
     model = Post
     context_object_name='posts'
+    paginate_by=6
     def get_queryset(self):
-        return Post.objects.order_by('modify_dt')
+        return Post.objects.order_by('-modify_dt')
     
     def get_context_data(self,**kwargs):
         context=super(HomeView, self).get_context_data(**kwargs)
-        context['post_domestics'] = Post_Domestic.objects.order_by('modify_dt')
+        context['post_domestics'] = Post_Domestic.objects.order_by('-modify_dt')
         return context
 
 
@@ -63,7 +64,7 @@ class SignUp(CreateView):
             })
             user.email_user(subject, message)
 
-            messages.success(request,'가입 완료를 위해 이메일 인증을 해주세요')
+            messages.error(request,('가입 완료를 위해 이메일 인증을 해주세요'))
 
             return redirect('register_done')
 

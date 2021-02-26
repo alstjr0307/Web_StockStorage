@@ -4,13 +4,13 @@
 {% block title %} post_form.html {%endblock%}
 
 {%block content%}
-    <h4>게시물 작성-{{user}}</h4>
-    <p class="font-italic">게시물 작성 페이지입니다</p>
-
+    <h4>게시물 작성</h4>
+    <hr>
     {% if form.errors %}
     <div class="alert alert-danger">
         <div class="font-wieght-bold">잘못된 입력입니다</div>
         {{form.errors}}
+        
     </div>
     {% endif %}
 
@@ -22,6 +22,8 @@
                 {{form.title|add_class:"form-control"|attr:"autofocus"}}
             </div>
         </div>
+        <br>
+        
 
         <div class="form-group row">
                 {{form.content|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold"}}

@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 class UserCreationForm(UserCreationForm):
     
 
@@ -41,3 +42,14 @@ class ProfileForm(forms.ModelForm):
             'first_name',
             'email',
             ]
+
+class CustomLoginRequiredMixin(LoginRequiredMixin):
+
+    permission_denied_message='로그인이 필요합니다.'
+ 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.add_message(request, messages.WARNING, self.permission_denied_message)
+            return self.handle_no_permission()
+        return super(CustomLoginRequiredMixin, self).dispatch(request, *args, **kwargs
+    )

@@ -51,54 +51,47 @@
     
     </div>
 
-    <hr style="margin: 10px 0; height:20px; color:black">
+    <hr style="margin: 10px 0; height:5px; color:black">
     <div class="row text-left">
-        <a href="{% url 'domestic:index' %}" class="text-decoration-none col-sm-5 fw-bold">
-        <div class="text-body fw-bold ">
-            <h4 class="fw-bold">국내주식 게시판</h4>
+        
+        <div class="text-body fw-bold col-sm-6">
+            <a href="{% url 'domestic:index' %}" class="text-decoration-none fw-bold">
+            <h4 class="fw-bold">국내주식 게시판</h4></a>
            
-        </div>
-        <hr style="color:black">
-        </a>
-        <a class="col-sm-2"></a>
-        
-        
-        <a href="{% url 'blog:index' %}" class="text-decoration-none col-sm-5 fw-bold">
-        <div class="text-body fw-bold " >
-             <h4 class="fw-bold">해외주식 게시판</h4>
-        </div>
-        <hr style = "color:black; height:0.8px">
-        </a>
-    </div>
-
-    <div class="row">
-      
-
-        
-        <div class="col-sm-5">
-        {% for post_domestic in post_domestics %}
-            
-                <a href='{{post_domestic.get_absolute_url}}' class="col-sm-5" style="text-decoration:none">
-                <div class="badge" style="color:black; float:left;">{{post_domestic.title}}</div>
+            <div class="list-group-flush">
+                {% for post_domestic in post_domestics %}
+                <a href='{{post_domestic.get_absolute_url}}' class="list-group-item text-dark">{{post_domestic.title}}
+                    <span style="font-size:x-small; float:right">{{post.owner.get_short_name}} </span>
                 </a>
-                &thinsp;
-                <hr >
+                {% endfor %}
+                <hr style="color:black"`>
+            </div>
 
-
-        {% endfor %}
-        </div>
-        <div class="col-sm-2"></div>
-
-        <div class="list-group-flush col-sm-5">
-        {% for post in posts %}
-            <a href='{{post.get_absolute_url}}' class="list-group-item text-dark">{{post.title}}
-            <span style="font-size:x-small; float:right">{{post.owner.get_short_name}} </span>
-            </a>
-        {% endfor %}
+ 
 
         </div>
+        
+ 
+        
+        
+        
+            <div class="text-body fw-bold col-sm-6" >
+            <a href="{% url 'blog:index' %}" class="text-decoration-none fw-bold">
+                <h4 class="fw-bold">해외주식 게시판</h4>
+                </a>
+                <div class="list-group-flush">
+                    {% for post in posts %}
+                        <a href='{{post.get_absolute_url}}' class="list-group-item text-dark">{{post.title}}
+                            <span style="font-size:x-small; float:right">{{post.owner.get_short_name}} </span>
+                        </a>
+                    {% endfor %}
+                    <hr style = "color:black; height:0.8px">
+                </div>
+            </div>
+
 
     </div>
+
 {%endblock%}
 
 {%block footer%}

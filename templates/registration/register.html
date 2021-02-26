@@ -13,9 +13,5 @@
         <br><br>
         <a class="btn border" href="{% url 'home' %}">홈으로</a>
     </form>
-        {% if messages %}
-	{% for message in messages %}
-		{{ message.tags }}
-		{{ message.message }}  
-	{% endfor %}{%endif%}
+
 {% endblock content %}
