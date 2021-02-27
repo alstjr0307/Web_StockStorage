@@ -4,7 +4,7 @@ from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthA
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
 from django.conf import settings
 from django.views.generic import FormView
-from blog.forms import PostSearchForm
+from blog.forms import PostSearchForm, PostForm
 from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import CreateView, UpdateView, DeleteView
@@ -13,7 +13,7 @@ from mysite.forms import CustomLoginRequiredMixin
 from django.urls import reverse_lazy
 from mysite.views import OwnerOnlyMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.urls import reverse
 from blog.models import Post
 # Create your views here.
 
@@ -25,7 +25,7 @@ class PostLV(ListView):
 
 class PostDV(DetailView):
     model = Post
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['disqus_short'] = f"{settings.DISQUS_SHORTNAME}"
@@ -87,10 +87,13 @@ class SearchFormView(FormView):
 
 class PostCreateView(CustomLoginRequiredMixin, CreateView):
     model =Post
+    
     fields = ['title', 'content', 'tags']
-
-    success_url= reverse_lazy('blog:index')
-
+    permission_denied_message='로그인이 필요합니다.'
+    
+    def get_success_url(self):
+        return reverse('blog:post_detail', 
+                       args=[self.object.pk])
 
     def form_valid(self, form):
         form.instance.owner = self.request.user

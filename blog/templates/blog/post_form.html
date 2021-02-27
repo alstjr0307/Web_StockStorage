@@ -4,8 +4,9 @@
 {% block title %} post_form.html {%endblock%}
 
 {%block content%}
+    <div class="post-body">
     <h4>게시물 작성</h4>
-    
+    <br>
     {% if form.errors %}
     <div class="alert alert-danger">
         <div class="font-wieght-bold">잘못된 입력입니다</div>
@@ -14,19 +15,20 @@
     </div>
     {% endif %}
 
-    <form action="." method="post" class="card pt-4">{%csrf_token%}
+    <form action="." method="post">{%csrf_token%}
 
+        <div class=>{{form.media}}</div>    
         <div class= "form-group">
-            제목
+            <div class="col-sm-5" style="height:5px">제목</div><br>
             <div class="col-sm-5">
-                {{form.title|add_class:"form-control"|attr:"autofocus"}}
+            {{form.title|add_class:"form-control"|attr:"autofocus"}}
             </div>
         </div>
         <br>
         
 
         <div class="form-group" style="margin-left:5px; margin-right:5px">
-                <span style="text-decoration:none">내용</a>
+                <span style="text-decoration:none; height:5px">내용</a>
                 <div class="center col-sm-11">
                     {{form.content|add_class:"form-control"}}
                 </div>              
@@ -46,5 +48,14 @@
             </div>
         </div>  
 
+    <br>
+
     </form>
+    </div>
 {%endblock%}
+{% block script %}
+<script type="text/javascript">
+
+    </script>
+{%endblock%}
+

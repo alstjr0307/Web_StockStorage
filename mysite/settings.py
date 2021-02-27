@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'domestic.apps.DomesticConfig',
     'bootstrap4',
-    
+    'froala_editor'
+
 
     
 ]
@@ -159,3 +160,4 @@ EMAIL_HOST_USER = 'alswp26@gmail.com'
 EMAIL_HOST_PASSWORD = 'alstjr0307!!'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+

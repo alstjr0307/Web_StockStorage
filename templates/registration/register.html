@@ -6,12 +6,20 @@
 {% block content %} 
     <h2>회원가입</h2>
     <hr>
-    <form action="." method="post">
+    <form action="." method="post" onsubmit="return onSubmit()">
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="btn-secondary rounded"type="submit">가입완료</button>
+        <button class="btn-secondary rounded" id="subbutton" type="submit">가입완료</button>
         <br><br>
-        <a class="btn border" href="{% url 'home' %}">홈으로</a>
+
     </form>
 
 {% endblock content %}
+
+{% block extra-script %}
+<script>
+function onSubmit() {
+    document.getElementById("subbutton").disabled = true; 
+}
+</script>
+{%endblock%}

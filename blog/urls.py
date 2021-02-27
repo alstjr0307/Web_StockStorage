@@ -18,7 +18,7 @@ urlpatterns = [
     path('post/', views.PostLV.as_view(), name='post_list'),
 
     #/blog/post/django-example/
-    re_path(r'^post/(?P<pk>[-\w]+)/$', views.PostDV.as_view(), name='post_detail'),
+    path('post/<int:pk>', views.PostDV.as_view(), name='post_detail'),
 
     #/blog/archive/
     path('archive/', views.PostAV.as_view(), name='post_archive'),
@@ -44,4 +44,6 @@ urlpatterns = [
     path('<int:pk>/delete/', views.PostDeleteView.as_view(), name="delete",),
 
     re_path(r'^owner/(?P<owner>[-\w]+)/(?P<owner_name>[-\w]+)$', views.PostUserLV.as_view(), name="post_user",),
-]
+    
+
+]  
