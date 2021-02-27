@@ -9,7 +9,7 @@ from .forms import UserCreationForm, ProfileForm
 from domestic.models import Post_Domestic
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
-
+from django.contrib.auth import views as auth_view
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
@@ -19,18 +19,18 @@ from mysite.tokens import account_activation_token
 from django.shortcuts import render, redirect
 from django.utils.encoding import force_text
 from django.contrib.auth import login
-
+from .forms import CustomAuthenticationForm
 class HomeView(ListView):
     template_name='home.html'
     model = Post
     context_object_name='posts'
     paginate_by=6
     def get_queryset(self):
-        return Post.objects.order_by('-modify_dt')
+        return Post.objects.order_by('-create_dt')
     
     def get_context_data(self,**kwargs):
         context=super(HomeView, self).get_context_data(**kwargs)
-        context['post_domestics'] = Post_Domestic.objects.order_by('-modify_dt')
+        context['post_domestics'] = Post_Domestic.objects.order_by('-create_dt')
         return context
 
 
@@ -108,3 +108,6 @@ class ActivateAccount(View):
         else:
             messages.warning(request, ('The confirmation link was invalid, possibly because it has already been used.'))
             return redirect('home')
+
+class CustomLoginView(auth_view.LoginView):
+    form_class = CustomAuthenticationForm

@@ -21,7 +21,7 @@ from mysite.views import UserCreateDoneTV, SignUp, ProfileView, ActivateAccount
 from django.conf.urls.static import static
 from mysite import settings
 from froala_editor import views
-
+from .views import CustomLoginView
 urlpatterns = [
 
     path('admin/', admin.site.urls),
@@ -34,6 +34,6 @@ urlpatterns = [
     path('accounts/register/done/', UserCreateDoneTV.as_view(), name='register_done'),
     path('accounts/<int:pk>/', ProfileView.as_view(), name='profile'),
     path('activate/<uidb64>/<token>/', ActivateAccount.as_view(), name='activate'),
-
+    path('login/', CustomLoginView.as_view(template_name='registration/login.html'), name='login'),
     path('froala_editor/',include('froala_editor.urls'))
 ] +  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -4,6 +4,7 @@ from taggit.managers import TaggableManager
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from froala_editor.fields import FroalaField
+
 class Post(models.Model):
     title = models.CharField(verbose_name='TITLE', max_length=50)
     slug = models.SlugField('SLUG', allow_unicode=True, help_text='one word for title alias.')
@@ -19,7 +20,7 @@ class Post(models.Model):
         verbose_name = 'post'
         verbose_name_plural = 'posts'
         db_table = 'blog_posts'
-        ordering=('-modify_dt',)
+        ordering=('-create_dt',)
     
     def __str__(self):
         return self.title

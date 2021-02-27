@@ -8,13 +8,20 @@
     <hr>
 
 
-    {% if form.errors %}
-    <div class= "alert alert-danger">
-        <div class ="font-weight-bold">잘못된 입력입니다. 다시 입력해주세요.</div>
-        <hr>
-        -올바른 아이디와 비밀번호를 입력해주세요
-    </div>
-    {% endif %}
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
 
     <form action="." method="post" class="card pt-3">{% csrf_token%}
 

@@ -42,4 +42,4 @@ urlpatterns = [
     path('<int:pk>/update/', views.PostUpdateView.as_view(), name="update",),
     path('<int:pk>/delete/', views.PostDeleteView.as_view(), name="delete",),
 
-]
+]   
