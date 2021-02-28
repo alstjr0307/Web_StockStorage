@@ -26,7 +26,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('bookmark/', include('bookmark.urls')),
-    path('blog/', include('blog.urls')),
+    path('foreign/', include('blog.urls')),
     path('domestic/',include('domestic.urls')),
     path('', HomeView.as_view(), name= 'home'),
     path('accounts/', include('django.contrib.auth.urls')),

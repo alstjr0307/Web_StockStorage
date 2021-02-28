@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView
 from django.views.generic import CreateView, UpdateView
-
-from django.views.generic import ListView, View
+from blog.forms import PostSearchForm, PostForm
+from django.views.generic import ListView, View, FormView
 from django.contrib.auth.mixins import AccessMixin
 from blog.models import Post
 

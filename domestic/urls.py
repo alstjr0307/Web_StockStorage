@@ -18,7 +18,7 @@ urlpatterns = [
     path('post/', views.PostLV.as_view(), name='post_list'),
 
     #/blog/post/django-example/
-    re_path(r'^post/(?P<slug>[-\w]+)/$', views.PostDV.as_view(), name='post_detail'),
+    path('post/<int:pk>', views.PostDV.as_view(), name='post_detail'),
 
     #/blog/archive/
     path('archive/', views.PostAV.as_view(), name='post_archive'),

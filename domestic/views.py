@@ -8,24 +8,28 @@ from domestic.forms import PostSearchForm
 from django.db.models import Q
 from django.shortcuts import render
 
+from blog.models import Post
 from domestic.models import Post_Domestic
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from mysite.views import OwnerOnlyMixin
-
+from django.urls import reverse
 from blog.models import Post
 # Create your views here.
 
 class PostLV(ListView):
-    model = Post_Domestic
+    model = Post
     template_name = 'domestic/post_all.html'
     context_object_name = 'posts'
-    paginate_by=2
-
+    paginate_by=10
+    def get_queryset(self):
+        return Post.objects.filter(category='D')
 class PostDV(DetailView):
-    model = Post_Domestic
-
+    model = Post
+    def get_queryset(self):
+        return Post.objects.filter(category='D')
+    template_name='domestic/post_domestic_detail.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['disqus_short'] = f"{settings.DISQUS_SHORTNAME}"
@@ -60,7 +64,7 @@ class TagCloudTV(TemplateView):
 
 class TaggedObjectLV(ListView):
     template_name = 'taggit/taggit_post_list.html'
-    model = Post_Domestic
+    model = Post
 
     def get_queryset(self):
         return Post_Domestic.objects.filter(tags__name=self.kwargs.get('tag'))
@@ -73,7 +77,7 @@ class TaggedObjectLV(ListView):
 
 class SearchFormView(FormView):
     form_class= PostSearchForm
-    template_name= 'domestic/post_search.html'
+    template_name= 'blog/post_search.html'
 
     def form_valid(self, form):
         searchWord = form.cleaned_data['search_word']
@@ -86,14 +90,27 @@ class SearchFormView(FormView):
         return render(self.request, self.template_name, context) 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
-    model =Post_Domestic
-    fields = ['title', 'content', 'tags']
-    initial= {'slug': 'auto-filling-do-not-input'}
-    success_url= reverse_lazy('domestic:index')
+    model =Post
+    template_name='domestic/post_domestic_form.html'
+    fields = ['title', 'content', 'tags', 'category']
+    permission_denied_message='로그인이 필요합니다.'   
+    def get_initial(self):
+        # Get the initial dictionary from the superclass method
+        initial = super(PostCreateView,self).get_initial()
+    # Copy the dictionary so we don't accidentally change a mutable dict
+        initial = initial.copy()
+        initial['category'] = 'D'
+       # etc...
+        return initial
+  
     
+    def get_success_url(self):
+        return reverse('domestic:post_detail', args=[self.object.pk])
+
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
+
 
 class PostChangeLV(LoginRequiredMixin, ListView):
     template_name= 'domestic/post_change_list.html'

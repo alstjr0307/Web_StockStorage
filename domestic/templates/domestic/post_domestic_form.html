@@ -4,8 +4,9 @@
 {% block title %} post_domestic_form.html {%endblock%}
 
 {%block content%}
-    <h4>게시물 작성-{{user}}</h4>
-    <p class="font-italic">게시물 작성 페이지입니다</p>
+    <div class="post-body">
+    <h4>게시물 작성</h4>
+
 
     {% if form.errors %}
     <div class="alert alert-danger">
@@ -14,35 +15,56 @@
     </div>
     {% endif %}
 
-    <form action="." method="post" class="card pt-3">{%csrf_token%}
+    <form action="." method="post">{%csrf_token%}
 
-        <div class= "form-group row">
-            {{form.title|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold"}}
+        <div class=>{{form.media}}</div>    
+        <div class= "form-group">
+            <div class="col-sm-5" style="height:5px">제목</div><br>
             <div class="col-sm-5">
-                {{form.title|add_class:"form-control"|attr:"autofocus"}}
+            {{form.title|add_class:"form-control"|attr:"autofocus"}}
             </div>
         </div>
+        <br>
+        
 
-        <div class="form-group row">
-                {{form.content|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold"}}
-                <div class="col-sm-8">
+        <div class="form-group" style="margin-left:5px; margin-right:5px">
+                <span style="text-decoration:none; height:5px">내용</a>
+                <div class="center col-sm-11">
                     {{form.content|add_class:"form-control"}}
                 </div>              
         </div>
 
         <div class="form-group row">
-            {{form.tags|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold"}}
+            {{form.tags|add_label_class:"col-form-label col-sm-2 ml-2  font-weight-bold"}}
             <div class="col-sm-5">
                 {{form.tags|add_class:"form-control"}}
             </div>
-            <small class="form-text text-muted">{{form.tags.help_text}}</small>
+            <small class="form-text text-muted">&ensp;,로 구분해주세요</small>
         </div>
 
         <div class= "form-group">
             <div class="offset-sm-2 col-sm-5">
             <input type="submit" value="제출" class= "btn btn-info"/>
             </div>
-        </div>  
+        </div>
+
+        <div class="form-group row visually-hidden">
+            {{form.category|add_label_class:"col-form-label col-sm-2 ml-2  font-weight-bold"}}
+            <div class="col-sm-5">
+                {{form.category|add_class:"form-control"}}
+            </div>
+            <small class="form-text text-muted">&ensp;,로 구분해주세요</small>
+        </div>
+    
+
+    <br>
 
     </form>
+    </div>
 {%endblock%}
+{% block script %}
+<script type="text/javascript">
+
+    </script>
+{%endblock%}
+

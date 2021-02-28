@@ -22,7 +22,8 @@ class PostLV(ListView):
     template_name = 'blog/post_all.html'
     context_object_name = 'posts'
     paginate_by=10
-
+    def get_queryset(self):
+        return Post.objects.filter(category='F')
 class PostDV(DetailView):
     model = Post
 
@@ -74,7 +75,7 @@ class TaggedObjectLV(ListView):
 class SearchFormView(FormView):
     form_class= PostSearchForm
     template_name= 'blog/post_search.html'
-
+    
     def form_valid(self, form):
         searchWord = form.cleaned_data['search_word']
         post_list=Post.objects.filter(Q(title__icontains=searchWord) | Q(description__icontains=searchWord)|Q(content__icontains=searchWord)).distinct()
@@ -90,7 +91,16 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
     
     fields = ['title', 'content', 'tags']
     permission_denied_message='로그인이 필요합니다.'
-    
+
+    def get_initial(self):
+        # Get the initial dictionary from the superclass method
+        initial = super(PostCreateView,self).get_initial()
+    # Copy the dictionary so we don't accidentally change a mutable dict
+        initial = initial.copy()
+        initial['category'] = 'F'
+       # etc...
+        return initial
+
     def get_success_url(self):
         return reverse('blog:post_detail', 
                        args=[self.object.pk])

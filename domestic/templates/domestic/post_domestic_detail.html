@@ -13,45 +13,45 @@ post_detail.html
     font-size: 16px;
 
 }
+a {
+    text-decoration:none;
+}
 </style>
 {%endblock%}
 
 {% block content %}
+{{ form.media }}
 <div class="post-body">
-<h2> {{object.title }}</h2>
-<p>
-    {% if object.get_previous %}
-    <a href="{{object.get_previous.get_absolute_url}}" title="View next post">
-         {{object.get_previous}}<i class="fas fa-arrow-circle-right"></i>
-    </a>
+    <p><a href='{{post.get_absolute_url}}' class="fs-2 title text-dark"> {{object.title}}</a>
+    
+   
+    {% if user == post.owner %}
+    <button class="btn btn-dark btn-sm" style="float:right; margin-left:10px"><a href="{% url 'blog:update' post.id %}" style="color:white">수정</a></button>
+    <button class="btn btn-dark btn-sm" style="float:right"><a href="{% url 'blog:delete' post.id %}" style="color:white">삭제</a></button>
     {% endif %}
+    </p>
+    <hr>
+    <div class="row">
+    <p style="font-size:2px"> <a href='{{post.owner_absolute_url}}' class="text-dark">{{post.owner.get_short_name}}</a>
+    &ensp;&ensp;&ensp;<i class="fas fa-clock"></i>{{object.modify_dt|date:"Y.m.d f:s" }}
+    </div>
+    <br>
 
-    {% if object.get_next %}
-    <a href="{{object.get_next.get_absolute_url}}" title="View previous post">
-        <i class="fas fa-arrow-circle-left"></i>{{object.get_next}}
-    </a>
-    {% endif%}
-</p>
+    <div>
+        {{object.content|safe}}
+    </div>
 
+    <br>
+    <div>
+        <b>TAGS <i class="fas fa-tag"></i></b>
+        {% load taggit_templatetags2_tags %}
+        {% get_tags_for_object object as "tags" %}
+        {% for tag in tags %}
+        <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}</a>
+        {% endfor %}
+        &emsp;
 
-<p>{{object.modify_dt|date:"j F Y" }}</p>
-<br>
-
-<div>
-    {{object.content|linebreaks}}
-</div>
-
-<br>
-<div>
-    <b>TAGS <i class="fas fa-tag"></i></b>
-    {% load taggit_templatetags2_tags %}
-    {% get_tags_for_object object as "tags" %}
-    {% for tag in tags %}
-    <a href="{% url 'domestic:tagged_object_list' tag.name %}">{{tag.name}}</a>
-    {% endfor %}
-    &emsp;
-
-    <a href="{% url 'domestic:tag_cloud' %}"> <span class= "btn btn-info btn-sm">TagCloud</span> </a>
+    <a href="{% url 'blog:tag_cloud' %}"> <span class= "btn btn-info btn-sm">TagCloud</span> </a>
     </div>
 
     <br>
@@ -60,14 +60,13 @@ post_detail.html
 {% endblock %}
 {% block extra-script %}
 <script>
-
-
     (function() { // DON'T EDIT BELOW THIS LINE
     var d = document, s = d.createElement('script');
     s.src = 'https://{{disqus_short}}.disqus.com/embed.js';
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
     })();
+
 
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

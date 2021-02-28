@@ -4,21 +4,28 @@
 {% block content %}
 <h1>Blog Search </h1>
 <hr>
-<form action="." method="post"> {% csrf_token %}
-    {{ form.as_table }}
-    <input type="submit" value="Submit" class = "btn btn-primary btn-sm">
-</form>
+
 
 <br/><br/>
 
 {% if object_list %}
-{% for post in object_list %}
-    <h2><a href = '{{post.get_absolute_url}}'>{{post.title}}</a></h2>
-    {{post.modify_date|date:"N d, Y"}}
-    <p>{{ post.description}}</p>
-{% endfor %}
+
+<div class="post-body">
+<div class="text-dark row fw-bold" style="box-sizing: border-box; border-top: 1px solid #c0c0c0;border-bottom: 1px solid #c0c0c0; margin-bottom:8px; " ><div class="col-7 text-center">제목</div><div class="col-3 text-center">작성자</div><div class="col-2 text-center">작성시간</div></div>
+<div class="list-group-flush row">
+    
+    {% for post in object_list %}
+
+    <a href='{{post.get_absolute_url}}' style="font-family:'nanum';box-sizing: border-box;border-bottom: 1px solid #c0c0c0;text-decoration:none;margin-bottom:1px;margin-top:0px"><div class="row text-dark"><div class="col-7">&ensp;{{post.title}}</div><div class="col-3 text-center"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</div><div class="col-2 text-center" style="font-size:5px"><i class="fas fa-clock"></i>&ensp;{{post.modify_dt|date:"f:s"}}</div></div>
+    </a>
+    {% endfor %}
+
 
 {% elif search_term %}
-    <b><i>Search Word({{search_term}}) Not Found </i></b>
+    <b><i>검색결과({{search_term}}) 없음 </i></b>
 {% endif %}
+<form action="." method="post" style="text-align:center; padding-top:100px"> {% csrf_token %}
+    {{ form.as_table }}
+    <input type="submit" value="검색" class = "btn btn-primary btn-sm">
+</form>
 {% endblock %}
