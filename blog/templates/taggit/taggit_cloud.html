@@ -22,17 +22,18 @@
 {% endblock %}
 
 {% block content %}
-    <h1>태그 모음 </h1>
+    <h1>종목 모음 </h1>
     <br>
 
-    <div class="tag-cloud">
-        {% load taggit_templatetags2_tags %}
+    <div class="tag-cloud" style="width:90%; text-align:left">
+        {% load taggit_templatetags2_tags%}
         {% get_tagcloud as tags %}
-        {% for tag in tags %}
-        <span class= "tag-{{tag.weight|floatformat:0}}">
-        <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}({{tag.num_times}})
+        {% for tag in tags|dictsort:"num_times" %}
+        <span class= "tag-{{tag.weight|floatformat:0}}" style="text-align:left">
+        <a href="{% url 'blog:tagged_object_list' tag.name %}" style="text-align:left">종목명: {{tag.name}} 태그횟수:({{tag.num_times}})
         </a>
         </span>
+        <br>
         {% endfor %}
     </div>
 {% endblock %}

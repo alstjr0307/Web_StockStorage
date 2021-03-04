@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth import authenticate
+from blog.models import PostComment
 
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -119,3 +120,10 @@ class CustomAuthenticationForm(AuthenticationForm):
                     )
 
         return self.cleaned_data
+
+
+class NewCommentForm(forms.ModelForm):
+    class Meta:
+        model = PostComment
+        fields = ['content', 'blogpost_connected']
+        

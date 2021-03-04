@@ -16,12 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from bookmark.views  import BookmarkDV, BookmarkLV
-from mysite.views import HomeView
+from mysite.views import HomeView, SearchFormView
 from mysite.views import UserCreateDoneTV, SignUp, ProfileView, ActivateAccount
 from django.conf.urls.static import static
 from mysite import settings
 from froala_editor import views
 from .views import CustomLoginView
+
 urlpatterns = [
 
     path('admin/', admin.site.urls),
@@ -35,5 +36,8 @@ urlpatterns = [
     path('accounts/<int:pk>/', ProfileView.as_view(), name='profile'),
     path('activate/<uidb64>/<token>/', ActivateAccount.as_view(), name='activate'),
     path('login/', CustomLoginView.as_view(template_name='registration/login.html'), name='login'),
+    path('search/', SearchFormView.as_view(), name='search'),
+    
     path('froala_editor/',include('froala_editor.urls'))
+    
 ] +  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

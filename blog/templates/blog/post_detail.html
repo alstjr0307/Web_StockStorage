@@ -6,7 +6,7 @@ post_detail.html
 {% block extra-style %}
 <style>
 .post-body {
-    width: 80%;
+    width: 95%;
     margin: auto;
     font-family: "Lucida Grande", Verdana, Arial, sans-serif;
     font-size: 16px;
@@ -21,39 +21,39 @@ a {
 {%endblock%}
 
 {% block content %}
+
 {{ form.media }}
 <div class="post-body">
-    <p><a href='{{post.get_absolute_url}}' class="fs-2 title text-dark"> {{object.title}}</a>
-    
-   
-    {% if user == post.owner %}
-    <button class="btn btn-dark btn-sm" style="float:right; margin-left:10px"><a href="{% url 'blog:update' post.id %}" style="color:white">수정</a></button>
-    <button class="btn btn-dark btn-sm" style="float:right"><a href="{% url 'blog:delete' post.id %}" style="color:white">삭제</a></button>
-    {% endif %}
-    </p>
-    <hr>
+    <div class="row text-left" style="margin-bottom:0px">
+      <div style="overflow-wrap: break-word;" class="col-9"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="fs-3 title text-dark"> {{object.title}}</a></div>
+      
+        <div class="text-right col-3" style="margin-top:10px">
+        {% if user == object.owner %}
 
-    <p style="font-size:2px"> <a href='{{post.owner_absolute_url}}' class="text-dark">{{post.owner.get_short_name}}</a>
-    &ensp;&ensp;&ensp;<i class="fas fa-clock"></i>{{object.modify_dt|date:"Y.m.d f:s" }}
-     {% if object.get_previous %}
-    <a href="{{object.get_previous.get_absolute_url}}"style="text-decoration:none; float:right;"  title="View next post">
-    &nbsp;&nbsp;&nbsp;{{object.get_previous}}<i class="fas fa-arrow-circle-right"></i>
-    </a>
-    {% endif %}
-    &nbsp;
-    {% if object.get_next %}
-    <a href="{{object.get_next.get_absolute_url}}" style="text-decoration:none; display:inline-block; float:right"title="View previous post">
-        <i class="fas fa-arrow-circle-left"></i>{{object.get_next}}
-    </a>
-    {% endif%}</p>
-    <br>
+           <a href="{% url 'domestic:update' object.id %}" style="color:black; float:right;"><span style="border:1px solid; border-radius:5px;margin-left:10px;">수정</span></a>
+          <a href="{% url 'domestic:delete' object.id %}" style="color:black; float:right;"><i class="fas fa-trash-alt"></i></a>
 
-    <div>
-        {{object.content|safe}}
+         
+        {% endif %}
+      </div>
     </div>
 
+
+
+    <div class="row writer" style="border-radius:40px;  background:#F0FFFF; height:30px; line-height:30px">
+        <p style="font-size:11px; "> <a href='{{object.owner_absolute_url}}' style="padding-top:5px"class="text-dark"><i class="far fa-user"></i>&ensp;{{object.owner.get_short_name}}</a>
+        &ensp;&ensp;&ensp;<span style="float:right">조회:{{object.n_hit}}&ensp;<i class="fas fa-clock"></i>{{object.modify_dt|date:"Y.m.d f:s" }}</span>
+    </div>
+    <hr style="margin-top:0px">
+
     <br>
-    <div>
+
+    <div style="overflow-wrap: break-word;">
+        {{object.content|safe}}
+    </div>
+    <hr style="margin-top:100px; margin-bottom:10px">
+    
+    <div >
         <b>TAGS <i class="fas fa-tag"></i></b>
         {% load taggit_templatetags2_tags %}
         {% get_tags_for_object object as "tags" %}
@@ -64,20 +64,165 @@ a {
 
     <a href="{% url 'blog:tag_cloud' %}"> <span class= "btn btn-info btn-sm">TagCloud</span> </a>
     </div>
+<hr style=" border:dotted 5px skyblue; background:none" >
 
-    <br>
-    <div id="disqus_thread"></div>
+
+
+<div class="list-group-flush row">
+
+{% for comment in comments %}
+        <div class="text-dark"style="font-family:'beauty';border-radius:40px 80px;border: 1px solid #c0c0c0;text-decoration:none;background-color:#DCEBFF;margin-bottom:10px;margin-top:0px; margin-left:3px">
+        <span><i class="fas fa-user"></i></span>&ensp;{{comment.writer.first_name}} 
+         
+         {% if comment.writer == user %}<span style="float:right">
+         <form action="{% url 'blog:comment_delete' comment.id %}" onclick="return confirm('정말 삭제하시겠습니까?');" method="post" style="display: inline;">{%csrf_token%}
+            {% csrf_token %}
+            <input type="hidden" name="comment_id" value="{{ comment.id }}" />
+
+<button type="submit" class="btn" style="padding-top:0px; padding-bottom:0px">
+    <i class="fas fa-trash-alt"></i> 
+</button>
+            </button>
+        </form>
+         
+        {%endif%}
+         <span style="float:right"><i class="far fa-clock"></i>{{comment.created_string}}</span><span style="float:right">
+        </div>
+        <div style="margin-bottom:7px;overflow-wrap: break-word;"> {{ comment.content|linebreaks }} </div>
+{% endfor %}
+</div>
+<hr>
+{%if comment_form == '1' %}
+<div style="border-bottom:1px solid #c0c0c0; width:100%; overflow:hidden; height:auto; padding-bottom:10px">
+<form method="POST" action="{% url 'blog:post_detail' object.id %}" style="width:100%">
+    {% csrf_token %}
+    <input type="hidden" value="{{object.id}}" name="blogpost_connected">
+    <textarea name="content" class="form-control" placeholder="댓글을 입력해주세요" style="width:90%; float:left;height:150px;"></textarea>
+    <button type="submit" class="btn btn-secondary" style="float:right; width:8%">작성</button>
+</form>
+</div>
+{% endif%}
+
+
+<div style="height:100px"></div>
+ <div>
+    <a href="{% url 'blog:index'%}" style="text-decoration:none; font-family:'abc';font-size:30px;width:fit-content;"class="text-dark">해외주식 게시판</a></div>
+<div class="text-dark row fw-bold" style="box-sizing: border-box;
+ border-top: 1px solid #c0c0c0;border-bottom: 1px solid #c0c0c0; 
+ margin-bottom:8px; " >
+ <div class="col-7 text-center">제목</div>
+ <div class="col-3 text-center">작성자</div>
+ <div class="col-2 text-center">작성일</div>
+ </div>
+
+
+
+
+<div class="list-group-flush row" style=>
+    
+    {% for post in object_list %}
+
+    {%if post.id is object.id %}
+    <div class="row text-dark"style=" background:#F0FFFF;box-sizing: border-box;border-bottom: 1px 
+    solid #c0c0c0;text-decoration:none;margin-bottom:1px;margin-top:0px; margin-left:3px">
+    {% else %}
+    <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
+    solid #c0c0c0;text-decoration:none;margin-bottom:1px;margin-top:0px; margin-left:3px">
+    {% endif%}
+    <div class="col-7"style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}
+        {% if post.number_of_comments > 0 %}<span style="color:blue">&ensp;&ensp;[{{post.number_of_comments}}]</span>{%endif%}
+        </div></a>
+    <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
+    <div class="col-2 text-center" style="font-size:5px; margin-top:5px"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
+    </div>
+    </a>
+
+    {% endfor %}
+
+</div>
+<hr style=" border:dashed 5px skyblue; background:none; margin-bottom:0px" >
+
+
+<br>
+
+  <div class="container" style="text-align:center; margin-top:0px; padding-bottom:1px">
+              {% if is_paginated %}
+                <nav style="display:inline-block">
+                  <ul class="pagination justify-content-end mb-0">
+                      {% if page_obj.has_previous %}
+                        <li class="page-item">
+                          <a class="page-link" href="?search_word={{search_word}}&page={{ page_obj.previous_page_number }}" tabindex="-1">
+                            <i class="fas fa-angle-left"></i>
+                            <span class="sr-only">Previous</span>
+                          </a>
+                        </li>
+
+                      {% else %}
+
+                        <li class="page-item disabled">
+                          <a class="page-link" href="#" tabindex="-1">
+                            <i class="fas fa-angle-left"></i>
+                            <span class="sr-only">Previous</span>
+                          </a>
+                        </li>
+
+                      {% endif %}
+
+
+                      {% if page_obj.number|add:'-4' > 1 %}
+                          <li class="page-item"><a class="page-link" href="?search_word={{search_word}}&page={{page_obj.number|add:'-5' }}">&hellip;</a></li>
+                      {% endif %}
+
+
+                      {% for i in paginator.page_range %}
+                        {% if page_obj.number == i %}
+                          <li class="page-item active">
+                            <a class="page-link" href="#"> {{ i }} </a>
+                          </li>
+                        {% elif i > page_obj.number|add:'-5' and i < page_obj.number|add:'5' %}
+                          <li class="page-item"><a class="page-link" href="?search_word={{search_word}}&page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if page_obj.paginator.num_pages > page_obj.number|add:'4' %}
+                          <li class="page-item"><a class="page-link" href="?search_word={{search_word}}&page={{ page_obj.number|add:'5' }}">&hellip;</a></li>
+                      {% endif %}
+
+                      {% if page_obj.has_next %}
+                        <li class="page-item">
+                          <a class="page-link" href="?search_word={{search_word}}&page={{ page_obj.next_page_number }}">
+                            <i class="fas fa-angle-right"></i>
+                            <span class="sr-only">Next</span>
+                          </a>
+                        </li>
+
+                      {% else %}
+
+                        <li class="page-item disabled">
+                          <a class="page-link" href="#">
+                            <i class="fas fa-angle-right"></i>
+                            <span class="sr-only">Next</span>
+                          </a>
+                        </li>
+                      {% endif %}
+
+                  </ul>
+                </nav>
+              {% endif %}
+  </div>
+  
+  <form  action="/foreign/search/"  method="GET" style="text-align:center; padding-top:20px">
+      검색: &ensp;<input type= "text" name="search_word" required>
+
+      <input type="submit" value="검색" class = "btn btn-primary btn-sm">
+  </form>
+  <br>
+  <br>
+  <div style="color:white">{{object.update_counter}}</div>
 </div>
 {% endblock %}
 {% block extra-script %}
-<script>
-    (function() { // DON'T EDIT BELOW THIS LINE
-    var d = document, s = d.createElement('script');
-    s.src = 'https://{{disqus_short}}.disqus.com/embed.js';
-    s.setAttribute('data-timestamp', +new Date());
-    (d.head || d.body).appendChild(s);
-    })();
 
+<script>
 
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

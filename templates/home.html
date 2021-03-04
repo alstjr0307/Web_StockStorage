@@ -7,17 +7,19 @@
 <style type="text/css">
 
 .home-image {
-    background-image: url("{% static 'img/tofu_title.png' %}");
+    background-image: url("{% static 'img/aaa.png' %}");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
-    height: 200px;
+    height: 500px;
     border-top: 7px solid #ccc;
     border-bottom: 3px solid #ccc;
     padding: 20px 0 0 20px;
 
 }
-
+ a{
+    text-decoration:none;
+}
 .title {
     color: #c80;
     font-weight: bold;
@@ -51,20 +53,36 @@
     
     </div>
 
-    <hr style="margin: 10px 0; height:5px; color:black">
+    <div style="height:10px"></div>
     <div class="row text-left">
    
-        <i class="glyphicon glyphicon-refresh"></i>
+
         <div class="text-body fw-bold col-sm-6">
-            <a href="{% url 'domestic:index' %}" class="text-decoration-none fw-bold">
-            <h4 class="fw-bold">국내주식 게시판</h4></a>
+            <a href="{% url 'domestic:index' %}"class="text-decoration-none fw-bold">
+            <p style="margin-top:10px;"><h4><i class="fas fa-won-sign"></i>&ensp;국내주식 게시판</h4></p></a>
+            <hr width="200px" style="color:blue">
            
             <div class="list-group-flush">
-                {% for post_domestic in post_domestics %}
-                <a href='{{post_domestic.get_absolute_url}}' class="list-group-item text-dark">{{post_domestic.title}}
-                    <span style="font-size:x-small; float:right">{{post.owner.get_short_name}} </span>
-                </a>
-                {% endfor %}
+    
+            {% for post in post_domestics|slice:":9" %}
+
+            {%if post.id is object.id %}
+            <div class="row text-dark"style=" background:#F0FFFF;box-sizing: border-box;border-bottom: 1px 
+            solid #c0c0c0;text-decoration:none;margin-bottom:1px;margin-top:0px; margin-left:3px">
+            {% else %}
+            <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
+            solid #c0c0c0;text-decoration:none;margin-bottom:1px;margin-top:0px; margin-left:3px">
+            {% endif%}
+            <div class="col-7"style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}
+                {% if post.number_of_comments > 0 %}<span style="color:blue">&ensp;&ensp;[{{post.number_of_comments}}]</span>{%endif%}
+                </div></a>
+            <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
+            <div class="col-2 text-center" style="font-size:5px; margin-top:5px"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
+            </div>
+            </a>
+
+            {% endfor %}
+
                 <hr style="color:black"`>
             </div>
 
@@ -78,13 +96,28 @@
         
             <div class="text-body fw-bold col-sm-6" >
             <a href="{% url 'blog:index' %}" class="text-decoration-none fw-bold">
-                <h4 class="fw-bold">해외주식 게시판</h4>
+            <p style="margin-top:10px;"><h4><i class="fas fa-dollar-sign"></i>&ensp;해외주식 게시판</h4></p></a>
+                        <hr width="200px"  style="color:blue">
                 </a>
                 <div class="list-group-flush">
-                    {% for post in posts %}
-                        <a href='{{post.get_absolute_url}}' class="list-group-item text-dark">{{post.title}}
-                            <span style="font-size:x-small; float:right">{{post.owner.get_short_name}} </span>
+                    {% for post in post_foreigns|slice:":9" %}
+
+                        
+                        {%if post.id is object.id %}
+                        <div class="row text-dark"style=" background:#F0FFFF;box-sizing: border-box;border-bottom: 1px 
+                        solid #c0c0c0;text-decoration:none;margin-bottom:1px;margin-top:0px; margin-left:3px">
+                        {% else %}
+                        <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
+                        solid #c0c0c0;text-decoration:none;margin-bottom:1px;margin-top:0px; margin-left:3px">
+                        {% endif%}
+                        <div class="col-7"style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}
+                            {% if post.number_of_comments > 0 %}<span style="color:blue">&ensp;&ensp;[{{post.number_of_comments}}]</span>{%endif%}
+                            </div></a>
+                        <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
+                        <div class="col-2 text-center" style="font-size:5px; margin-top:5px"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
+                        </div>
                         </a>
+
                     {% endfor %}
                     <hr style = "color:black;">
                 </div>
@@ -96,8 +129,5 @@
 {%endblock%}
 
 {%block footer%}
-<footer class ="footer" style="position:fixed; z-index:30; height:20px; font-size:10px">
-    <div >Copytight &copy; 2019 </div>
-    
-</footer>
+
 {% endblock %}

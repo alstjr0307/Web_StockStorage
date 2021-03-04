@@ -55,7 +55,9 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'domestic.apps.DomesticConfig',
     'bootstrap4',
+    'bootstrap_pagination',
     'froala_editor',
+    'hit_count'
 
     
 ]
@@ -84,6 +86,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },

@@ -1,13 +1,19 @@
 <!DOCTYPE html>
+ {% load bootstrap_pagination %}
 <html lang="ko">
 {% load static %}
 
 <style type="text/css">
- a, div, button{
-   font-family: 'aab'
+
+  a, div, button{
+   font-family: 'aab';
+   text-decoration:none;
  }
 .navbar-custom {
   height: 60px;
+}
+.writer{
+  font-family: 'beauty';
 }
 @media (min-width: 992px) {
   .animate {
@@ -16,6 +22,21 @@
     animation-fill-mode: both;
     -webkit-animation-fill-mode: both;
   }
+}
+.powered {
+    position: relative;
+    top: 77%;
+    color: #cc0;
+    font-style: italic;
+}
+.footer{
+    width: 100%;
+    height: 50px;
+    position:absolute;
+    bottom:0;
+    background:black;
+    text-align:center;
+    color:white; 
 }
 
 @keyframes slideIn {
@@ -52,18 +73,26 @@
   -webkit-animation-name: slideIn;
   animation-name: slideIn;
 }
+.div_body{
+    position:relative;
+}
 
 /* Other styles for the page not related to the animated dropdown */
 @font-face {
     font-family:'aab';
     font-weight:1000;
     src: local('Aab'),
-        url("{% static 'font/aaaa.ttf' %}") format("truetype");   
+        url("{% static 'font/aab.ttf' %}") format("truetype");   
 }
 @font-face {
     font-family: 'abc';
     src: local('Abc'),
         url("{% static 'font/abc.ttf' %}") format("truetype");
+}
+@font-face {
+    font-family: 'beauty';
+    src: local('Beauty'),
+        url("{% static 'font/aaaa.ttf' %}") format("truetype");
 }
 
 </style>
@@ -99,7 +128,7 @@
 
 
 <nav class="navbar navbar-custom navbar-expand-lg navbar-dark bg-dark fixed-top" >
-  <div style="margin-left:10%"class="container-fluid">
+  <div style="margin-left=10%"class="container-fluid">
     <span class="navbar-brand" ><a href="{% url 'home'%}" style="font-family:'abc';text-decoration:none; font-size:35px;color:white"><i class="fas fa-won-sign"></i>주식저장소</a></span>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
@@ -123,15 +152,15 @@
           <div class="dropdown-menu dropdown-menu-right animate slideIn">
             <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
             <div class="dropdown-divider" ></div>
-            <a class="dropdown-item" href="{% url 'blog:search' %}">검색</a>
+            <a class="dropdown-item" href="{% url 'search' %}">검색</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{% url 'blog:post_archive'%}">아카이브</a>
           </div>
         </li>
       </ul>
 
-      <form class="form-inline my-2" action="/blog/search/" method="post">{% csrf_token %}
-        <input class="form-control mr-sm-2" type="search" placeholder="검색" name="search_word">
+      <form class="form-inline my-2" action="/search/" method="GET">
+        <input class="form-control mr-sm-2" type="search" placeholder="검색" name="search_word" required>
         
       </form>
 
@@ -160,7 +189,7 @@
   </div>
 </nav>
 
-<div class ="container"  style="padding-top:60px; background-color:white; min-height:960px;height:auto">
+<div class ="container"  style="padding-top:60px; background-color:white; min-height:1100px;height:auto">
     <div style="padding-top:30px;"></div>
     
     {%block list%} {%endblock%}
@@ -176,7 +205,10 @@
 {% endfor %}
 </div>
 
-{%block footer %} {% endblock %}
+<footer class ="footer" style="position:fixed; z-index:30; height:20px; font-size:10px">
+    <div >Copytight &copy; 2019 </div>
+    
+</footer>
 {% block extra-script %}{% endblock %}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 </body>

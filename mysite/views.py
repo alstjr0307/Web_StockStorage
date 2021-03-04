@@ -4,9 +4,9 @@ from blog.forms import PostSearchForm, PostForm
 from django.views.generic import ListView, View, FormView
 from django.contrib.auth.mixins import AccessMixin
 from blog.models import Post
-
+from django.db.models import Q
 from .forms import UserCreationForm, ProfileForm
-from domestic.models import Post_Domestic
+
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from django.contrib.auth import views as auth_view
@@ -20,18 +20,25 @@ from django.shortcuts import render, redirect
 from django.utils.encoding import force_text
 from django.contrib.auth import login
 from .forms import CustomAuthenticationForm
+
+from blog.forms import PostSearchForm
 class HomeView(ListView):
     template_name='home.html'
     model = Post
     context_object_name='posts'
-    paginate_by=6
+    paginate_by=20
+    
     def get_queryset(self):
         return Post.objects.order_by('-create_dt')
-    
-    def get_context_data(self,**kwargs):
-        context=super(HomeView, self).get_context_data(**kwargs)
-        context['post_domestics'] = Post_Domestic.objects.order_by('-create_dt')
+    def get_context_data(self,*args,**kwargs):
+        context=super(HomeView, self).get_context_data(*args,**kwargs)
+        
+        Post_Domestic=Post.objects.filter(category='D')
+        Post_Foreign=Post.objects.filter(category='F')
+        context['post_domestics'] = Post_Domestic.order_by('-create_dt')
+        context['post_foreigns']=Post_Foreign.order_by('-create_dt')
         return context
+    
 
 
 ##회원가입VIEW
@@ -111,3 +118,42 @@ class ActivateAccount(View):
 
 class CustomLoginView(auth_view.LoginView):
     form_class = CustomAuthenticationForm
+
+class SearchFormView(FormView,ListView):
+    form_class= PostSearchForm
+    template_name= 'post_search.html'
+    paginate_by=20
+    model=Post.objects.all()
+    def get_queryset(self):
+        if self.request.method== "GET" and self.request.GET:
+            query = self.request.GET.get("search_word")
+            return Post.objects.filter(Q(title__icontains=query) | Q(content__icontains=query)).distinct()
+
+        else: return []
+
+
+    def get_context_data(self, **kwargs):
+
+        context= super().get_context_data(**kwargs)
+        context['search_word']= self.request.GET.get("search_word")
+        return context
+
+
+class FilteredListView(ListView):
+    filterset_class = None
+
+    def get_queryset(self):
+        # Get the queryset however you usually would.  For example:
+        queryset = super().get_queryset()
+        # Then use the query parameters and the queryset to
+        # instantiate a filterset and save it as an attribute
+        # on the view instance for later.
+        self.filterset = self.filterset_class(self.request.GET, queryset=queryset)
+        # Return the filtered queryset
+        return self.filterset.qs.distinct()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Pass the filterset to the template - it provides the form.
+        context['filterset'] = self.filterset
+        return context
