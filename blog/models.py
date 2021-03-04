@@ -6,18 +6,25 @@ from django.utils.text import slugify
 from froala_editor.fields import FroalaField
 from datetime import datetime, timedelta
 from django.utils import timezone
+
+from hitcount.models import HitCountMixin, HitCount
+from django.contrib.contenttypes.fields import GenericRelation
+
+
 class Post(models.Model):
     title = models.CharField(verbose_name='제목', max_length=40)
     slug = models.SlugField('SLUG', allow_unicode=True, help_text='one word for title alias.')
     description = models.CharField('DESCRIPTION', max_length=100, blank=True, help_text='simple description text.')
-    content = FroalaField('CONTENT', blank=False)
+    content = models.CharField('CONTENT', max_length=10000000000000,blank=False)
     create_dt = models.DateTimeField('CREATE DATE', auto_now_add=True)
     modify_dt= models.DateTimeField('MODIFY DATE', auto_now=True)
     tags= TaggableManager('태그',blank=True)
     owner =models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='작성자', blank=True, null=True)
     Category_CHOICES=(('F','해외주식'),('D', '국내주식'))
     category=models.CharField(verbose_name='게시판', max_length=1, choices=Category_CHOICES, default='F' )
-    n_hit= models.PositiveIntegerField(default=0)
+    hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
+     related_query_name='hit_count_generic_relation')
+    likes = models.ManyToManyField(User, related_name='blogpost_like')
 
     class Meta:
         verbose_name = 'post'
@@ -74,6 +81,8 @@ class Post(models.Model):
         self.n_hit = self.n_hit+1
         self.save()
 
+    def number_of_likes(self):
+        return self.likes.count()
         
 class PostComment(models.Model):
     blogpost_connected= models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)

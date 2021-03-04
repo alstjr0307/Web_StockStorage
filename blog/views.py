@@ -18,9 +18,9 @@ from blog.models import Post, PostComment
 from mysite.views import FilteredListView
 from django.views.generic.list import MultipleObjectMixin
 from django.shortcuts import get_object_or_404
-from django.views.generic.edit import FormMixin
-
 from hitcount.views import HitCountDetailView
+from django.views.generic.edit import FormMixin
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 class PostLV(ListView,FormView):
@@ -36,7 +36,7 @@ class PostDV(HitCountDetailView, FormView, MultipleObjectMixin,FormMixin):
     model=Post
     template_name='blog/post_detail.html'
     paginate_by = 20
-    count_hit = True 
+    count_hit = True
     form_class=NewCommentForm
     
 
@@ -49,17 +49,22 @@ class PostDV(HitCountDetailView, FormView, MultipleObjectMixin,FormMixin):
         self.object_list = self.get_queryset()
         context = super().get_context_data(**kwargs)
        
-
-        comments_connected = PostComment.objects.filter(blogpost_connected=self.get_object()).order_by('created')
+        #댓글 기능 구현
+        comments_connected = PostComment.objects.filter(blogpost_connected=self.get_object()).order_by('created')   
         context['comments'] = comments_connected
-
         context['user'] = self.request.user
-        
         context['posts'] = Post.objects.filter(category='D')
         if self.request.user.is_authenticated:
             context['comment_form'] = '1'
 
-        
+        #좋아요 기능 구현
+        likes_connected = get_object_or_404(Post, id=self.kwargs['pk'])
+        liked = False
+        if likes_connected.likes.filter(id=self.request.user.id).exists():
+            liked = True
+        context['number_of_likes'] = likes_connected.number_of_likes()
+        context['post_is_liked'] = liked  
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -172,7 +177,10 @@ class PostChangeLV(CustomLoginRequiredMixin, ListView):
 class PostUpdateView(OwnerOnlyMixin, UpdateView):
     model= Post
     fields= ['title', 'content', 'tags']
-    success_url = reverse_lazy('blog:index')
+    def get_success_url(self):
+        return reverse('blog:post_detail', 
+                       args=[self.object.pk])
+
 
 class PostDeleteView(OwnerOnlyMixin, DeleteView):
     model =Post
@@ -198,3 +206,12 @@ class PostUserLV(ListView):
 
     def get_queryset(self):
         return Post.objects.filter(owner=self.kwargs.get('owner'))
+
+def PostLike(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get('blogpost_id'))
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+
+    return HttpResponseRedirect(reverse('blog:post_detail', args=[str(pk)]))

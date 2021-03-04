@@ -13,5 +13,6 @@ class PostForm(forms.ModelForm):
     model= Post
     fields=['title', 'content', 'tags']
 
-  content = forms.CharField(widget=FroalaEditor)
+
+
   

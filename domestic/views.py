@@ -19,6 +19,7 @@ from mysite.views import OwnerOnlyMixin, FilteredListView
 from django.urls import reverse
 from blog.models import Post
 from django.views.generic.edit import FormMixin
+from hitcount.views import HitCountDetailView
 from django.shortcuts import get_object_or_404
 # Create your views here.
 
@@ -33,8 +34,8 @@ class PostLV(ListView,FormView):
         return Post.objects.filter(category='D')
 
 
-class PostDV(DetailView, FormView, MultipleObjectMixin,FormMixin):
-
+class PostDV(HitCountDetailView, FormView, MultipleObjectMixin,FormMixin):
+    count_hit = True
     template_name='domestic/post_domestic_detail.html'
     model = Post
     paginate_by=20
@@ -175,7 +176,8 @@ class PostUpdateView(OwnerOnlyMixin, UpdateView):
     model= Post
     template_name='domestic/post_domestic_form.html'
     fields= ['title', 'content', 'tags']
-    success_url = reverse_lazy('domestic:index')
+    def get_success_url(self):
+        return reverse('domestic:post_detail', args=[self.object.pk])
 
 class PostDeleteView(OwnerOnlyMixin, DeleteView):
     model =Post

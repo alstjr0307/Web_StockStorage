@@ -18,10 +18,10 @@
     <form action="." method="post">{%csrf_token%}
 
         <div class=>{{form.media}}</div>    
-        <div class= "form-group">
-            <div class="col-sm-5" style="height:5px">제목</div><br>
-            <div class="col-sm-5">
-            {{form.title|add_class:"form-control"|attr:"autofocus"}}
+        <div class= "form-group row" style="clear:both">
+            <div style="clear:both">
+            
+            <input name="title" class="form-control" placeholder="제목" attr="autofocus">
             </div>
         </div>
         <br>
@@ -30,12 +30,12 @@
         <div class="form-group" style="margin-left:5px; margin-right:5px">
                 <div style="text-decoration:none; height:auto;">내용</div>
                 <div class="center">
-                    {{form.content|add_class:"form-control required"}}
+                     <textarea required id="summernote" name="content">{{object.content}}</textarea>
                 </div>              
         </div>
         <br>
         <div class="form-group row">
-            {{form.tags|add_label_class:"col-form-label col-sm-2 ml-2  font-weight-bold"}}
+            종목명:
             <div class="col-sm-5">
                 {{form.tags|add_class:"form-control"}}
             </div>
@@ -52,18 +52,29 @@
             <div class="col-sm-5">
                 {{form.category|add_class:"form-control"}}
             </div>
-            <small class="form-text text-muted">&ensp;,로 구분해주세요</small>
+            <small class="form-text text-muted col-sm-5">&ensp;,로 구분해주세요</small>
         </div>
     
          
     <br>
 
     </form>
+    
 </div>
-{%endblock%}
-{% block script %}
-<script type="text/javascript">
+<script>
+    $(document).ready(function() {
+        //여기 아래 부분
+        $('#summernote').summernote({
+            height: 300,                 // 에디터 높이
+            minHeight: null,             // 최소 높이
+            maxHeight: null,             // 최대 높이
+            focus: false,             // 에디터 로딩후 포커스를 맞출지 여부
+            lang: "ko-KR",
+            required: true,			// 한글 설정
+            placeholder: '내용을 입력해주세요'	//placeholder 설정
+            
+        });
+    });
+</script>
 
-    </script>
 {%endblock%}
-

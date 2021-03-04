@@ -1,5 +1,6 @@
 
 {% extends "domestic.html"%}
+{% load hitcount_tags %}
 {% block title %}
 post_detail.html
 {% endblock %}
@@ -42,7 +43,7 @@ a {
 
     <div class=" writer" style="border-radius:40px;  background:#F0FFFF; height:30px; line-height:30px">
         <p style="font-size:11px; "> <a href='{{object.owner_absolute_url}}' style="padding-top:5px"class="text-dark"><i class="far fa-user"></i>&ensp;{{object.owner.get_short_name}}</a>
-        &ensp;&ensp;&ensp;<span style="float:right"><i class="fas fa-clock"></i>{{object.modify_dt|date:"Y.m.d f:s" }}</span>
+        &ensp;&ensp;&ensp;<span style="float:right"><i class="fas fa-eye"></i>{% get_hit_count for post %}&ensp;<i class="fas fa-clock"></i>{{object.modify_dt|date:"Y.m.d f:s" }}</span>
     </div>
     <hr style="margin-top:0px">
 
@@ -54,11 +55,11 @@ a {
     <hr style="margin-top:100px; margin-bottom:10px">
     
     <div >
-        <b>TAGS <i class="fas fa-tag"></i></b>
+        <b>종목명 <i class="fas fa-tag"></i></b>
         {% load taggit_templatetags2_tags %}
         {% get_tags_for_object object as "tags" %}
         {% for tag in tags %}
-        <a href="{% url 'domestic:tagged_object_list' tag.name %}">{{tag.name}}</a>
+        <a href="{% url 'domestic:tagged_object_list' tag.name %}" style="color:red">{{tag.name}}</a>
         {% endfor %}
         &emsp;
 
@@ -106,7 +107,7 @@ a {
 
 <div style="height:100px"></div>
  <div>
-    <a href="{% url 'domestic:index'%}" style="text-decoration:none; font-family:'abc';font-size:30px;width:fit-content;"class="text-dark">해외주식 게시판</a></div>
+    <a href="{% url 'domestic:index'%}" style="text-decoration:none; font-family:'abc';font-size:30px;width:fit-content;"class="text-dark">국내주식 게시판</a></div>
 <div class="text-dark row fw-bold" style="box-sizing: border-box;
  border-top: 1px solid #c0c0c0;border-bottom: 1px solid #c0c0c0; 
  margin-bottom:8px; " >
@@ -129,9 +130,8 @@ a {
     <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
     solid #c0c0c0;text-decoration:none;margin-bottom:1px;margin-top:0px; margin-left:3px">
     {% endif%}
-    <div class="col-7"style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}
-        {% if post.number_of_comments > 0 %}<span style="color:blue">&ensp;&ensp;[{{post.number_of_comments}}]</span>{%endif%}
-        </div></a>
+    <div class="col-7"style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}      <span style="color:red; font-size:3px">&ensp;<i class="fas fa-eye"></i>&ensp;{% get_hit_count for post %}{% if post.number_of_comments > 0 %}&ensp;&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
+      {% endif %}</div></a>
     <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
     <div class="col-2 text-center" style="font-size:5px; margin-top:5px"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
     </div>

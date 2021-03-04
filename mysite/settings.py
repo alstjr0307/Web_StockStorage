@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'bootstrap_pagination',
     'froala_editor',
-    'hit_count'
+    'hitcount'
 
     
 ]

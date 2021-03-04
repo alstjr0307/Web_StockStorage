@@ -45,5 +45,6 @@ urlpatterns = [
     path('comment/<int:pk>/delete/', views.CommentDeleteView.as_view(), name="comment_delete",),
     re_path(r'^owner/(?P<owner>[-\w]+)/(?P<owner_name>[-\w]+)$', views.PostUserLV.as_view(), name="post_user",),
     
-
+    #좋아요 눌렀을 때 가는 곳
+    path('blogpost-like/<int:pk>', views.PostLike, name="blogpost_like"),
 ]  
