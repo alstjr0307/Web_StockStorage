@@ -58,10 +58,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   animation-name: slideIn;
 }
 @font-face {
+    font-family:'aab';
+    font-weight:1000;
+    src: local('Aab'),
+        url("{% static 'font/aab.ttf' %}") format("truetype");   
+}
+@font-face {
     font-family: 'abc';
     src: local('Abc'),
-         url("{% static 'font/abc.ttf' %}") format("truetype");
-  }
+        url("{% static 'font/abc.ttf' %}") format("truetype");
+}
+@font-face {
+    font-family: 'beauty';
+    src: local('Beauty'),
+        url("{% static 'font/aaaa.ttf' %}") format("truetype");
+}
 </style>
 
 <title>Creative Colorlib SignUp Form</title>
@@ -69,7 +80,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- Custom Theme files -->
-<link href="{% static '/css/style.css'%}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'css/style.css'%}" rel="stylesheet" type="text/css" media="all" />
 <!-- //Custom Theme files -->
 <!-- web font -->
 <link href="//fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
@@ -80,9 +91,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </head>
 <body>
 
+
 <nav class="navbar navbar-custom navbar-expand-lg navbar-dark bg-dark fixed-top" >
-  <div style="margin-left:10%"class="container-fluid">
-    <span class="navbar-brand" ><a href="{% url 'home'%}" style="font-family:'abc';text-decoration:none; color:white"><i class="fas fa-won-sign"></i>주식저장소</a></span>
+  <div style="margin-left=10%"class="container-fluid">
+    <span class="navbar-brand" ><a href="{% url 'home'%}" style="font-family:'abc';text-decoration:none; font-size:35px;color:white"><i class="fas fa-won-sign"></i>주식저장소</a></span>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -96,24 +108,23 @@ License URL: http://creativecommons.org/licenses/by/3.0/
           <a class="nav-link text-white" href="{% url 'blog:index' %}">해외주식</a>
         </li>
         <li class="nav-item mx-1 btn btn-dark">
-          <a class="nav-link text-white" href="">자유게시판</a>
+          <a class="nav-link text-white" href="">자유게시판(점검중)</a>
         </li>
       
         
         <li class="nav-item dropdown mx-1 btn btn-dark">
           <a class="nav-link dropdown-toggle bg-dark text-white"  href="#"  data-bs-toggle="dropdown" >Util</a>
           <div class="dropdown-menu dropdown-menu-right animate slideIn">
-            <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{% url 'blog:search' %}">검색</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{% url 'blog:post_archive'%}">아카이브</a>
+            <a class="dropdown-item" href="{% url 'blog:tag_cloud' %}">종목 저장소</a>
+            <div class="dropdown-divider" ></div>
+            <a class="dropdown-item" href="{% url 'search' %}">검색</a>
+
           </div>
         </li>
       </ul>
 
-      <form class="form-inline my-2" action="" method="post">{% csrf_token %}
-        <input class="form-control mr-sm-2" type="search" placeholder="검색" name="search_word">
+      <form class="form-inline my-2" action="/search/" method="GET">
+        <input class="form-control mr-sm-2" type="search" placeholder="검색" name="search_word" required>
         
       </form>
 
@@ -123,7 +134,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
           <a class = "nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">
             <i class="fas fa-user"></i>&ensp;{% firstof user.get_short_name  %}&ensp;</a>
             <div class= "dropdown-menu dropdown-menu-right animate slideIn">
-              <a style="font-family: NanumSquareWeb"class="dropdown-item" href="{% url 'logout' %}">로그아웃</a>
+              <a class="dropdown-item" href="{% url 'logout' %}">로그아웃</a>
               <a class = "dropdown-item" href="{% url 'password_change' %}"> 비밀번호 변겅</a>
             </div>
           

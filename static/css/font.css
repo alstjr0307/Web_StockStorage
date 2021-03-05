@@ -1,6 +1,0 @@
-
-@font-face {
-    font-family:'nanum';
-    src:local('Nanum'),
-        url("{% static 'font/nanum.ttf' %}") format("truetype");   
-}

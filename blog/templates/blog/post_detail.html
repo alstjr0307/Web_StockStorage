@@ -15,6 +15,7 @@ post_detail.html
 
 }
 a {
+
     text-decoration:none;
 }
 
@@ -118,7 +119,7 @@ a {
 <form method="POST" action="{% url 'blog:post_detail' object.id %}" style="width:100%">
     {% csrf_token %}
     <input type="hidden" value="{{object.id}}" name="blogpost_connected">
-    <textarea name="content" class="form-control" placeholder="댓글을 입력해주세요" style="width:90%; float:left;height:150px;"></textarea>
+    <textarea name="content" class="form-control" placeholder="댓글을 입력해주세요" style="width:90%; float:left;height:150px;" required></textarea>
     <button type="submit" class="btn btn-secondary" style="float:right; width:8%">작성</button>
 </form>
 </div>

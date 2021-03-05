@@ -40,7 +40,7 @@ urlpatterns = [
     path('add/',views.PostCreateView.as_view(), name="add",),
     path('change/', views.PostChangeLV.as_view(), name="change",),
     
-    path('<int:pk>/update/', views.PostUpdateView.as_view(), name="update",),
+    path('update/<int:pk>/', views.PostUpdateView.as_view(), name="update",),
     path('<int:pk>/delete/', views.PostDeleteView.as_view(), name="delete",),
     path('comment/<int:pk>/delete/', views.CommentDeleteView.as_view(), name="comment_delete",),
     re_path(r'^owner/(?P<owner>[-\w]+)/(?P<owner_name>[-\w]+)$', views.PostUserLV.as_view(), name="post_user",),

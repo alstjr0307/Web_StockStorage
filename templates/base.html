@@ -153,18 +153,17 @@
           <a class="nav-link text-white" href="{% url 'blog:index' %}">해외주식</a>
         </li>
         <li class="nav-item mx-1 btn btn-dark">
-          <a class="nav-link text-white" href="">자유게시판</a>
+          <a class="nav-link text-white" href="">자유게시판(점검중)</a>
         </li>
       
         
         <li class="nav-item dropdown mx-1 btn btn-dark">
           <a class="nav-link dropdown-toggle bg-dark text-white"  href="#"  data-bs-toggle="dropdown" >Util</a>
           <div class="dropdown-menu dropdown-menu-right animate slideIn">
-            <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
+            <a class="dropdown-item" href="{% url 'blog:tag_cloud' %}">종목 저장소</a>
             <div class="dropdown-divider" ></div>
             <a class="dropdown-item" href="{% url 'search' %}">검색</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{% url 'blog:post_archive'%}">아카이브</a>
+
           </div>
         </li>
       </ul>

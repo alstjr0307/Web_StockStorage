@@ -30,12 +30,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'sxdyb1i_6(qv+-yf)6ibu#y0(x_9cbd+$gzfl1bf@)qw&w+xae'
+SECRET_KEY = "d*5_^fnkh%ns&gl$l!%h(cybofz42ne9w_r^mo_#sj!(h-#scn"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = [ '192.168.0.25', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [ '192.168.0.25', '.elasticbeanstalk.com', '127.0.0.1']
 
 
 
@@ -56,8 +56,9 @@ INSTALLED_APPS = [
     'domestic.apps.DomesticConfig',
     'bootstrap4',
     'bootstrap_pagination',
-    'froala_editor',
-    'hitcount'
+
+    'hitcount',
+    'storages',
 
     
 ]
@@ -100,8 +101,15 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': "tofuant",
+        'USER': "admin",
+        'PASSWORD': "alstjr0307",
+        'HOST' : 'database-2.c1ifp11mkwo5.ap-northeast-2.rds.amazonaws.com',
+        'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 
@@ -144,6 +152,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS= [os.path.join(BASE_DIR, 'static')]
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -153,13 +162,21 @@ LOGIN_REDIRECT_URL = '/'
 TAGGIT_CASE_INSENSITIVE=True
 TAGGIT_LIMIT= 50
 
-DISQUS_SHORTNAME= 'pydjango-web-programming'
-DISQUS_MY_DOMAIN = '127.0.0.1:8000'
-
-
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'alswp26@gmail.com'
 EMAIL_HOST_PASSWORD = 'alstjr0307!!'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
+
+
+#S3에
+STATICFILES_STORAGE= 'mysite.storage.S3StaticStorage'
+DEFAULT_FILE_STORAGE= 'mysite.storage.S3MediaStorage'
+
+AWS_ACCESS_KEY_ID = "AKIASBCG3BYE4TGVVUP6",
+AWS_SECRET_ACCESS_KEY= "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",
+AWS_S3_REGION_NAME= 'ap-northeast-2'
+AWS_STORAGE_BUCKET_NAME=  'tofuant'
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
+AWS_DEFAULT_ACL='public-read'
