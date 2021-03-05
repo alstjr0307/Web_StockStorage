@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
+SECRET_KEY = "d*5_^fnkh%ns&gl$l!%h(cybofz42ne9w_r^mo_#sj!(h-#scn"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'domestic.apps.DomesticConfig',
     'bootstrap4',
     'bootstrap_pagination',
-    'froala_editor',
+
     'hitcount',
     'storages',
 
@@ -102,9 +102,9 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ['DATABASE_NAME'],
-        'USER': os.environ['DATABASE_USER'],
-        'PASSWORD': os.environ['DATABASE_PASSWORD'],
+        'NAME': "tofuant",
+        'USER': "admin",
+        'PASSWORD': "alstjr0307",
         'HOST' : 'database-2.c1ifp11mkwo5.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
@@ -174,8 +174,8 @@ AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
 STATICFILES_STORAGE= 'mysite.storage.S3StaticStorage'
 DEFAULT_FILE_STORAGE= 'mysite.storage.S3MediaStorage'
 
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID'],
-AWS_SECRET_ACCESS_KEY= os.environ['AWS_SECRET_ACCESS_KEY'],
+AWS_ACCESS_KEY_ID = "AKIASBCG3BYE4TGVVUP6",
+AWS_SECRET_ACCESS_KEY= "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",
 AWS_S3_REGION_NAME= 'ap-northeast-2'
 AWS_STORAGE_BUCKET_NAME=  'tofuant'
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
