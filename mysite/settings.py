@@ -33,7 +33,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "d*5_^fnkh%ns&gl$l!%h(cybofz42ne9w_r^mo_#sj!(h-#scn"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [ '192.168.0.25', '.elasticbeanstalk.com', '127.0.0.1']
 
@@ -162,6 +162,7 @@ LOGIN_REDIRECT_URL = '/'
 TAGGIT_CASE_INSENSITIVE=True
 TAGGIT_LIMIT= 50
 
+SERVER_EMAIL= 'django@my-domain.com'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'alswp26@gmail.com'
 EMAIL_HOST_PASSWORD = 'alstjr0307!!'
