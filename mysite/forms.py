@@ -9,12 +9,17 @@ from blog.models import PostComment
 from django.contrib.auth.forms import AuthenticationForm
 
 class UserCreationForm(UserCreationForm):
-    
+  
     error_messages = {
         'password_mismatch': "비밀번호가 일치하지 않습니다",
         'password_common': "비밀번호가 너무 간단합니다",
     } 
-
+    first_name= forms.CharField(label='닉네임',max_length=7, min_length=2, required=True,
+                               widget=(forms.TextInput(attrs={'class': 'form-control', 'placeholder':'2~7자 이내로 입력 가능합니다.'})))
+    username= forms.CharField(label='아이디',max_length=10, min_length=2, required=True,
+                               widget=(forms.TextInput(attrs={'class': 'form-control','placeholder':'2~10자 이내로 입력 가능합니다.'})))
+    email= forms.EmailField(label='이메일', required=True, widget=(forms.EmailInput(attrs={'class': 'form-control'})))
+    
     class Meta:
         model = User
         fields = ("username",  "email", "password1", "password2","first_name")
@@ -23,9 +28,7 @@ class UserCreationForm(UserCreationForm):
         'email': '이메일',
         'first_name':'닉네임'
         }
-        widgets = {
-        'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder':'8자 이내로 입력 가능합니다.'}),
-        }
+
         error_messages = {
             'username': {
                 'unique': '아이디가 중복됩니다',
@@ -61,17 +64,22 @@ class UserCreationForm(UserCreationForm):
 
 
 class ProfileForm(forms.ModelForm):
-    first_name= forms.CharField(label='닉네임',max_length=12, min_length=2, required=True, help_text='Required: Nickname',
+    first_name= forms.CharField(label='닉네임',max_length=7, min_length=2, required=True,
                                widget=(forms.TextInput(attrs={'class': 'form-control'})))
-    
     
     class Meta:
         model = User
         fields = [
-            'username',
             'first_name',
-            'email',
             ]
+    def clean_first_name(self):
+        dat = self.cleaned_data['first_name']
+        
+        if User.objects.filter(first_name=dat).exists():
+            raise forms.ValidationError("사용중인 닉네임입니다")
+        return dat
+
+
 
 class CustomLoginRequiredMixin(LoginRequiredMixin):
 
@@ -86,6 +94,8 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
 
 
 class CustomAuthenticationForm(AuthenticationForm):
+    username= forms.CharField(label='아이디',max_length=10, min_length=2, required=True,
+                               widget=(forms.TextInput(attrs={'class': 'form-control'})))
 
     error_messages = {
         'invalid_login': (
@@ -95,6 +105,7 @@ class CustomAuthenticationForm(AuthenticationForm):
 
 
     }
+
     def __init__(self, request=None, *args, **kwargs):
         super(CustomAuthenticationForm, self).__init__(*args, **kwargs) # 꼭 있어야 한다!
 
@@ -126,4 +137,4 @@ class NewCommentForm(forms.ModelForm):
     class Meta:
         model = PostComment
         fields = ['content', 'blogpost_connected']
-        
+

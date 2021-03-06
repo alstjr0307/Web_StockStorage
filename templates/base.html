@@ -181,6 +181,7 @@
             <div class= "dropdown-menu dropdown-menu-right animate slideIn">
               <a class="dropdown-item" href="{% url 'logout' %}">로그아웃</a>
               <a class = "dropdown-item" href="{% url 'password_change' %}"> 비밀번호 변겅</a>
+              <a class = "dropdown-item" href="{% url 'profile' user.id %}"> 닉네임 변경</a>
             </div>
           
           {% else %}
