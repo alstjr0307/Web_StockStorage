@@ -39,9 +39,8 @@ a{
     <div class="col-7" style="overflow-wrap: break-word; "><a href='{{post.get_absolute_url}}?page={{page_obj_number}}'  style="color:black" >{{post.title}} 
       <span style="color:red">&ensp;<i class="fas fa-eye"></i>{% get_hit_count for post %}{% if post.number_of_comments > 0 %}&ensp;&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
       {% endif %}</div></a>
-    <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black; font-size:7px"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
-    <div class="col-2 text-center" style="font-size:7px; margin-top:5px"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
-   
+        <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black; font-size:10px"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
+        <div class="col-2 text-center" style="font-size:7px; margin-top:8px"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
     </div>
     </a>
 
