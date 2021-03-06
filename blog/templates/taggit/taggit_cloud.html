@@ -33,7 +33,7 @@
         {% get_tagcloud as tags %}
         {% for tag in tags|dictsort:"num_times" %}
         <span class= "text-dark tag-{{tag.weight|floatformat:0}}" style="text-align:left;">
-        <a href="{% url 'blog:tagged_object_list' tag.name %}" style="text-decoration:none;text-align:left">종목명: {{tag.name}} 태그횟수:({{tag.num_times}})
+        <a href="{% url 'blog:tagged_object_list' tag.name %}" style="text-decoration:none;text-align:left; color: black">종목명: {{tag.name}}({{tag.num_times}})
         </a>
         </span>
         <br>

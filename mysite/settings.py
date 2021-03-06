@@ -14,6 +14,25 @@ from pathlib import Path
 import os
 from django.contrib.messages import constants as messages_constants
 from django.contrib.messages import constants as messages
+from django.core.exceptions import ImproperlyConfigured
+import json
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+secret_file = os.path.join(BASE_DIR, "secrets.json")
+
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
+
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {0} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+SECRET_KEY = get_secret("DJANGO_SECRET_KEY")
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
@@ -23,19 +42,18 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "d*5_^fnkh%ns&gl$l!%h(cybofz42ne9w_r^mo_#sj!(h-#scn"
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = [ '192.168.0.25', '.elasticbeanstalk.com', '127.0.0.1']
+ALLOWED_HOSTS = [ '15.164.164.21', 'ec2-15-164-164-21.ap-northeast-2.compute.amazonaws.com', '127.0.0.1']
 
 
 
@@ -102,9 +120,9 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': "tofuant",
-        'USER': "admin",
-        'PASSWORD': "alstjr0307",
+        'NAME': get_secret("DATABASE_NAME"),
+        'USER': get_secret("DATABASE_USER"),
+        'PASSWORD': get_secret("DATABASE_PASSWORD"),
         'HOST' : 'database-2.c1ifp11mkwo5.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
@@ -175,8 +193,8 @@ AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
 STATICFILES_STORAGE= 'mysite.storage.S3StaticStorage'
 DEFAULT_FILE_STORAGE= 'mysite.storage.S3MediaStorage'
 
-AWS_ACCESS_KEY_ID = "AKIASBCG3BYE4TGVVUP6",
-AWS_SECRET_ACCESS_KEY= "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",
+AWS_ACCESS_KEY_ID = get_secret("AWS_ACCESS_KEY_ID"),
+AWS_SECRET_ACCESS_KEY= get_secret("AWS_SECRET_ACCESS_KEY"),
 AWS_S3_REGION_NAME= 'ap-northeast-2'
 AWS_STORAGE_BUCKET_NAME=  'tofuant'
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
