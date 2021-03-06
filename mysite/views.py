@@ -79,6 +79,8 @@ class SignUp(CreateView):
 class UserCreateDoneTV(TemplateView):
     template_name = 'registration/register_done.html' 
 
+
+
 class OwnerOnlyMixin(AccessMixin):
     raise_exception = True
     permission_denied_message = "게시물 작성자만 수정/삭제 가능합니다"
@@ -90,12 +92,18 @@ class OwnerOnlyMixin(AccessMixin):
 
         return super().dispatch(request, *args,**kwargs)
     
-class ProfileView(UpdateView):
+class ProfileView(AccessMixin, UpdateView):
     model = User
     form_class = ProfileForm
     success_url = reverse_lazy('home')
     template_name='registration/profile.html'
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if request.user != obj:
+            return self.handle_no_permission()
 
+        return super().dispatch(request, *args,**kwargs)
+    
 class ActivateAccount(View):
 
     def get(self, request, uidb64, token, *args, **kwargs):
