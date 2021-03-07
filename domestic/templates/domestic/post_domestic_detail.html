@@ -2,7 +2,7 @@
 {% extends "domestic.html"%}
 {% load hitcount_tags %}
 {% block title %}
-post_detail.html
+국내주식 게시판
 {% endblock %}
 
 {% block extra-style %}
@@ -43,7 +43,7 @@ a {
 
     <div class=" writer" style="border-radius:40px;  background:#F0FFFF; height:30px; line-height:30px">
         <p style="font-size:11px; "> <a href='{{object.owner_absolute_url}}' style="padding-top:5px"class="text-dark"><i class="far fa-user"></i>&ensp;{{object.owner.get_short_name}}</a>
-        &ensp;&ensp;&ensp;<span style="float:right"><i class="fas fa-eye"></i>{% get_hit_count for post %}&ensp;<i class="fas fa-clock"></i>{{object.modify_dt|date:"Y.m.d f:s" }}</span>
+        &ensp;&ensp;&ensp;<span style="float:right"><i class="fas fa-eye"></i>{% get_hit_count for post %}&ensp;<i class="fas fa-clock"></i>{{post.created_string}}</span>
     </div>
     <hr style="margin-top:0px">
 

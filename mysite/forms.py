@@ -43,7 +43,7 @@ class UserCreationForm(UserCreationForm):
         }
 
     def clean_email(self):
-        data = self.cleaned_data['email']
+        data = self.cleaned_data['email'].strip()
         if User.objects.filter(email=data).exists():
             raise forms.ValidationError("사용중인 이메일입니다")
         return data
@@ -55,7 +55,7 @@ class UserCreationForm(UserCreationForm):
         return data
 
     def clean_first_name(self):
-        dat = self.cleaned_data['first_name']
+        dat = self.cleaned_data['first_name'].strip()
         
         if User.objects.filter(first_name=dat).exists():
             raise forms.ValidationError("사용중인 닉네임입니다")
