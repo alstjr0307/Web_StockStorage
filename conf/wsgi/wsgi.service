@@ -3,7 +3,7 @@ Description=uWSGI service
 After=syslog.target
 
 [Service]
-ExecStart=/home/ubuntu/myvenv/bin/uwsgi -i /home/ubuntu/BackEnd/Django/project/config/wsgi/wsgi.ini
+ExecStart=/home/ubuntu/myprojectenv/bin/uwsgi -i /home/ubuntu/django/conf/wsgi/wsgi.ini
 
 
 Restart=always
