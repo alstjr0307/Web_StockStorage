@@ -42,6 +42,10 @@ urlpatterns = [
     path('update/<int:pk>/', views.PostUpdateView.as_view(), name="update",),
     path('<int:pk>/delete/', views.PostDeleteView.as_view(), name="delete",),
     path('comment/<int:pk>/delete/', views.CommentDeleteView.as_view(), name="comment_delete",),
-    path('blogpost-like/<int:pk>', views.PostLike, name="blogpost_like"),    
+    path('blogpost-like/<int:pk>', views.PostLike, name="blogpost_like"),  
+
+    path('popular/', views.PostPopularLV.as_view(), name='popular_index'),
+    path('popular/<int:pk>', views.PostPopularDV.as_view(), name='post_popular_detail'),
+    path('blogpostpopular-like/<int:pk>', views.PostPopularLike, name="blogpost_popular_like"),  
 
 ]   

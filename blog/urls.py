@@ -45,6 +45,10 @@ urlpatterns = [
     path('comment/<int:pk>/delete/', views.CommentDeleteView.as_view(), name="comment_delete",),
     re_path(r'^owner/(?P<owner>[-\w]+)/(?P<owner_name>[-\w\s]+)$', views.PostUserLV.as_view(), name="post_user",),
     
+    #인기글
+    path('popular/', views.PostPopularLV.as_view(), name='popular_index'),
+    path('popular/<int:pk>', views.PostPopularDV.as_view(), name='post_popular_detail'),
+    path('blogpostpopular-like/<int:pk>', views.PostPopularLike, name="blogpost_popular_like"),
     #좋아요 눌렀을 때 가는 곳
     path('blogpost-like/<int:pk>', views.PostLike, name="blogpost_like"),
 ]  

@@ -10,6 +10,7 @@ from django.utils import timezone
 from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 
+        
 
 class Post(models.Model):
     title = models.CharField(verbose_name='제목', max_length=40)
@@ -25,6 +26,7 @@ class Post(models.Model):
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
      related_query_name='hit_count_generic_relation')
     likes = models.ManyToManyField(User, related_name='blogpost_like')
+
 
     class Meta:
         verbose_name = 'post'
@@ -48,6 +50,19 @@ class Post(models.Model):
         if self.category=="R":
 
             return reverse('free:post_detail', args=(self.id,))
+    
+    def get_popular_absolute_url(self):
+        if self.category=="F":
+
+            return reverse('blog:post_popular_detail', args=(self.id,))
+        
+        if self.category=="D":
+
+            return reverse('domestic:post_popular_detail', args=(self.id,))
+        if self.category=="R":
+
+            return reverse('free:post_detail', args=(self.id,))
+    
     
     def get_previous(self):
         return self.get_previous_by_modify_dt()
@@ -86,6 +101,8 @@ class Post(models.Model):
 
     def number_of_likes(self):
         return self.likes.count()
+    
+
         
 class PostComment(models.Model):
     blogpost_connected= models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)

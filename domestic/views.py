@@ -1,4 +1,4 @@
-
+from django.db.models import Count
 from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
@@ -209,3 +209,76 @@ def PostLike(request, pk):
         post.likes.add(request.user)
 
     return HttpResponseRedirect(reverse('domestic:post_detail', args=[str(pk)]))
+
+
+#인기글 관리
+class PostPopularLV(ListView,FormView):
+    form_class= PostSearchForm
+
+    template_name = 'domestic/post_domestic_popular_all.html'
+    context_object_name = 'posts'
+    paginate_by=20
+    def get_queryset(self):
+        return Post.objects.filter(category='D').annotate(num_likes=Count('likes')).filter(num_likes__gte=10)
+
+class PostPopularDV(HitCountDetailView, FormView, MultipleObjectMixin,FormMixin):
+
+    template_name='domestic/post_domestic_popular_detail.html'
+    paginate_by = 20
+    count_hit = True
+    form_class=NewCommentForm
+    
+
+
+    def get_success_url(self):	# post처리가 성공한뒤 행할 행동
+        return reverse('domestic:post_popular_detail', kwargs={'pk': self.object.pk})
+    def get_queryset(self):
+        return Post.objects.filter(category='D').annotate(num_likes=Count('likes')).filter(num_likes__gte=10)
+    def get_context_data(self, **kwargs):
+        self.object_list = self.get_queryset()
+        context = super().get_context_data(**kwargs)
+       
+        #댓글 기능 구현
+        comments_connected = PostComment.objects.filter(blogpost_connected=self.get_object()).order_by('created')   
+        context['comments'] = comments_connected
+        context['user'] = self.request.user
+        context['posts'] = Post.objects.filter(category='D').annotate(num_likes=Count('likes')).filter(num_likes__gte=10)
+        if self.request.user.is_authenticated:
+            context['comment_form'] = '1'
+
+        #좋아요 기능 구현
+        likes_connected = get_object_or_404(Post, id=self.kwargs['pk'])
+        liked = False
+        if likes_connected.likes.filter(id=self.request.user.id).exists():
+            liked = True
+        context['number_of_likes'] = likes_connected.number_of_likes()
+        context['post_is_liked'] = liked  
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object= self.get_object()
+        form = self.get_form()		# form데이터 받아오기	
+
+        if form.is_valid():			# form의 내용이 정상적일 경우
+            return self.form_valid(form)	#form_valid함수 콜
+        else:			
+            return self.form_invalid(form)
+
+    def form_valid(self, form):	# form_valid함수
+        comment = form.save(commit=False)	# form데이터를 저장. 그러나 쿼리실행은 x
+        comment.blogpost_connected = get_object_or_404(Post, pk=self.object.pk) # photo object를 call하여 photocomment의 photo로 설정(댓글이 속할 게시글 설정) pk로 pk설정 pk - photo id 
+        comment.writer = self.request.user
+        # 댓글쓴 사람 설정. 
+        comment.save()	# 수정된 내용대로 저장. 쿼리실행
+        return super(PostPopularDV, self).form_valid(form)
+
+
+def PostPopularLike(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get('blogpost_id'))
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+
+    return HttpResponseRedirect(reverse('domestic:post_popular_detail', args=[str(pk)]))

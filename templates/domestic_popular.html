@@ -1,0 +1,23 @@
+{%extends 'base.html' %}
+{%block extra-style%}
+
+{% endblock %}
+{%block list%}
+
+    <div class="post-body">
+    <a href="{% url 'blog:index'%}" style="text-decoration:none; font-family:'abc';font-size:30px;width:fit-content;"class="text-dark">국내주식 게시판 </a>
+   
+    {% if request.get_full_path != "/domestic/add/" and request.get_full_path|slice:':17' != "/domestic/update/" %}
+
+    <button  type="button" OnClick="location.href='/foreign/add'" class="btn btn-sm btn-dark text-light" style="float:right; margin-top:20px; width:fit-content"><i class="fas fa-pencil-alt"></i></button>
+    {%endif%}
+    <button type="button" OnClick="location.href='/domestic/'" class= "btn btn-outline-dark " style="width:fit-content; margin-top:15px;float:right;margin-right:20px">
+    전체글</button>
+    
+    
+     <button type="button" OnClick="location.href='/domestic/popular'" class= "btn btn-dark text-light" style="width:fit-content; margin-top:15px;float:right;margin-right:20px"><i class="fas fa-check"style="color:green"></i>인기글</button><hr style="height:8px">
+    </div>
+
+<br>
+
+{% endblock%}

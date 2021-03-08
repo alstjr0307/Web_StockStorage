@@ -1,4 +1,4 @@
-{% extends "blog.html"%}
+{% extends "blog_popular.html"%}
 {% load hitcount_tags %}
 {% block title %}
 해외주식 게시판
@@ -49,14 +49,16 @@ a {
     <hr style="margin-top:0px">
 
     <br>
-
+    
     <div style="overflow-wrap: break-word;">
         {{object.content|safe}}
     </div>
+
+
     <br style="height:50px">
     <div style="text-align:center">
         {% if user.is_authenticated %}
-          <form action="{% url 'blog:blogpost_like' object.id %}" method="POST">
+          <form action="{% url 'blog:blogpost_popular_like' object.id %}" method="POST">
             {% csrf_token %}
             {% if post_is_liked %}
               <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-outline-danger"><i class="fas fa-thumbs-up"></i><strong class="text-danger">  {{ number_of_likes }}<br>추천 취소</strong></button>
@@ -114,9 +116,11 @@ a {
 {% endfor %}
 </div>
 <hr>
+
+<!--댓글작성-->
 {%if comment_form == '1' %}
 <div style="border-bottom:1px solid #c0c0c0; width:100%; overflow:hidden; height:auto; padding-bottom:10px">
-<form method="POST" action="{% url 'blog:post_detail' object.id %}" style="width:100%">
+<form method="POST" action="{% url 'blog:post_popular_detail' object.id %}" style="width:100%">
     {% csrf_token %}
     <input type="hidden" value="{{object.id}}" name="blogpost_connected">
     <textarea name="content" class="form-control" placeholder="댓글을 입력해주세요" style="width:90%; float:left;height:150px;" required></textarea>
@@ -128,14 +132,14 @@ a {
 
 <div style="height:100px"></div>
  <div>
-    <a href="{% url 'blog:index'%}" style="text-decoration:none; font-family:'abc';font-size:30px;width:fit-content;"class="text-dark">해외주식 게시판</a>
-        <button type="button" OnClick="location.href='/foreign/'" class= "btn btn-dark text-light" style="width:fit-content; margin-top:15px;float:right;margin-right:20px">
-    <i class="fas fa-check" style="color:green"></i>전체글</button>
+    <a href="{% url 'blog:popular_index'%}" style="text-decoration:none; font-family:'abc';font-size:30px;width:fit-content;"class="text-dark">해외주식 게시판</a>
+
+    <button type="button" OnClick="location.href='/foreign/'" class= "btn btn-outline-dark " style="width:fit-content; margin-top:15px;float:right;margin-right:20px">
+    전체글</button>
     
-     <button type="button" OnClick="location.href='/foreign/popular'" class= "btn btn-outline-dark " style="width:fit-content; margin-top:15px;float:right;margin-right:20px">인기글</button><hr style="height:8px">
-  </div>
-
-
+    
+     <button type="button" OnClick="location.href='/foreign/popular'" class= "btn btn-dark text-light" style="width:fit-content; margin-top:15px;float:right;margin-right:20px"><i class="fas fa-check"style="color:green"></i>인기글</button><hr style="height:8px">
+    </div>
 
 <div class="text-dark row fw-bold" style="box-sizing: border-box;
  border-top: 1px solid #c0c0c0;border-bottom: 1px solid #c0c0c0; 
@@ -159,7 +163,7 @@ a {
     <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
     solid #c0c0c0;text-decoration:none;margin-bottom:1px;margin-top:0px; margin-left:3px">
     {% endif%}
-    <div class="col-7"style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}} <span style="color:red;">&ensp;<i class="fas fa-eye"></i>{% get_hit_count for post %}{% if post.number_of_comments > 0 %}&ensp;&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
+    <div class="col-7"style="overflow-wrap: break-word;"><a href='{{post.get_popular_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}} <span style="color:red;">&ensp;<i class="fas fa-eye"></i>{% get_hit_count for post %}{% if post.number_of_comments > 0 %}&ensp;&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
       {% endif %}</div></a>
         <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black;"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
         <div class="col-2 text-center" style="font-size:7px; margin-top:8px"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
