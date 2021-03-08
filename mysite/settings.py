@@ -53,7 +53,7 @@ MESSAGE_TAGS = {
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG =  True
 
-ALLOWED_HOSTS = [ '15.164.164.21', 'ec2-15-164-164-21.ap-northeast-2.compute.amazonaws.com', '127.0.0.1']
+ALLOWED_HOSTS = [ '15.164.164.21', 'www.stockstorage.net']
 
 
 
