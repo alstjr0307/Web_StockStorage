@@ -6,7 +6,7 @@ from django.views.generic.dates import DayArchiveView, TodayArchiveView
 from django.views.generic.list import MultipleObjectMixin
 from django.conf import settings
 from django.views.generic import FormView
-from domestic.forms import PostSearchForm
+from free.forms import PostSearchForm
 from django.db.models import Q
 from django.shortcuts import render
 from django.core.paginator import Paginator
@@ -27,24 +27,24 @@ from django.http import HttpResponseRedirect
 class PostLV(ListView,FormView):
     
     form_class= PostSearchForm
-    template_name = 'domestic/post_all.html'
+    template_name = 'free/post_all.html'
     context_object_name = 'posts'
     paginate_by=20
     model=Post
     def get_queryset(self):
-        return Post.objects.filter(category='D')
+        return Post.objects.filter(category='R')
 
 
 class PostDV(HitCountDetailView, FormView, MultipleObjectMixin,FormMixin):
     count_hit = True
-    template_name='domestic/post_domestic_detail.html'
+    template_name='free/post_free_detail.html'
     model = Post
     paginate_by=20
     form_class= NewCommentForm
     def get_success_url(self):	# post처리가 성공한뒤 행할 행동
-        return reverse('domestic:post_detail', kwargs={'pk': self.object.pk})
+        return reverse('free:post_detail', kwargs={'pk': self.object.pk})
     def get_queryset(self):
-        return Post.objects.filter(category='D')
+        return Post.objects.filter(category='R')
 
     def get_context_data(self, **kwargs):
         self.object_list = self.get_queryset()
@@ -54,7 +54,7 @@ class PostDV(HitCountDetailView, FormView, MultipleObjectMixin,FormMixin):
 
         context['user'] = self.request.user
         
-        context['posts'] = Post.objects.filter(category='D')
+        context['posts'] = Post.objects.filter(category='R')
         if self.request.user.is_authenticated:
             context['comment_form'] = '1'
 
@@ -128,12 +128,12 @@ class TaggedObjectLV(ListView):
 
 
 class SearchFormView(FormView, ListView):
-    model = Post.objects.filter(category='D')
+    model = Post.objects.filter(category='R')
     form_class= PostSearchForm
-    template_name= 'domestic/post_domestic_search.html'
+    template_name= 'free/post_free_search.html'
     context_object_name = 'posts'
     paginate_by=20
-    success_url=reverse_lazy('domestic:search')
+    success_url=reverse_lazy('free:search')
     
 
 
@@ -141,9 +141,9 @@ class SearchFormView(FormView, ListView):
         query = self.request.GET.get("search_word")
 
         if query:
-            return Post.objects.filter(category='D').filter(Q(title__icontains=query) | Q(content__icontains=query)).distinct()
+            return Post.objects.filter(category='R').filter(Q(title__icontains=query) | Q(content__icontains=query)).distinct()
 
-        return Post.objects.filter(category='D')
+        return Post.objects.filter(category='R')
 
 
     def get_context_data(self, **kwargs):
@@ -154,7 +154,7 @@ class SearchFormView(FormView, ListView):
 
 class PostCreateView(CustomLoginRequiredMixin, CreateView):
     model =Post
-    template_name='domestic/post_domestic_form.html'
+    template_name='free/post_free_form.html'
     fields = ['title', 'content', 'tags', 'category']
     permission_denied_message='로그인이 필요합니다.'   
     def get_initial(self):
@@ -162,13 +162,13 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
         initial = super(PostCreateView,self).get_initial()
     # Copy the dictionary so we don't accidentally change a mutable dict
         initial = initial.copy()
-        initial['category'] = 'D'
+        initial['category'] = 'R'
        # etc...
         return initial
   
     
     def get_success_url(self):
-        return reverse('domestic:post_detail', args=[self.object.pk])
+        return reverse('free:post_detail', args=[self.object.pk])
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -176,28 +176,28 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
 
 
 class PostChangeLV(LoginRequiredMixin, ListView):
-    template_name= 'domestic/post_change_list.html'
+    template_name= 'free/post_change_list.html'
     
     def get_queryset(self):
         return Post.objects.filter(owner=self.request.user)
 
 class PostUpdateView(OwnerOnlyMixin, UpdateView):
     model= Post
-    template_name='domestic/post_domestic_form.html'
+    template_name='free/post_free_form.html'
     fields= ['title', 'content', 'tags']
     def get_success_url(self):
-        return reverse('domestic:post_detail', args=[self.object.pk])
+        return reverse('free:post_detail', args=[self.object.pk])
 
 class PostDeleteView(OwnerOnlyMixin, DeleteView):
     model =Post
-    template_name='domestic/post_domestic_confirm_delete.html'
-    success_url = reverse_lazy('domestic:index')
+    template_name='free/post_free_confirm_delete.html'
+    success_url = reverse_lazy('free:index')
 
 
 class CommentDeleteView( DeleteView):
     model =PostComment
     def get_success_url(self):
-        return reverse('domestic:post_detail', 
+        return reverse('free:post_detail', 
                        args=[self.object.blogpost_connected.id])
 
 
@@ -208,4 +208,4 @@ def PostLike(request, pk):
     else:
         post.likes.add(request.user)
 
-    return HttpResponseRedirect(reverse('domestic:post_detail', args=[str(pk)]))
+    return HttpResponseRedirect(reverse('free:post_detail', args=[str(pk)]))

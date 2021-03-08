@@ -37,7 +37,7 @@ urlpatterns = [
     path('activate/<uidb64>/<token>/', ActivateAccount.as_view(), name='activate'),
     path('login/', CustomLoginView.as_view(template_name='registration/login.html'), name='login'),
     path('search/', SearchFormView.as_view(), name='search'),
-    
+    path('free/', include('free.urls')),
     path('froala_editor/',include('froala_editor.urls'))
     
 ] #+  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

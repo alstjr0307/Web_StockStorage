@@ -41,5 +41,7 @@ urlpatterns = [
     
     path('update/<int:pk>/', views.PostUpdateView.as_view(), name="update",),
     path('<int:pk>/delete/', views.PostDeleteView.as_view(), name="delete",),
-   path('comment/<int:pk>/delete/', views.CommentDeleteView.as_view(), name="comment_delete",),
+    path('comment/<int:pk>/delete/', views.CommentDeleteView.as_view(), name="comment_delete",),
+    path('blogpost-like/<int:pk>', views.PostLike, name="blogpost_like"),    
+
 ]   

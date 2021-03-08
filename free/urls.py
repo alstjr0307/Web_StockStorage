@@ -1,8 +1,8 @@
 from django.urls import path, re_path
-from blog import views
+from free import views
 
 
-app_name = 'blog'
+app_name = 'free'
 urlpatterns = [
 
     #Example: /blog/
@@ -35,16 +35,13 @@ urlpatterns = [
     #/blog/archive/today/
     path('archive/today/', views.PostTAV.as_view(), name='post_today_archive'),
 
-    path('search/', views.SearchFormView.as_view(), name='search'),
-
+    path('search/', views.SearchFormView.as_view(), name='search',),
     path('add/',views.PostCreateView.as_view(), name="add",),
     path('change/', views.PostChangeLV.as_view(), name="change",),
     
     path('update/<int:pk>/', views.PostUpdateView.as_view(), name="update",),
     path('<int:pk>/delete/', views.PostDeleteView.as_view(), name="delete",),
     path('comment/<int:pk>/delete/', views.CommentDeleteView.as_view(), name="comment_delete",),
-    re_path(r'^owner/(?P<owner>[-\w]+)/(?P<owner_name>[-\w\s]+)$', views.PostUserLV.as_view(), name="post_user",),
-    
-    #좋아요 눌렀을 때 가는 곳
-    path('blogpost-like/<int:pk>', views.PostLike, name="blogpost_like"),
-]  
+    path('blogpost-like/<int:pk>', views.PostLike, name="blogpost_like"),    
+
+]   

@@ -1,7 +1,8 @@
-{% extends "blog.html"%}
+
+{% extends "free.html"%}
 {% load hitcount_tags %}
 {% block title %}
-해외주식 게시판
+자유게시판
 {% endblock %}
 
 {% block extra-style %}
@@ -15,15 +16,12 @@
 
 }
 a {
-
     text-decoration:none;
 }
-
 </style>
 {%endblock%}
 
 {% block content %}
-
 {{ form.media }}
 <div class="post-body">
     <div class="row text-left" style="margin-bottom:0px">
@@ -32,23 +30,25 @@ a {
         <div class="text-right col-3" style="margin-top:10px">
         {% if user == object.owner %}
 
-           <a href="{% url 'blog:update' object.id %}" style="color:black; float:right;"><span style="border:1px solid; border-radius:5px;margin-left:10px;">수정</span></a>
-          <a href="{% url 'blog:delete' object.id %}" style="color:black; float:right;"><i class="fas fa-trash-alt"></i></a>
+           <a href="{% url 'free:update' object.id %}" style="color:black; float:right;"><span style="border:1px solid; border-radius:5px;margin-left:10px;">수정</span></a>
+          <a href="{% url 'free:delete' object.id %}" style="color:black; float:right;"><i class="fas fa-trash-alt"></i></a>
 
          
         {% endif %}
       </div>
     </div>
+    
 
 
 
     <div class="row writer" style="border-radius:40px;  background:#F0FFFF; height:30px; line-height:30px">
-        <p style="font-size:11px; "> <a href='{{object.owner_absolute_url}}' style="padding-top:5px"class="text-dark"><i class="far fa-user"></i>&ensp;&ensp;{{object.owner.get_short_name}}</a>
-        &ensp;&ensp;&ensp;<span style="float:right"><i class="fas fa-eye"></i>{% get_hit_count for post %}&ensp;<i class="fas fa-clock"></i>{{post.created_string }}</span>
+        <p style="font-size:11px; "> <a href='{{object.owner_absolute_url}}' style="padding-top:5px"class="text-dark">&ensp;<i class="far fa-user"></i>&ensp;{{object.owner.get_short_name}}</a>
+        &ensp;&ensp;&ensp;<span style="float:right"><i class="fas fa-eye"></i>{% get_hit_count for post %}&ensp;<i class="fas fa-clock"></i>{{post.created_string}}</span>
     </div>
     <hr style="margin-top:0px">
 
     <br>
+    
 
     <div style="overflow-wrap: break-word;">
         {{object.content|safe}}
@@ -56,7 +56,7 @@ a {
     <br style="height:50px">
     <div style="text-align:center">
         {% if user.is_authenticated %}
-          <form action="{% url 'blog:blogpost_like' object.id %}" method="POST">
+          <form action="{% url 'free:blogpost_like' object.id %}" method="POST">
             {% csrf_token %}
             {% if post_is_liked %}
               <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-outline-danger"><i class="fas fa-thumbs-up"></i><strong class="text-danger">  {{ number_of_likes }}<br>추천 취소</strong></button>
@@ -76,16 +76,12 @@ a {
         {% load taggit_templatetags2_tags %}
         {% get_tags_for_object object as "tags" %}
         {% for tag in tags %}
-        <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}</a>
+        <a href="{% url 'free:tagged_object_list' tag.name %}" style="color:red">{{tag.name}}</a>
         {% endfor %}
         &emsp;
 
-    <a href="{% url 'blog:tag_cloud' %}"> <span class= "btn btn-outline-info btn-sm">종목저장소</span> </a>
+    <a href="{% url 'free:tag_cloud' %}"> <span class= "btn btn-outline-info btn-sm">종목저장소</span> </a>
     </div>
-
-
-
-
 <hr style=" border:dotted 5px skyblue; background:none" >
 
 
@@ -94,10 +90,10 @@ a {
 
 {% for comment in comments %}
         <div class="text-dark"style="font-family:'beauty';border-radius:40px 80px;border: 1px solid #c0c0c0;text-decoration:none;background-color:#DCEBFF;margin-bottom:10px;margin-top:0px; margin-left:3px">
-        <a href='{{object.owner_absolute_url}}' style="color:black">&ensp;<i class="fas fa-user"></i>&ensp;{{comment.writer.first_name}}</a>
+        <span><i class="fas fa-user"></i></span>&ensp;{{comment.writer.first_name}} 
          
          {% if comment.writer == user %}<span style="float:right">
-         <form action="{% url 'blog:comment_delete' comment.id %}" onclick="return confirm('정말 삭제하시겠습니까?');" method="post" style="display: inline;">{%csrf_token%}
+         <form action="{% url 'free:comment_delete' comment.id %}" onclick="return confirm('정말 삭제하시겠습니까?');" method="post" style="display: inline;">{%csrf_token%}
             {% csrf_token %}
             <input type="hidden" name="comment_id" value="{{ comment.id }}" />
 
@@ -116,10 +112,10 @@ a {
 <hr>
 {%if comment_form == '1' %}
 <div style="border-bottom:1px solid #c0c0c0; width:100%; overflow:hidden; height:auto; padding-bottom:10px">
-<form method="POST" action="{% url 'blog:post_detail' object.id %}" style="width:100%">
+<form method="POST" action="{% url 'free:post_detail' object.id %}" style="width:100%">
     {% csrf_token %}
     <input type="hidden" value="{{object.id}}" name="blogpost_connected">
-    <textarea name="content" class="form-control" placeholder="댓글을 입력해주세요" style="width:90%; float:left;height:150px;" required></textarea>
+    <textarea name="content" class="form-control" placeholder="댓글을 입력해주세요" required style="width:90%; float:left;height:150px;"></textarea>
     <button type="submit" class="btn btn-secondary" style="float:right; width:8%">작성</button>
 </form>
 </div>
@@ -128,7 +124,7 @@ a {
 
 <div style="height:100px"></div>
  <div>
-    <a href="{% url 'blog:index'%}" style="text-decoration:none; font-family:'abc';font-size:30px;width:fit-content;"class="text-dark">해외주식 게시판</a></div>
+    <a href="{% url 'free:index'%}" style="text-decoration:none; font-family:'abc';font-size:30px;width:fit-content;"class="text-dark">국내주식 게시판</a></div>
 <div class="text-dark row fw-bold" style="box-sizing: border-box;
  border-top: 1px solid #c0c0c0;border-bottom: 1px solid #c0c0c0; 
  margin-bottom:8px; " >
@@ -140,7 +136,7 @@ a {
 
 
 
-<div class="list-group-flush row">
+<div class="list-group-flush row" style=>
     
     {% for post in object_list %}
 
@@ -151,10 +147,10 @@ a {
     <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
     solid #c0c0c0;text-decoration:none;margin-bottom:1px;margin-top:0px; margin-left:3px">
     {% endif%}
-    <div class="col-7"style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}} <span style="color:red;">&ensp;<i class="fas fa-eye"></i>{% get_hit_count for post %}{% if post.number_of_comments > 0 %}&ensp;&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
+    <div class="col-7"style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}<span style="color:red;">&ensp;<i class="fas fa-eye"></i>{% get_hit_count for post %}{% if post.number_of_comments > 0 %}&ensp;&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
       {% endif %}</div></a>
-        <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black;"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
-        <div class="col-2 text-center" style="font-size:7px; margin-top:8px"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
+    <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black; "><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
+    <div class="col-2 text-center" style="font-size:7px; margin-top:8px"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
     </div>
     </a>
 
@@ -231,14 +227,13 @@ a {
               {% endif %}
   </div>
   
-  <form  action="/foreign/search/"  method="GET" style="text-align:center; padding-top:20px">
+  <form  action="/free/search/"  method="GET" style="text-align:center; padding-top:20px">
       검색: &ensp;<input type= "text" name="search_word" required>
 
       <input type="submit" value="검색" class = "btn btn-primary btn-sm">
   </form>
   <br>
   <br>
-
 </div>
 {% endblock %}
 {% block extra-script %}

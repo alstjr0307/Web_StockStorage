@@ -1,5 +1,5 @@
-{% extends "domestic.html"%}
-{% block title %} 국내주식 게시판 검색{% endblock %}
+{% extends "free.html"%}
+{% block title %} 자유게시판 검색{% endblock %}
 {% load hitcount_tags %}
 {% block extra-style %}
 <style>
@@ -109,7 +109,7 @@ a{
                 {% endif %}
             </div>
 {% endif %}
-<form action="/domestic/search/" method="get" style="text-align:center; padding-top:100px"> 
+<form action="/free/search/" method="get" style="text-align:center; padding-top:100px"> 
     {{ form.as_table }}
     <input type="submit" value="검색" class = "btn btn-primary btn-sm" style="font-family:'aab'">
 </form>

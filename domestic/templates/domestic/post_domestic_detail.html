@@ -41,18 +41,35 @@ a {
 
 
 
-    <div class=" writer" style="border-radius:40px;  background:#F0FFFF; height:30px; line-height:30px">
-        <p style="font-size:11px; "> <a href='{{object.owner_absolute_url}}' style="padding-top:5px"class="text-dark"><i class="far fa-user"></i>&ensp;{{object.owner.get_short_name}}</a>
+    <div class="row writer" style="border-radius:40px;  background:#F0FFFF; height:30px; line-height:30px">
+        <p style="font-size:11px; "> <a href='{{object.owner_absolute_url}}' style="padding-top:5px"class="text-dark">&ensp;<i class="far fa-user"></i>&ensp;{{object.owner.get_short_name}}</a>
         &ensp;&ensp;&ensp;<span style="float:right"><i class="fas fa-eye"></i>{% get_hit_count for post %}&ensp;<i class="fas fa-clock"></i>{{post.created_string}}</span>
     </div>
     <hr style="margin-top:0px">
 
     <br>
+    
 
     <div style="overflow-wrap: break-word;">
         {{object.content|safe}}
     </div>
-    <hr style="margin-top:100px; margin-bottom:10px">
+    <br style="height:50px">
+    <div style="text-align:center">
+        {% if user.is_authenticated %}
+          <form action="{% url 'domestic:blogpost_like' object.id %}" method="POST">
+            {% csrf_token %}
+            {% if post_is_liked %}
+              <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-outline-danger"><i class="fas fa-thumbs-up"></i><strong class="text-danger">  {{ number_of_likes }}<br>추천 취소</strong></button>
+            {% else %}
+              <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-outline-danger"><i class="fas fa-thumbs-up"></i><strong class="text-danger"> {{ number_of_likes }}<br>추천</strong></button>
+            {% endif %}
+          </form>
+          {% else %}
+            <a class="btn btn-outline-danger" href="{% url 'login' %}?next={{request.path}}"><i class="fas fa-thumbs-up"></i><strong class="text-danger">{{ number_of_likes }}<br>좋아요를 누르기 위해서 로그인해주세요</strong></a>
+          {%endif%}
+
+    </div>
+    <hr style="margin-top:10px; margin-bottom:10px">
     
     <div >
         <b>종목명 <i class="fas fa-tag"></i></b>

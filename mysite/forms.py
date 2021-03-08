@@ -49,7 +49,7 @@ class UserCreationForm(UserCreationForm):
         return data
 
     def clean_username(self):
-        data = self.cleaned_data['username']
+        data = self.cleaned_data['username'].strip()
         if User.objects.filter(username=data).exists():
             raise forms.ValidationError("사용중인 아이디입니다")
         return data

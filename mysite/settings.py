@@ -74,7 +74,7 @@ INSTALLED_APPS = [
     'domestic.apps.DomesticConfig',
     'bootstrap4',
     'bootstrap_pagination',
-
+    'free.apps.FreeConfig',
     'hitcount',
     'storages',
 

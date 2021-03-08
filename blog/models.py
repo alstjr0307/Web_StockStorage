@@ -20,7 +20,7 @@ class Post(models.Model):
     modify_dt= models.DateTimeField('MODIFY DATE', auto_now=True)
     tags= TaggableManager('태그',blank=True)
     owner =models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='작성자', blank=True, null=True)
-    Category_CHOICES=(('F','해외주식'),('D', '국내주식'))
+    Category_CHOICES=(('F','해외주식'),('D', '국내주식'), ('R', '자유게시판'))
     category=models.CharField(verbose_name='게시판', max_length=1, choices=Category_CHOICES, default='F' )
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
      related_query_name='hit_count_generic_relation')
@@ -45,6 +45,9 @@ class Post(models.Model):
         if self.category=="D":
 
             return reverse('domestic:post_detail', args=(self.id,))
+        if self.category=="R":
+
+            return reverse('free:post_detail', args=(self.id,))
     
     def get_previous(self):
         return self.get_previous_by_modify_dt()
