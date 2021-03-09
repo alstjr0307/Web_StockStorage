@@ -5,13 +5,12 @@
 {%block list%}
 
     <div class="post-body">
-    <a href="{% url 'free:index'%}" style="text-decoration:none; font-family:'abc';font-size:30px;width:fit-content;"class="text-dark">자유게시판</a>
+    <a href="{% url 'free:index'%}" style="text-decoration:none; font-family:'abc';font-size:20px;width:fit-content;"class="text-dark">자유게시판</a>
     {% if request.get_full_path != "/free/add/" and request.get_full_path|slice:':13' != "/free/update/" %}
 
-    <button  type="button" OnClick="location.href='/free/add'" class="btn btn-sm btn-dark text-light" style="float:right; margin-top:20px; width:fit-content"><i class="fas fa-pencil-alt"></i></button>
+    <button  type="button" OnClick="location.href='/free/add'" class="btn btn-sm btn-dark text-light" style="float:right; margin-top:10px; width:fit-content"><i class="fas fa-pencil-alt"></i></button>
     {%endif%}<hr style="height:8px">
     </div>
 
-<br>
 
 {% endblock%}

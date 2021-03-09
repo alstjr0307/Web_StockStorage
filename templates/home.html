@@ -5,6 +5,27 @@
 {% block extra-style %}
 {% load hitcount_tags %}
 <style type="text/css">
+.responsive {
+    
+    font-size: 16px;
+
+
+    }
+@media (max-width: 1024px) {
+    .responsive{
+        font-size: 14px;}
+    }
+
+@media (max-width: 767px) {
+    .responsive{
+        font-size: 12px;
+}
+      }
+
+
+
+
+
 
 .home-image {
     background-image: url("{% static 'img/peter.jpg' %}");
@@ -54,11 +75,11 @@
     </div>
 
     <div style="height:10px"></div>
-    <div class="row text-left">
+    <div class="row text-left responsive ">
    
 
-        <div class="text-body fw-bold col-sm-6">
-            <a href="{% url 'domestic:index' %}"class="text-decoration-none fw-bold">
+        <div class="text-body fw-bold col-sm-6 ">
+            <a href="{% url 'domestic:index' %}"class="text-decoration-none fw-bold" >
             <p style="margin-top:10px;"><h4><i class="fas fa-won-sign"></i>&ensp;국내주식 게시판</h4></p></a>
             <hr width="200px" style="color:blue">
            
@@ -73,11 +94,11 @@
             <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
             solid #c0c0c0;text-decoration:none;margin-bottom:1px;margin-top:0px; margin-left:1px">
             {% endif%}
-            <div class="col-7" style="overflow-wrap:'hidden'"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}
-                <span style="color:red;">&ensp;<i class="fas fa-eye"></i>{% get_hit_count for post %}{% if post.number_of_comments > 0 %}<span style="color:red">&ensp;&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>{%endif%}
+            <div class="col-7" style="overflow-wrap:'hidden'"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}<br>
+                <span style="color:red;"><i class="fas fa-thumbs-up"></i>{{post.number_of_likes}}{% if post.number_of_comments > 0 %}<span style="color:red">&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>{%endif%}
                 </div></a>
             <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black; center"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
-            <div class="col-2 text-center" style="font-size:7px; margin-top:10px"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
+            <div class="col-2 text-center"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
             </div>
             </a>
 
@@ -110,11 +131,11 @@
                         <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
                         solid #c0c0c0;text-decoration:none;margin-bottom:1px;margin-top:0px; margin-left:1px">
                         {% endif%}
-                        <div class="col-7 "style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}
-                            <span style="color:red">&ensp;<i class="fas fa-eye"></i>{% get_hit_count for post %}{% if post.number_of_comments > 0 %}&ensp;&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}{%endif%}</span>
+                        <div class="col-7 "style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}<br>
+                            <span style="color:red"><i class="fas fa-thumbs-up"></i>{{post.number_of_likes}}{% if post.number_of_comments > 0 %}&ensp;&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}{%endif%}</span>
                             </div></a>
                         <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black; center"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
-                        <div class="col-2 text-center" style="font-size:7px; margin-top:10px"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
+                        <div class="col-2 text-center"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
                         </div>
                         </a>
 
