@@ -76,6 +76,7 @@
 .div_body{
     position:relative;
 }
+
 .post-body {
     width: 95%;
     margin: auto;
@@ -84,6 +85,28 @@
     text-decoration:none;
 
 }
+@media (max-width: @screen-sm) {
+    .post-body{
+      font-size: 14px;
+      width: 95%;
+      margin: auto;
+      font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+
+      text-decoration:none;}
+}
+
+@media (max-width: @screen-xs) {
+    .post-body{
+      font-size: 10px;
+      width: 95%;
+      margin: auto;
+      font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+
+      text-decoration:none;}
+}
+
+
+
 /* Other styles for the page not related to the animated dropdown */
 @font-face {
     font-family:'aab';
@@ -216,7 +239,7 @@
 </div>
 
 <footer class ="footer" style="position:fixed; z-index:30; height:20px; font-size:10px">
-    <div >Copytight &copy; 2019 </div>
+    <div >Copyright &copy; 2021 주식저장소 </div>
     
 </footer>
 {% block extra-script %}{% endblock %}
