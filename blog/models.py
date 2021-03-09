@@ -80,12 +80,12 @@ class Post(models.Model):
         if time < timedelta(minutes=1):
             return '방금 전'
         elif time < timedelta(hours=1):
-            return str(int(time.seconds / 60)) + '분전'
+            return str(int(time.seconds / 60)) + 'm'
         elif time < timedelta(days=1):
-            return str(int(time.seconds / 3600)) + '시간전'
+            return str(int(time.seconds / 3600)) + 'hr'
         elif time < timedelta(days=7):
             time = datetime.now(tz=timezone.utc).date() - self.create_dt.date()
-            return str(time.days) + '일전'
+            return str(time.days) + 'd'
         else:
             return False        
 
