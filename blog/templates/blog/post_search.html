@@ -12,21 +12,21 @@ a{
 {% block content %}
 
 
-
+<div class="post-body">
 {% if object_list %}
 
-<div class="post-body">
+
   <div class="text-dark row fw-bold" style="box-sizing: border-box; border-top: 1px solid #c0c0c0;border-bottom: 1px solid #c0c0c0; margin-bottom:8px; " ><div class="col-7 text-center">제목</div><div class="col-3 text-center">작성자</div><div class="col-2 text-center">날짜</div></div>
   <div class="list-group-flush row">
       {% for post in object_list %}
 
 
     <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
-    solid #c0c0c0;text-decoration:none;margin-bottom:1px;margin-top:0px; margin-left:3px">
-    <div class="col-7"style="overflow-wrap: break-word; "><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}       <span style="color:red;">&ensp;<i class="fas fa-eye"></i>{% get_hit_count for post %}{% if post.number_of_comments > 0 %}&ensp;&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
+    solid #c0c0c0;text-decoration:none;margin-bottom:1px;margin-top:0px;">
+    <div class="col-7"style="overflow-wrap: break-word; "><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}<span style="color:red;">&ensp;<i class="fas fa-eye"></i>{% get_hit_count for post %}{% if post.number_of_comments > 0 %}&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
       {% endif %}</a></div>
     <div class="col-3 text-center"style="overflow-wrap: break-word; "><a href="{{post.owner_absolute_url}}" style="color:black"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
-    <div class="col-2 text-center" style="font-size:7px; margin-top:8px"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
+    <div class="col-2 text-center" style="font-size:8px; margin-top:8px"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
     </div>
 
 
