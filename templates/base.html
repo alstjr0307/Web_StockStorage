@@ -104,15 +104,17 @@
     <meta http-equiv="X-UA-Compatible" content = "IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
-      .post-body {
-          width: 95%;
-          margin: auto;
-          font-family: "Lucida Grande", Verdana, Arial, sans-serif;
-          font-size: 16px;
-          text-decoration:none;
+      @media (max-width: 576px) {
+          .post-body{
+            font-size: 12px;
+            width: 95%;
+            margin: auto;
+            font-family: "Lucida Grande", Verdana, Arial, sans-serif;
 
+            text-decoration:none;}
       }
-      @media (max-width: @screen-sm) {
+
+      @media (max-width: 992px) {
           .post-body{
             font-size: 14px;
             width: 95%;
@@ -122,15 +124,15 @@
             text-decoration:none;}
       }
 
-      @media (max-width: @screen-xs) {
-          .post-body{
-            font-size: 10px;
-            width: 95%;
-            margin: auto;
-            font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+      .post-body {
+          width: 95%;
+          margin: auto;
+          font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+          font-size: 16px;
+          text-decoration:none;
 
-            text-decoration:none;}
       }
+
 
 
     </style>
