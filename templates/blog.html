@@ -10,13 +10,13 @@
    
     {% if request.get_full_path != "/foreign/add/" and request.get_full_path|slice:':16' != "/foreign/update/" %}
 
-    <button  type="button" OnClick="location.href='/foreign/add'" class="btn  btn-dark text-light" style="float:right; font-size: 0.7vw;margin-top:0px; width:fit-content"><i class="fas fa-pencil-alt"></i></button>
+    <button  type="button" OnClick="location.href='/foreign/add'" class="btn btn-sm btn-dark text-light" style="float:right;margin-top:0px; width:fit-content"><i class="fas fa-pencil-alt"></i></button>
     {%endif%}
-    <button type="button" OnClick="location.href='/foreign/'" class= "btn btn-dark text-light" style="width:fit-content; font-size:0.7vw;margin-top:0px;float:right;margin-right:0.5vw">
+    <button type="button" OnClick="location.href='/foreign/'" class= "btn btn-sm btn-dark text-light" style="width:fit-content; margin-top:0px;float:right;margin-right:0.5vw">
     <i class="fas fa-check" style="color:green"></i>전체글</button>
     
     
-     <button type="button" OnClick="location.href='/foreign/popular'" class= "btn btn-outline-dark " style="width:fit-content;font-size:0.7vw; margin-top:0px;float:right;margin-right:0.2vw">인기글</button>
+     <button type="button" OnClick="location.href='/foreign/popular'" class= "btn btn-sm btn-outline-dark " style="width:fit-content;margin-top:0px;float:right;margin-right:0.2vw">인기글</button>
     </div>
     <hr style="height:8px">
 
