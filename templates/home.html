@@ -11,22 +11,6 @@
 
 
     }
-@media (max-width: 1024px) {
-    .responsive{
-        font-size: 14px;}
-    }
-
-@media (max-width: 767px) {
-    .responsive{
-        font-size: 12px;
-}
-      }
-
-
-
-
-
-
 .home-image {
     background-image: url("{% static 'img/peter.jpg' %}");
     background-repeat: no-repeat;
@@ -38,6 +22,35 @@
     padding: 20px 0 0 20px;
 
 }
+@media (max-width: 1024px) {
+    .responsive{
+        font-size: 14px;}
+    }
+
+@media (max-width: 767px) {
+    .responsive{
+        font-size: 12px;
+
+      }
+    .home-image{
+    background-image: url("{% static 'img/peter.jpg' %}");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    height: 200px;
+    border-top: 7px solid #ccc;
+    border-bottom: 3px solid #ccc;
+    padding: 20px 0 0 20px;
+   
+    }
+}
+
+
+
+
+
+
+
  a{
     text-decoration:none;
 }

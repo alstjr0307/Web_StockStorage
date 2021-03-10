@@ -160,7 +160,7 @@ a {
       <span style="color:red;"><i class="fas fa-thumbs-up"></i>{{post.number_of_likes}}{% if post.number_of_comments > 0 %}&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
       {% endif %}</div></a>
         <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black;"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
-        <div class="col-2 text-center"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
+        <div class="col-2 text-center writer"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
     </div>
     </a>
 

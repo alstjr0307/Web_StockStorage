@@ -9,8 +9,8 @@
     {% if request.get_full_path != "/free/add/" and request.get_full_path|slice:':13' != "/free/update/" %}
 
     <button  type="button" OnClick="location.href='/free/add'" class="btn btn-sm btn-dark text-light" style="float:right; margin-top:10px; width:fit-content"><i class="fas fa-pencil-alt"></i></button>
-    {%endif%}<hr style="height:8px">
+    {%endif%}
     </div>
-
+<hr style="height:8px">
 
 {% endblock%}

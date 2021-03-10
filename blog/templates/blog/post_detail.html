@@ -20,9 +20,9 @@ a {
 {{ form.media }}
 <div class="post-body">
     <div class="row text-left" style="margin-bottom:0px">
-      <div style="overflow-wrap: break-word;" class="col-9"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="fs-3 title text-dark"> {{object.title}}</a></div>
+      <div style="overflow-wrap: break-word;" class="col-10"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="fs-3 title text-dark"> {{object.title}}</a></div>
       
-        <div class="text-right col-3" style="margin-top:10px">
+        <div class="text-right col-2" style="margin-top:10px">
         {% if user == object.owner %}
 
            <a href="{% url 'blog:update' object.id %}" style="color:black; float:right;"><span style="border:1px solid; border-radius:5px;margin-left:10px;">수정</span></a>
@@ -161,7 +161,7 @@ a {
       
     </div>
     <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black; "><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
-    <div class="col-2 text-center"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
+    <div class="col-2 text-center writer"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
     </div>
     </a>
 
