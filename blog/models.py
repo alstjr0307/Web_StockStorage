@@ -87,7 +87,7 @@ class Post(models.Model):
             time = datetime.now(tz=timezone.utc).date() - self.create_dt.date()
             return str(time.days) + '일전'
         else:
-            return False        
+            return self.create_dt
 
     @property
     def number_of_comments(self):
