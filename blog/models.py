@@ -127,4 +127,4 @@ class PostComment(models.Model):
             time = datetime.now(tz=timezone.utc).date() - self.created.date()
             return str(time.days) + '일전'
         else:
-            return False        
+            return self.likes.count()
