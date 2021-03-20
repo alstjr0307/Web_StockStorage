@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import AccessMixin
 from blog.models import Post
 from django.db.models import Q
 from .forms import UserCreationForm, ProfileForm
-
+from datetime import datetime
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from django.contrib.auth import views as auth_view
@@ -20,19 +20,34 @@ from django.shortcuts import render, redirect
 from django.utils.encoding import force_text
 from django.contrib.auth import login
 from .forms import CustomAuthenticationForm
-
+from bs4 import BeautifulSoup
+from urllib.request import Request, urlopen
 from blog.forms import PostSearchForm
+from yahoo_finance import Share
+import yfinance as yf
+import pandas_datareader.data as web
+from django.utils import timezone
+import matplotlib.pyplot as plt
+
 class HomeView(ListView):
     template_name='home.html'
     model = Post
     context_object_name='posts'
     paginate_by=20
-    
+
     def get_queryset(self):
         return Post.objects.order_by('-create_dt')
     def get_context_data(self,*args,**kwargs):
         context=super(HomeView, self).get_context_data(*args,**kwargs)
-        
+
+
+  
+        nasdaq_future= web.get_data_yahoo('BWEN', start='2021-01-01')
+
+
+
+       
+        context['nasdaq_future']=nasdaq_future.Close
         Post_Domestic=Post.objects.filter(category='D')
         Post_Foreign=Post.objects.filter(category='F')
         context['post_domestics'] = Post_Domestic.order_by('-create_dt')

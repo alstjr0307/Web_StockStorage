@@ -22,7 +22,7 @@ a {
     <div class="row text-left" style="margin-bottom:0px">
       <div style="overflow-wrap: break-word;" class="col-9"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="fs-3 title text-dark"> {{object.title}}</a></div>
       
-        <div class="text-right col-3" style="margin-top:10px">
+        <div class="text-right col-3" style="margin-top:10px; padding:0px">
         {% if user == object.owner %}
 
            <a href="{% url 'blog:update' object.id %}" style="color:black; float:right;"><span style="border:1px solid; border-radius:5px;margin-left:10px;">수정</span></a>
@@ -116,8 +116,8 @@ a {
 <form method="POST" action="{% url 'blog:post_popular_detail' object.id %}" style="width:100%">
     {% csrf_token %}
     <input type="hidden" value="{{object.id}}" name="blogpost_connected">
-    <textarea name="content" class="form-control" placeholder="댓글을 입력해주세요" style="width:90%; float:left;height:150px;" required></textarea>
-    <button type="submit" class="btn btn-secondary" style="float:right; width:8%">작성</button>
+    <textarea name="content" class="form-control" placeholder="댓글을 입력해주세요" style="width:80%; float:left;height:150px;" required></textarea>
+    <button type="submit" class="btn btn-secondary btn-sm" style="float:right; width:fit-content">작성</button>
 </form>
 </div>
 {% endif%}
@@ -145,13 +145,12 @@ a {
 
 
 
-<div class="list-group-flush row">
-    
+
     {% for post in object_list %}
 
     {%if post.id is object.id %}
     <div class="row text-dark"style=" background:#F0FFFF;box-sizing: border-box;border-bottom: 1px 
-    solid #c0c0c0;text-decoration:none;padding-bottom:5px;padding-top:5px; margin-left:1px">
+    solid #c0c0c0;text-decoration:none;padding-bottom:5px;padding-top:5px;">
     {% else %}
     <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
     solid #c0c0c0;text-decoration:none;padding-bottom:5px;padding-top:px; margin-left:1px">
@@ -160,13 +159,13 @@ a {
       <span style="color:red;"><i class="fas fa-thumbs-up"></i>{{post.number_of_likes}}{% if post.number_of_comments > 0 %}&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
       {% endif %}</div></a>
         <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black;"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
-        <div class="col-2 text-center writer"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
+        <div class="col-2 text-center" style="padding:0px">{{post.created_string}}</div>
     </div>
     </a>
 
     {% endfor %}
 
-</div>
+
 <hr style=" border:dashed 5px skyblue; background:none; margin-bottom:0px" >
 
 
