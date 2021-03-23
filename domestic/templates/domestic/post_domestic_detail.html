@@ -18,9 +18,9 @@ a {
 {{ form.media }}
 <div class="post-body">
     <div class="row text-left" style="margin-bottom:0px">
-      <div style="overflow-wrap: break-word;" class="col-9"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="fs-3 title text-dark"> {{object.title}}</a></div>
+      <div style="overflow-wrap: break-word;" class="col-10 fw-bold"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="fs-3 title text-dark"> {{object.title}}</a></div>
       
-        <div class="text-right col-3" style="margin-top:10px; padding:0px">
+        <div class="text-right col-2" style="margin-top:10px; padding:0px">
         {% if user == object.owner %}
 
            <a href="{% url 'domestic:update' object.id %}" style="color:black; float:right;"><span style="border:1px solid; border-radius:5px;margin-left:10px;">수정</span></a>
@@ -116,7 +116,7 @@ a {
 
 <div style="height:100px"></div>
  <div>
-    <a href="{% url 'domestic:popular_index'%}" style="text-decoration:none; font-family:'abc';font-size:20px;width:fit-content;"class="text-dark">국내주식</a>
+    <a href="{% url 'domestic:popular_index'%}" style="text-decoration:none; font-family:'title';font-size:20px;width:fit-content;"class="text-dark">국내주식</a>
 
     <button type="button" OnClick="location.href='/domestic/'" class= "btn btn-sm btn-dark" style="width:fit-content; margin-top:5px;float:right;margin-right:5px; ">
     <i class="fas fa-check"style="color:green"></i>전체글</button>
@@ -146,7 +146,7 @@ a {
     <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
     solid #c0c0c0;text-decoration:none;padding-bottom:5px; padding-top:5px;">
     {% endif%}
-    <div class="col-7"style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}<br><span style="color:red;"><i class="fas fa-thumbs-up"></i>{{number_of_likes}}{% if post.number_of_comments > 0 %}&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
+    <div class="col-7 fw-bold"style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}<br><span style="color:red;"><i class="fas fa-thumbs-up"></i>{{number_of_likes}}{% if post.number_of_comments > 0 %}&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
       {% endif %}</div></a>
     <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black; "><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
     <div class="col-2 text-center" style="padding:0px" >{{post.created_string}}</div>

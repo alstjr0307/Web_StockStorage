@@ -111,7 +111,7 @@ class TagCloudTV(TemplateView):
     template_name = 'taggit/taggit_cloud.html'
 
 class TaggedObjectLV(ListView):
-    template_name = 'blog/taggit_post_list.html'
+    template_name = 'taggit/taggit_post_list.html'
     model = Post
     paginate_by=20
     def get_queryset(self):

@@ -6,7 +6,7 @@
 <style type="text/css">
 
   a, div, button{
-   font-family: 'nanum';
+   font-family: 'nanum_roundR';
    text-decoration:none;
  }
 .navbar-custom {
@@ -84,7 +84,7 @@
 /* Other styles for the page not related to the animated dropdown */
 @font-face {
     font-family:'nanum';
-    font-weight:1000;
+
     src: local('Aab'),
         url("{% static 'font/aab.ttf' %}") format("truetype");   
 }
@@ -98,7 +98,21 @@
     src: local('Beauty'),
         url("{% static 'font/aaaa.ttf' %}") format("truetype");
 }
-
+@font-face {
+    font-family: 'nanum_roundB';
+    src: local('nanumRB'),
+        url("{% static 'font/NanumFontSetup_TTF_SQUARE_ROUND/NanumSquareRoundB.ttf' %}") format("truetype");
+}
+@font-face {
+    font-family: 'nanum_roundR';
+    src: local('nanumRR'),
+        url("{% static 'font/NanumFontSetup_TTF_SQUARE_ROUND/NanumSquareRoundR.ttf' %}") format("truetype");
+}
+@font-face {
+    font-family: 'nanum_roundEB';
+    src: local('nanumEB'),
+        url("{% static 'font/NanumFontSetup_TTF_SQUARE_ROUND/NanumSquareRoundEB.ttf' %}") format("truetype");
+}
 </style>
 <head>
     <html lang="ko">
@@ -110,7 +124,7 @@
       .post-body {
           width: 95%;
           margin: auto;
-          font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+
           font-size: 16px;
           text-decoration:none;
 
@@ -120,7 +134,7 @@
             font-size: 14px;
             width: 95%;
             margin: auto;
-            font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+
 
             text-decoration:none;}
       }
@@ -130,7 +144,7 @@
             font-size: 12px;
             width: 100%;
             margin: auto;
-            font-family: "Lucida Grande", Verdana, Arial, sans-serif;
+
 
             text-decoration:none;}
       }

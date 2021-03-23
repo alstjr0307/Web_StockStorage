@@ -5,7 +5,7 @@
 {%block list%}
 
     <div class="post-body">
-    <a href="{% url 'blog:index'%}" style="text-decoration:none; font-family:'abc';font-size:20px;width:fit-content;"class="text-dark">해외주식</a>
+    <a href="{% url 'blog:index'%}" style="text-decoration:none; font-family:'title';font-size:20px;width:fit-content;"class="text-dark">해외주식</a>
    
     {% if request.get_full_path != "/foreign/add/" and request.get_full_path|slice:':16' != "/foreign/update/" %}
 
