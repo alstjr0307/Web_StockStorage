@@ -21,22 +21,39 @@
 .tag-4 {font-size: 18px;}
 .tag-5 {font-size: 20px;}
 .tag-6 {font-size: 24px;}
+
+
 </style>
 {% endblock %}
 
 {% block content %}
-    <h1>종목 모음 </h1>
+    <h1 style="font-family:'abc'">종목 저장소 </h1>
     <br>
+    <table
+        id="table"
+        data-toggle="table"
+        data-pagination-detail="hidden"
+        data-search="true"
+        data-pagination="true"  
+        data-page-size="10"
+        data-clickable="true"
+        data-show-pagination-switch="false"
+        data-maintain-meta-data="true"
+        data-detail-formatter="LinkFormatter"
+        data-url="https://tofuant.s3.ap-northeast-2.amazonaws.com/static/json/myfile.json">
+        <thead>
+            <tr>
+                <th data-field="name" data-formatter="LinkFormatter">종목명</th>
+                <th data-field="market">설명</th>                            
+            </tr>
+        </thead>
+    </table>
+   
+    <script type="text/javascript">
+        var bootstrap_table= $('#table');
 
-    <div class="tag-cloud" style="width:90%; text-align:left">
-        {% load taggit_templatetags2_tags%}
-        {% get_tagcloud as tags %}
-        {% for tag in tags|dictsort:"num_times" %}
-        <span class= "text-dark tag-{{tag.weight|floatformat:0}}" style="text-align:left;">
-        <a href="{% url 'blog:tagged_object_list' tag.name %}" style="text-decoration:none;text-align:left; color: black">종목명: {{tag.name}}({{tag.num_times}})
-        </a>
-        </span>
-        <br>
-        {% endfor %}
-    </div>
+        function LinkFormatter(value, row, index) {
+        return "<a style='text-decoration:none' href='"+value+"'>"+value+"</a>";
+        }
+    </script>
 {% endblock %}

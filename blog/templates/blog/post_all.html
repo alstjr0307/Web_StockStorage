@@ -12,16 +12,16 @@ a{
 
 {% block title %}해외주식 게시판{%endblock%}
 
-{%block content%}
+{% block content %}
 
 
 <div class="post-body">
   <div class="text-dark row fw-bold" style="box-sizing: border-box;
   border-top: 1px solid #c0c0c0;border-bottom: 1px solid #c0c0c0; 
     " >
-  <div class="col-7 text-center">제목</div>
-  <div class="col-3 text-center">작성자</div>
-  <div class="col-2 text-center">시간</div>
+    <div class="col-7 text-center">제목</div>
+    <div class="col-3 text-center">작성자</div>
+    <div class="col-2 text-center">시간</div>
   </div>
 
     {% for post in posts %}

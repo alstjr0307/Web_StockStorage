@@ -21,8 +21,9 @@ from django.shortcuts import get_object_or_404
 from hitcount.views import HitCountDetailView
 from django.views.generic.edit import FormMixin
 from django.http import HttpResponseRedirect
+import json
 # Create your views here.
-
+from taggit.models import Tag
 class PostLV(ListView,FormView):
     form_class= PostSearchForm
     model = Post
@@ -110,9 +111,9 @@ class TagCloudTV(TemplateView):
     template_name = 'taggit/taggit_cloud.html'
 
 class TaggedObjectLV(ListView):
-    template_name = 'taggit/taggit_post_list.html'
+    template_name = 'blog/taggit_post_list.html'
     model = Post
-
+    paginate_by=20
     def get_queryset(self):
         return Post.objects.filter(tags__name=self.kwargs.get('tag'))
     
@@ -148,16 +149,18 @@ class SearchFormView(FormView, ListView):
 class PostCreateView(CustomLoginRequiredMixin, CreateView):
     model =Post
     form_class=PostForm
-
+    
     permission_denied_message='로그인이 필요합니다.'
 
     def get_initial(self):
         # Get the initial dictionary from the superclass method
         initial = super(PostCreateView,self).get_initial()
+
     # Copy the dictionary so we don't accidentally change a mutable dict
         initial = initial.copy()
+
         initial['category'] = 'F'
-       # etc...
+
         return initial
 
     def get_success_url(self):
@@ -167,7 +170,8 @@ class PostCreateView(CustomLoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
-  
+
+
 class PostChangeLV(CustomLoginRequiredMixin, ListView):
     template_name= 'blog/post_change_list.html'
 
@@ -177,9 +181,12 @@ class PostChangeLV(CustomLoginRequiredMixin, ListView):
 class PostUpdateView(OwnerOnlyMixin, UpdateView):
     model= Post
     fields= ['title', 'content', 'tags']
+
     def get_success_url(self):
         return reverse('blog:post_detail', 
                        args=[self.object.pk])
+
+
 
 
 class PostDeleteView(OwnerOnlyMixin, DeleteView):

@@ -16,7 +16,7 @@ class Post(models.Model):
     title = models.CharField(verbose_name='제목', max_length=40)
     slug = models.SlugField('SLUG', allow_unicode=True, help_text='one word for title alias.')
     description = models.CharField('DESCRIPTION', max_length=100, blank=True, help_text='simple description text.')
-    content = models.CharField('CONTENT', max_length=10000000000000,blank=False)
+    content = models.CharField('CONTENT', max_length=1000000000000,blank=False)
     create_dt = models.DateTimeField('CREATE DATE', auto_now_add=True)
     modify_dt= models.DateTimeField('MODIFY DATE', auto_now=True)
     tags= TaggableManager('태그',blank=True)

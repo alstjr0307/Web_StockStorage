@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     'free.apps.FreeConfig',
     'hitcount',
     'storages',
+    'yahoo_fin',
 
     
 ]

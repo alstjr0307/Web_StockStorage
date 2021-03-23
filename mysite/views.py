@@ -23,11 +23,10 @@ from .forms import CustomAuthenticationForm
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 from blog.forms import PostSearchForm
-from yahoo_finance import Share
-import yfinance as yf
-import pandas_datareader.data as web
+import math
 from django.utils import timezone
-import matplotlib.pyplot as plt
+from yahoo_fin import stock_info as si
+
 
 class HomeView(ListView):
     template_name='home.html'
@@ -39,15 +38,18 @@ class HomeView(ListView):
         return Post.objects.order_by('-create_dt')
     def get_context_data(self,*args,**kwargs):
         context=super(HomeView, self).get_context_data(*args,**kwargs)
+        data=[]
+        f=open('/srv/django/price.txt', 'r')
+        a=f.read()
+        data=a.split(" ")     
+        context['nasdaq']= data[6]
+        context['kospi'] = data[0]
+        context['kosdaq'] = data[3]
+        context['time'] = data[7]
 
-
-  
-        nasdaq_future= web.get_data_yahoo('BWEN', start='2021-01-01')
-
-
-
-       
-        context['nasdaq_future']=nasdaq_future.Close
+        context['kospi_df']= str(data[1]+data[2])
+        context['kosdaq_df']=str(data[4]+data[5])
+        context['nasdaq_df'] = data[7]+data[8]
         Post_Domestic=Post.objects.filter(category='D')
         Post_Foreign=Post.objects.filter(category='F')
         context['post_domestics'] = Post_Domestic.order_by('-create_dt')

@@ -12,16 +12,18 @@
 
     }
 .home-image {
-    background-color: #DAE9E4;
+    background-color: black;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
-    height: 500px;
-    border-top: 7px solid #ccc;
+    width:100%;
+    border-top: 3px solid #ccc;
     border-bottom: 3px solid #ccc;
-    padding: 20px 0 0 20px;
-    font-family: 'beauty';
+    border-left: 3px solid #ccc;
+    border-right: 3px solid #ccc;
     color: white;
+    font-size:16px;
+    height:fit-content;
 
 
 }
@@ -35,16 +37,21 @@
         font-size: 12px;
 
       }
-    .home-image{
-    background-color: white;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100%;
-    height: 200px;
-    border-top: 7px solid #ccc;
-    border-bottom: 3px solid #ccc;
-    padding: 20px 0 0 20px;
-   
+    .home-image {
+        background-color: black;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 100%;
+        
+        border-top: 3px solid #ccc;
+        border-bottom: 3px solid #ccc;
+        border-left: 3px solid #ccc;
+        border-right: 3px solid #ccc;
+        color: white;
+        height:fit-content;
+        font-size:12px;
+
+
     }
 }
 
@@ -86,18 +93,38 @@
 </style>
 {%endblock%}
 {%block content %}
+    <div style="color:red; font-family:'abc'">실시간 지수</div>
     <div class="home-image">
-
+    <span style="margin-left:5%">코스피 {{kospi}}&ensp;&ensp;  </span>
+        {% if kospi_df|slice:':1' == '+' %} <span style="color:red">
+        {% elif kospi_df|slice:':1' == '-' %} <span style="color:#4B89DC">
+        {%else%}<span style="color:grey">{%endif%}   {{kospi_df}}<br>
+    </span>     
+    <span style="margin-left:5%">코스닥 {{kosdaq}}&ensp;&ensp;  </span> 
+        {% if  kosdaq_df|slice:":1"  == "+" %} <span style="color:red">
+        {% elif kosdaq_df|slice:':1' == '-' %} <span style="color`:blue">
+        {%else%}<span style="color:grey">{%endif%}   {{kosdaq_df}}<br>
+    </span>
+    <span style="margin-left:5%">나스닥 {{nasdaq}}&ensp;&ensp;  </span>
+        {% if  nasdaq_df|slice:":1"  == "+" %} <span style="color:red">
+        {% elif nasdaq_df|slice:':1' == '-' %} <span style="color`:blue">
+        {%else%}<span style="color:grey">{%endif%}   {{nasdaq_df}}<br>
+    </span>
+    
     </div>
+        <div class="row" style="display:flex; flex-direction:row-reverse">
+            <a href="https://finance.naver.com/" style="font-size:10px;color:red;width:fit-content;">네이버 증권 바로가기</a>
+            <br>
 
-    <div style="height:10px"></div>
-    <div class="row text-left responsive ">
+        </div>
+    
+    <div class="row text-left responsive" style="display:flex">
    
 
-        <div class="text-body fw-bold col-sm-6 ">
+        <div class="text-body fw-bold col-sm-6 " style="margin-bottom:15px">
             <a href="{% url 'domestic:index' %}"class="text-decoration-none fw-bold" >
-            <p style="margin-top:10px;"><h4><i class="fas fa-won-sign"></i>&ensp;국내주식 게시판</h4></p></a>
-            <hr width="200px" style="color:blue">
+            <h4 style="margin-bottom:0px;"><i class="fas fa-won-sign"></i>&ensp;국내주식 게시판</h4></a>
+            <hr  width="190px" style="border:0;margin-top:1px;color:blue; height:3px">
            
 
     
@@ -123,15 +150,15 @@
  
 
         </div>
-        
+
  
         
         
         
         <div class="text-body fw-bold col-sm-6" >
             <a href="{% url 'blog:index' %}" class="text-decoration-none fw-bold">
-            <p style="margin-top:10px;" ><h4 id="test"><i class="fas fa-dollar-sign"></i>&ensp;해외주식 게시판</h4></p></a>
-            <hr width="200px"  style="color:blue">
+            <h4  style="margin-bottom:0px;"><i class="fas fa-dollar-sign"></i>&ensp;해외주식 게시판</h4></a>
+            <hr  width="180px" style="border:0;margin-top:1px;color:blue; height:3px">
             
 
                     {% for post in post_foreigns|slice:":9" %}
@@ -150,11 +177,14 @@
 
                     {% endfor %}
 
+        </div>
 
 
+<br>
+<br>
+<br>
+ </div>
 
-
-    </div>
 
 {%endblock%}
 
