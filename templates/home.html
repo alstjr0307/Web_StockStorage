@@ -12,7 +12,7 @@
 
     }
 .home-image {
-    background-color: black;
+    background-color: #404040;
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
@@ -35,7 +35,7 @@
 
       }
     .home-image {
-        background-color: black;
+        background-color: #404040;
         background-repeat: no-repeat;
         background-position: center;
         background-size: 100%;
@@ -86,8 +86,8 @@
 </style>
 {%endblock%}
 {%block content %}
-    <div style="border:4px #e0ffff; border-style:inset; background:black; margin-bottom:10px">
-        <div class="fw-bold" style="color:#f08080; font-size:20px; font-family:'nanum_roundEB'; border-bottom:1px solid #e0ffff">실시간 지수<br></div>
+    <div style="border:4px #e0ffff; border-style:inset; background-color:#404040; margin-bottom:20px">
+        <div  style="display:inline-block; width:100%;color:red;  border-bottom:1px solid #e0ffff;"><span class="fw-bold" style="float:left; display: inline-block;font-size:20px;">실시간 지수</span><span style="float:right;display: inline-block; margin-right:5px"><i class="fas fa-clock"></i>{{time}}</span></div>
         
         <div class="home-image" style="border-bottom: 1px solid #e0ffff">
             <span style="margin-left:5%">코스피 {{kospi}}&ensp;&ensp;  </span>
@@ -97,18 +97,18 @@
             </span>     
             <span style="margin-left:5%">코스닥 {{kosdaq}}&ensp;&ensp;  </span> 
                 {% if  kosdaq_df|slice:":1"  == "+" %} <span style="color:red">
-                {% elif kosdaq_df|slice:':1' == '-' %} <span style="color`:blue">
+                {% elif kosdaq_df|slice:':1' == '-' %} <span style="color:#4B89DC">
                 {%else%}<span style="color:grey">{%endif%}   {{kosdaq_df}}<br>
             </span>
             <span style="margin-left:5%">나스닥 {{nasdaq}}&ensp;&ensp;  </span>
                 {% if  nasdaq_df|slice:":1"  == "+" %} <span style="color:red">
-                {% elif nasdaq_df|slice:':1' == '-' %} <span style="color`:blue">
+                {% elif nasdaq_df|slice:':1' == '-' %} <span style="color:#4B89DC">
                 {%else%}<span style="color:grey">{%endif%}   {{nasdaq_df}}<br>
             </span>
         
         </div>
         <div class="row" style="display:flex; flex-direction:row-reverse; border-radius: 80px / 40px; border:1px #CCC">
-            <a href="https://finance.naver.com/" style="font-family:'nanum_roundEB';color:red;width:fit-content;">>>네이버 증권 바로가기</a>
+            <a href="https://finance.naver.com/" style=";color:red;width:fit-content;">>>네이버 증권 바로가기</a>
             <br>
 
         </div>
@@ -116,7 +116,7 @@
     <div class="row text-left responsive" style="display:flex">
    
 
-        <div class="text-body fw-bold col-sm-6 " style="margin-bottom:15px">
+        <div class="text-body fw-bold col-sm-6 " style="margin-bottom:15px;">
             <a href="{% url 'domestic:index' %}"class="text-decoration-none fw-bold" >
             <h4 style="margin-bottom:0px;font-family: 'nanum_roundEB"><i class="fas fa-won-sign"></i>&ensp;국내주식 게시판</h4></a>
             <hr  width="200px" style="border:0;margin-top:1px;color:blue; height:3px">
@@ -150,7 +150,7 @@
         
         
         
-        <div class="text-body fw-bold col-sm-6" >
+        <div class="text-body fw-bold col-sm-6"  >
             <a href="{% url 'blog:index' %}" class="text-decoration-none fw-bold">
             <h4  style="margin-bottom:0px; font-family:'nanum_roundEB"><i class="fas fa-dollar-sign"></i>&ensp;해외주식 게시판</h4></a>
             <hr  width="200px" style="border:0;margin-top:1px;color:blue; height:3px">

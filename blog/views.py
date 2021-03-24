@@ -109,6 +109,8 @@ class PostTAV(TodayArchiveView):
 
 class TagCloudTV(TemplateView):
     template_name = 'taggit/taggit_cloud.html'
+class ForeignTagCloudTV(TemplateView):
+    template_name = 'taggit/taggit_cloud_foreign.html'
 
 class TaggedObjectLV(ListView):
     template_name = 'taggit/taggit_post_list.html'

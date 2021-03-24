@@ -5,7 +5,7 @@ from blog.models import Post
 class PostAdmin(admin.ModelAdmin):
     list_display =('id','title', 'modify_dt', 'tag_list','category')
     list_filter=('modify_dt',)
-    search_fields=('title','content')
+    search_fields=('title','content', 'tag_list')
     prepopulated_fields={'slug':('title',)}
 
     def get_queryset(self, request):

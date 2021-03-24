@@ -45,7 +45,7 @@ class HomeView(ListView):
         context['nasdaq']= data[6]
         context['kospi'] = data[0]
         context['kosdaq'] = data[3]
-        context['time'] = data[7]
+        context['time'] = data[9]
 
         context['kospi_df']= str(data[1]+data[2])
         context['kosdaq_df']=str(data[4]+data[5])

@@ -192,26 +192,39 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
 
-         <li class="nav-item mx-1 btn btn-dark">
-          <a class="nav-link text-white" href="{% url 'domestic:index' %}">국내주식</a>
+        <li class="nav-item dropdown mx-1 btn btn-dark">
+        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          국내주식
+        </a>
+        <div class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'domestic:index' %}">전체글</a>
+          <a class="dropdown-item" href="{% url 'domestic:popular_index' %}">인기글</a>
+        </div>
         </li>
-         <li class="nav-item mx-1 btn btn-dark">
-          <a class="nav-link text-white" href="{% url 'blog:index' %}">해외주식</a>
+        <li class="nav-item dropdown mx-1 btn btn-dark">
+        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          해외주식
+        </a>
+        <div class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'blog:index' %}">전체글</a>
+          <a class="dropdown-item" href="{% url 'blog:popular_index' %}">인기글</a>
+        </div>
         </li>
         <li class="nav-item mx-1 btn btn-dark">
           <a class="nav-link text-white" href="{% url 'free:index' %}">자유게시판</a>
         </li>
-      
-        
-        <li class="nav-item dropdown mx-1 btn btn-dark">
-          <a class="nav-link dropdown-toggle bg-dark text-white"  href="#"  data-bs-toggle="dropdown" >Util</a>
-          <div class="dropdown-menu dropdown-menu-right animate slideIn">
-            <a class="dropdown-item" href="{% url 'blog:tag_cloud' %}">종목 저장소</a>
-            <div class="dropdown-divider" ></div>
-            <a class="dropdown-item" href="{% url 'search' %}">검색</a>
 
-          </div>
+        <li class="nav-item dropdown mx-1 btn btn-dark">
+        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          종목저장소
+        </a>
+        <div class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'blog:tag_cloud' %}">국내주식</a>
+          <a class="dropdown-item" href="{% url 'blog:tag_cloud_foreign' %}">나스닥</a>
+        </div>
         </li>
+
+
       </ul>
 
       <form class="form-inline my-2" action="/search/" method="GET">

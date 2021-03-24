@@ -1,0 +1,59 @@
+{% extends "base.html"%}
+{% block title %} taggit_cloud.html {%endblock%}
+
+{% block extra-style %}
+<style type= "text/css">
+ .a{
+     text-decoration:none;
+ }
+.tag-cloud{
+    width: 40%;
+    margin-left: 30px;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid orange;
+    background-color: #ffc;
+    
+}
+.tag-1 {font-size: 12px;}
+.tag-2 {font-size: 14px;}
+.tag-3 {font-size: 16px;}
+.tag-4 {font-size: 18px;}
+.tag-5 {font-size: 20px;}
+.tag-6 {font-size: 24px;}
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+    <h1 style="font-family:'title'">종목 저장소 </h1>
+    <br>
+    <table
+        id="table"
+        data-toggle="table"
+        data-pagination-detail="hidden"
+        data-search="true"
+        data-pagination="true"  
+        data-page-size="10"
+        data-clickable="true"
+        data-show-pagination-switch="false"
+        data-maintain-meta-data="true"
+        data-detail-formatter="LinkFormatter"
+        data-url="https://tofuant.s3.ap-northeast-2.amazonaws.com/static/json/nasdaq_list.json">
+        <thead>
+            <tr>
+                <th data-field="name" data-formatter="LinkFormatter">종목명</th>
+                <th data-field="market">티커</th>                            
+            </tr>
+        </thead>
+    </table>
+   
+    <script type="text/javascript">
+        var bootstrap_table= $('#table');
+
+        function LinkFormatter(value, row, index) {
+        return "<a style='text-decoration:none' href='"+value+"'>"+value+"</a>";
+        }
+    </script>
+{% endblock %}

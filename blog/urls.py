@@ -10,6 +10,7 @@ urlpatterns = [
 
     #/blog/tag/
     path('tag/', views.TagCloudTV.as_view(), name='tag_cloud'),
+    path('tag_foreign/', views.ForeignTagCloudTV.as_view(), name='tag_cloud_foreign')
 
     #/blog/tag/tagname/
     path('tag/<str:tag>/', views.TaggedObjectLV.as_view(), name='tagged_object_list'),
