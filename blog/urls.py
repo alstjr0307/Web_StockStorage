@@ -10,11 +10,11 @@ urlpatterns = [
 
     #/blog/tag/
     path('tag/', views.TagCloudTV.as_view(), name='tag_cloud'),
-    path('tag_foreign/', views.ForeignTagCloudTV.as_view(), name='tag_cloud_foreign')
+    path('tagforeign/', views.ForeignTagCloudTV.as_view(), name='tag_cloud_foreign'),
 
     #/blog/tag/tagname/
     path('tag/<str:tag>/', views.TaggedObjectLV.as_view(), name='tagged_object_list'),
-    
+    path('tagforeign/<str:tag>/', views.ForeignTaggedObjectLV.as_view(), name='tagged_object_list_foreign'),
     #Example: /blog/post/ (same as /blog/)
     path('post/', views.PostLV.as_view(), name='post_list'),
 

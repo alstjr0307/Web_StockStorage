@@ -71,11 +71,11 @@ a {
         {% load taggit_templatetags2_tags %}
         {% get_tags_for_object object as "tags" %}
         {% for tag in tags %}
-        <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}</a>
+        <a href="{% url 'blog:tagged_object_list_foreign' tag.name %}">{{tag.name}}</a>
         {% endfor %}
         &emsp;
 
-    <a href="{% url 'blog:tag_cloud' %}"> <span class= "btn btn-outline-info btn-sm">종목저장소</span> </a>
+    <a href="{% url 'blog:tag_cloud_foreign' %}"> <span class= "btn btn-outline-info btn-sm">종목저장소</span> </a>
     </div>
 
 

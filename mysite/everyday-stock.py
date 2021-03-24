@@ -15,13 +15,13 @@ soup_kp= BeautifulSoup(res_kp, "lxml")
 soup_kd= BeautifulSoup(res_kd, "lxml")
 
 nasdaq= soup_nd.select_one("#quote-header-info > div.My\(6px\).Pos\(r\).smartphone_Mt\(6px\) > div.D\(ib\).Va\(m\).Maw\(65\%\).Ov\(h\) > div > span.Trsdu\(0\.3s\).Fw\(b\).Fz\(36px\).Mb\(-4px\).D\(ib\)").string
-nasdaq_diff= soup_nd.select_one("#quote-header-info > div.My\(6px\).Pos\(r\).smartphone_Mt\(6px\) > div.D\(ib\).Va\(m\).Maw\(65\%\).Ov\(h\) > div > span.Trsdu\(0\.3s\).Fw\(500\).Pstart\(10px\).Fz\(24px\).C\(\$positiveColor\)").string
+nasdaq_diff= soup_nd.select_one("#quote-header-info > div.My\(6px\).Pos\(r\).smartphone_Mt\(6px\) > div.D\(ib\).Va\(m\).Maw\(65\%\).Ov\(h\) > div > span.Trsdu\(0\.3s\).Fw\(500\).Pstart\(10px\).Fz\(24px\)").string
 
 kospi= soup_kp.select_one("#quote-header-info > div.My\(6px\).Pos\(r\).smartphone_Mt\(6px\) > div.D\(ib\).Va\(m\).Maw\(65\%\).Ov\(h\) > div > span.Trsdu\(0\.3s\).Fw\(b\).Fz\(36px\).Mb\(-4px\).D\(ib\)").string
-kospi_diff= soup_kp.select_one("#quote-header-info > div.My\(6px\).Pos\(r\).smartphone_Mt\(6px\) > div.D\(ib\).Va\(m\).Maw\(65\%\).Ov\(h\) > div > span.Trsdu\(0\.3s\).Fw\(500\).Pstart\(10px\).Fz\(24px\).C\(\$negativeColor\)").string
+kospi_diff= soup_kp.select_one("#quote-header-info > div.My\(6px\).Pos\(r\).smartphone_Mt\(6px\) > div.D\(ib\).Va\(m\).Maw\(65\%\).Ov\(h\) > div > span.Trsdu\(0\.3s\).Fw\(500\).Pstart\(10px\).Fz\(24px\)").string
 
 kosdaq = soup_kd.select_one("#quote-header-info > div.My\(6px\).Pos\(r\).smartphone_Mt\(6px\) > div.D\(ib\).Va\(m\).Maw\(65\%\).Ov\(h\) > div > span.Trsdu\(0\.3s\).Fw\(b\).Fz\(36px\).Mb\(-4px\).D\(ib\)").string
-kosdaq_diff= soup_kd.select_one("#quote-header-info > div.My\(6px\).Pos\(r\).smartphone_Mt\(6px\) > div.D\(ib\).Va\(m\).Maw\(65\%\).Ov\(h\) > div > span.Trsdu\(0\.3s\).Fw\(500\).Pstart\(10px\).Fz\(24px\).C\(\$positiveColor\)").string
+kosdaq_diff= soup_kd.select_one("#quote-header-info > div.My\(6px\).Pos\(r\).smartphone_Mt\(6px\) > div.D\(ib\).Va\(m\).Maw\(65\%\).Ov\(h\) > div > span.Trsdu\(0\.3s\).Fw\(500\).Pstart\(10px\).Fz\(24px\)").string
 all=kospi+" " +kospi_diff+ " "+ kosdaq+" "+kosdaq_diff+" " + nasdaq+" " + nasdaq_diff+ " " +datetime.datetime.now().strftime("%H:%M")
 t= datetime.datetime.now()
 fname="/srv/django/price.txt"
