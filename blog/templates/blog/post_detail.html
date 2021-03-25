@@ -7,6 +7,9 @@
 {% block extra-style %}
 <style>
 
+img {
+  width:90%;
+}
 a {
     
     text-decoration:none;
@@ -43,9 +46,13 @@ a {
 
     <br>
 
+    <!--내용-->
     <div style="overflow-wrap: break-word;">
         {{object.content|safe}}
     </div>
+
+
+
     <br style="height:50px">
     <div style="text-align:center">
         {% if user.is_authenticated %}
