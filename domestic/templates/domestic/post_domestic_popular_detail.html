@@ -82,7 +82,7 @@ a {
 <div class="list-group-flush row">
 
 {% for comment in comments %}
-        <div class="text-dark"style="font-family:'nanum_roundB';border-radius:40px 80px;border: 1px solid #c0c0c0;text-decoration:none;background-color:#DCEBFF;margin-bottom:10px;margin-top:0px; margin-left:3px">
+        <div class="text-dark"style="font-family:'nanum_roundB';border-radius:40px 80px;border: 1px solid #e9e9e9;text-decoration:none;background-color:#DCEBFF;margin-bottom:10px;margin-top:0px; margin-left:3px">
         <span><i class="fas fa-user"></i></span>&ensp;{{comment.writer.first_name}} 
          
          {% if comment.writer == user %}<span style="float:right">
@@ -104,7 +104,7 @@ a {
 </div>
 <hr>
 {%if comment_form == '1' %}
-<div style="border-bottom:1px solid #c0c0c0; width:100%; overflow:hidden; height:auto; padding-bottom:10px">
+<div style="border-bottom:1px solid #e9e9e9; width:100%; overflow:hidden; height:auto; padding-bottom:10px">
 <form method="POST" action="{% url 'domestic:post_detail' object.id %}" style="width:100%">
     {% csrf_token %}
     <input type="hidden" value="{{object.id}}" name="blogpost_connected">
@@ -127,7 +127,7 @@ a {
     </div>
 
 <div class="text-dark row fw-bold" style="box-sizing: border-box;
- border-top: 1px solid #c0c0c0;border-bottom: 1px solid #c0c0c0; 
+ border-top: 1px solid #e9e9e9;border-bottom: 1px solid #e9e9e9; 
 " >
  <div class="col-7 text-center">제목</div>
  <div class="col-3 text-center">작성자</div>
@@ -143,10 +143,10 @@ a {
 
     {%if post.id is object.id %}
     <div class="row text-dark"style=" background:#F0FFFF;box-sizing: border-box;border-bottom: 1px 
-    solid #c0c0c0;text-decoration:none; padding-bottom:5px; padding-top:5px; ">
+    solid #e9e9e9;text-decoration:none; padding-bottom:5px; padding-top:5px; ">
     {% else %}
     <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
-    solid #c0c0c0;text-decoration:none; padding-bottom:5px; padding-top:5px;">
+    solid #e9e9e9;text-decoration:none; padding-bottom:5px; padding-top:5px;">
     {% endif%}
     <div class="col-7 fw-bold"style="overflow-wrap: break-word;"><a href='{{post.get_popular_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}<br><span style="color:red;"><i class="fas fa-thumbs-up"></i>{{post.number_of_likes}}{% if post.number_of_comments > 0 %}&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
       {% endif %}</div></a>
