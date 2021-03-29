@@ -2,9 +2,10 @@
 {% block extra-style %}
 <style>
 
-a{
-    text-decoration:none;
-}
+ a{
+   color:black;
+   text-decoration:none;
+ }
 </style>
 {%endblock%}
 {% block title %} 작성자 검색{%endblock%}
@@ -36,7 +37,7 @@ a{
    <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
     solid #e9e9e9;text-decoration:none;padding-bottom:5x;padding-top:5px;">
       <div class="col-7" style="overflow-wrap: break-word; ">
-        <a class="fw-bold" href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="post" >{{post.title}}<br>
+        <a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="post" >{{post.title}}<br>
       
           <span style="color:red"><i class="fas fa-thumbs-up"></i>{{ post.number_of_likes }} 
             {% if post.number_of_comments > 0 %}&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}{% endif %}
