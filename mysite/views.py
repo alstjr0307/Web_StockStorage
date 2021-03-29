@@ -50,10 +50,14 @@ class HomeView(ListView):
         context['kospi_df']= str(data[1]+data[2])
         context['kosdaq_df']=str(data[4]+data[5])
         context['nasdaq_df'] = data[7]+data[8]
+
+
         Post_Domestic=Post.objects.filter(category='D')
         Post_Foreign=Post.objects.filter(category='F')
         context['post_domestics'] = Post_Domestic.order_by('-create_dt')
         context['post_foreigns']=Post_Foreign.order_by('-create_dt')
+        
+        
         return context
     
 

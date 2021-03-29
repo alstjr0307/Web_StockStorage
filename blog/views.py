@@ -57,7 +57,7 @@ class PostDV(HitCountDetailView, FormView, MultipleObjectMixin,FormMixin):
         context['posts'] = Post.objects.filter(category='F')
         if self.request.user.is_authenticated:
             context['comment_form'] = '1'
-
+        
         #좋아요 기능 구현
         likes_connected = get_object_or_404(Post, id=self.kwargs['pk'])
         liked = False

@@ -5,12 +5,7 @@
 {% block extra-style %}
 {% load hitcount_tags %}
 <style type="text/css">
-.responsive {
-    
-    font-size: 16px;
 
-
-    }
 .home-image {
     background-color: #404040;
     background-repeat: no-repeat;
@@ -19,21 +14,12 @@
     width:100%;
 
     color: white;
-    font-size:16px;
+
     height:fit-content;
 
 
 }
-@media (max-width: 1024px) {
-    .responsive{
-        font-size: 14px;}
-    }
 
-@media (max-width: 767px) {
-    .responsive{
-        font-size: 12px;
-
-      }
     .home-image {
         background-color: #404040;
         background-repeat: no-repeat;
@@ -42,11 +28,11 @@
 
         color: white;
         height:fit-content;
-        font-size:12px;
+        
 
 
     }
-}
+
 
 
 
@@ -56,11 +42,12 @@
 
  a{
     text-decoration:none;
+    color:black;
 }
 .title {
     color: #c80;
     font-weight: bold;
-
+    
 
 }
 
@@ -83,13 +70,46 @@
 .div_body{
     position:relative;
 }
+    *{margin:0;padding:0;}
+    ul,li{list-style:none;}
+    .slide{height:30px;overflow:hidden;}
+    .slide ul{height:calc(100% * 4);animation:slide 16s infinite;}
+    .slide li{height:calc(100% / 4);}
+    .slide li:nth-child(1){background:#ffa;}
+    .slide li:nth-child(2){background:#faa;}
+    .slide li:nth-child(3){background:#afa;}
+    .slide li:nth-child(4){background:#aaf;}
+    @keyframes slide {
+      0% {margin-top:0;}
+      10% {margin-top:0;}
+      25% {margin-top:-28px;}
+      35% {margin-top:-28px;}
+      50% {margin-top:-56px;}
+      60% {margin-top:-56px;}
+      75% {margin-top:-84px;}
+      85% {margin-top:-84px;}
+      100% {margin-top:0;}
+    }
+
+
 </style>
 {%endblock%}
 {%block content %}
-    <div style="border:4px #e0ffff; border-style:inset; background-color:#404040; margin-bottom:20px">
-        <div  style="display:inline-block; width:100%;color:red;  border-bottom:1px solid #e0ffff;"><span class="fw-bold" style="float:left; display: inline-block;font-size:20px;">실시간 지수</span><span style="float:right;display: inline-block; margin-right:5px"><i class="fas fa-clock"></i>{{time}}</span></div>
+    <div  class="slide"style= "border:1px solid #e0ffff; margin-bottom:20px;">
+<span style="font-family:'경기천년바탕'"><i class="fas fa-fire"></i>실시간 인기종목</span>
+<ul style="padding-left:5px; width:60%; float:right">
+
+  <li class="4">제넥신</li>
+  <li class="1">효성중공업</li>
+  <li class="5">한국전력공사</li>
+  <li>X</li>
+
+</ul>
+</div>
+    <div style=" border:4px #e0ffff; border-style:inset; background-color:#404040; margin-bottom:20px">
+        <div  style="font-family:'경기천년제목';display:inline-block; width:100%;color:#fffff0;  border-bottom:1px solid #e0ffff;"><span style="margin-left:5%;float:left;display: inline-block;font-size:20px;"><i style="margin-top:1px"class="fas fa-chart-bar"></i>실시간 지수</span><span style="float:right;display: inline-block; margin-right:5px"><i class="fas fa-clock"></i>{{time}}</span></div>
         
-        <div class="home-image" style="border-bottom: 1px solid #e0ffff">
+        <div class="home-image" style="font-family:'경기천년바탕'; border-bottom: 1px solid #e0ffff">
             <span style="margin-left:5%">코스피 {{kospi}}&ensp;&ensp;  </span>
                 {% if kospi_df|slice:':1' == '+' %} <span style="color:red">
                 {% elif kospi_df|slice:':1' == '-' %} <span style="color:#4B89DC">
@@ -107,19 +127,22 @@
             </span>
         
         </div>
-        <div class="row" style="display:flex; flex-direction:row-reverse; border-radius: 80px / 40px; border:1px #CCC">
-            <a href="https://finance.naver.com/" style=";color:red;width:fit-content;">>>네이버 증권 바로가기</a>
+        <div style="display:flex; flex-direction:row-reverse; border-radius: 80px / 40px; border:1px #CCC">
+            <a href="https://finance.naver.com/" style="font-family:'경기천년바탕';color: #f0fff0;width:fit-content;">
+                <img src="{% static 'img/357152.png' alt='' %}" style="width:15px; height:15px;">
+                증권
+            </a>
             <br>
 
         </div>
     </div>
-    <div class="row text-left responsive" style="display:flex">
+    <div class="row text-left" style="display:flex">
    
 
         <div class="text-body col-sm-6 " style="margin-bottom:15px;">
             
-            <a href="{% url 'domestic:index' %}"class="text-decoration-none fw-bold" style="color:#2E3235" >
-            <h5 style="margin-bottom:0px;font-family: 'nanum_roundR'; "><i class="fas fa-won-sign"></i>&ensp;국내주식 게시판</h5></a>
+            <a href="{% url 'domestic:index' %}"class="text-decoration-none fw-bold" style="display:block;width:fit-content;color:#2E3235" >
+            <h5 style="margin-bottom:0px;font-family: '경기천년제목'; width:fit-content ">국내주식 게시판</h5></a>
             <hr  width="180px" style="border:0;margin-top:2px;color:#5A78AF; height:2px">
            
 
@@ -129,7 +152,7 @@
             <div class="row text-dark"style="box-sizing: border-box; border-bottom: 1px 
             solid #e9e9e9;text-decoration:none;margin-bottom:1px;margin-top:0px;">
 
-                <div class="col-7" style="overflow-wrap:'hidden'"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}<br>
+                <div class="col-7" style="overflow-wrap:'hidden'"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="post">{{post.title}}<br>
                     <span style="color:red;"><i class="fas fa-thumbs-up"></i>{{post.number_of_likes}}{% if post.number_of_comments > 0 %}<span style="color:red">&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>{%endif%}
                     </a>
                 </div>
@@ -152,8 +175,8 @@
         
         
         <div class="text-body col-sm-6"  >
-            <a href="{% url 'blog:index' %}" class="text-decoration-none fw-bold" style=" color: #2E3235">
-            <h5  style="margin-bottom:0px; font-family:'nanum_roundR';"><i class="fas fa-dollar-sign"></i>&ensp;해외주식 게시판</h5></a>
+            <a href="{% url 'blog:index' %}" class="text-decoration-none fw-bold"  style="display:block;width:fit-content;color:#2E3235">
+            <h5  style="margin-bottom:0px; font-family:'경기천년제목';">해외주식 게시판</h5></a>
             <hr  width="170px" style="border:0;margin-top:2px;color:#5A78AF; height:2px">
             
 
@@ -163,7 +186,7 @@
                         <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
                         solid #e9e9e9;text-decoration:none;margin-bottom:1px;margin-top:0px;">
 
-                        <div class="col-7 "style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' style="color:black" >{{post.title}}<br>
+                        <div class="col-7 "style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class='post' >{{post.title}}<br>
                             <span style="color:red"><i class="fas fa-thumbs-up"></i>{{post.number_of_likes}}{% if post.number_of_comments > 0 %}&ensp;&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}{%endif%}</span>
                             </a></div>
                         <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black; center"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
@@ -183,7 +206,31 @@
 
 
 {%endblock%}
+{% block extra-script %}
+<script>
+function sortList() {
+  var list = document.getElementById("listToSort");
+  
+  var item = list.firstElementChild;
+  while(item) {
+  	item.style.marginTop = ((parseFloat(item.className) - 1) * 20) + "px";
+    item = item.nextElementSibling;
+  }
+  
+}
+sortList();
 
+
+// Testing example below
+var item1 = document.getElementById("listToSort").getElementsByClassName("1")[0];
+var item2 = document.getElementById("listToSort").getElementsByClassName("2")[0];
+
+item1.className = "2";
+item2.className = "1";
+
+setTimeout(function() {sortList();},1500);
+</script>
+{% endblock%}
 {%block footer%}
 
 {% endblock %}

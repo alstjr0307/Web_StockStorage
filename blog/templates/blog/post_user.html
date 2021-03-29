@@ -33,8 +33,20 @@ a{
     
     {% for post in posts %}
 
-    <a href='{{post.get_absolute_url}}' style="box-sizing: border-box;border-bottom: 1px solid #e9e9e9;text-decoration:none;margin-bottom:1px;margin-top:0px; margin-left:1px"><div class="row text-dark"><div class="col-7 fw-bold">&ensp;{{post.title}}</div><div class="col-3 text-center"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</div><div class="col-2 text-center" style="padding:0px">{{post.created_string}}</div></div>
-    </a>
+   <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
+    solid #e9e9e9;text-decoration:none;padding-bottom:5x;padding-top:5px;">
+      <div class="col-7" style="overflow-wrap: break-word; ">
+        <a class="fw-bold" href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="post" >{{post.title}}<br>
+      
+          <span style="color:red"><i class="fas fa-thumbs-up"></i>{{ post.number_of_likes }} 
+            {% if post.number_of_comments > 0 %}&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}{% endif %}
+          </span>
+        </a>
+        
+      </div>
+      <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black; "><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
+      <div class="col-2 text-center"style="padding:0px">{{post.created_string}}</div>
+    </div>
     {% endfor %}
 
 
