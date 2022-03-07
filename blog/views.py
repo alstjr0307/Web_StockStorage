@@ -24,6 +24,7 @@ from django.http import HttpResponseRedirect
 import json
 # Create your views here.
 from taggit.models import Tag
+
 class PostLV(ListView,FormView):
     form_class= PostSearchForm
     model = Post
@@ -57,6 +58,7 @@ class PostDV(HitCountDetailView, FormView, MultipleObjectMixin,FormMixin):
         context['posts'] = Post.objects.filter(category='F')
         if self.request.user.is_authenticated:
             context['comment_form'] = '1'
+
         
         #좋아요 기능 구현
         likes_connected = get_object_or_404(Post, id=self.kwargs['pk'])
@@ -72,40 +74,23 @@ class PostDV(HitCountDetailView, FormView, MultipleObjectMixin,FormMixin):
         self.object= self.get_object()
         form = self.get_form()		# form데이터 받아오기	
 
-        if form.is_valid():			# form의 내용이 정상적일 경우
+        if form.is_valid():	
+            		# form의 내용이 정상적일 경우
             return self.form_valid(form)	#form_valid함수 콜
         else:			
             return self.form_invalid(form)
 
     def form_valid(self, form):	# form_valid함수
         comment = form.save(commit=False)	# form데이터를 저장. 그러나 쿼리실행은 x
-        comment.blogpost_connected = get_object_or_404(Post, pk=self.object.pk) # photo object를 call하여 photocomment의 photo로 설정(댓글이 속할 게시글 설정) pk로 pk설정 pk - photo id 
+        comment.blogpost_connected = get_object_or_404(Post, pk=self.object.pk) 
         comment.writer = self.request.user
+        
         # 댓글쓴 사람 설정. 
-        comment.save()	# 수정된 내용대로 저장. 쿼리실행
+        comment.save()
+        	# 수정된 내용대로 저장. 쿼리실행
         return super(PostDV, self).form_valid(form)
 
 
-class PostAV(ArchiveIndexView):
-    model = Post
-    date_field = 'modify_dt'
-
-class PostYAV(YearArchiveView):
-    model =Post
-    date_field = 'modify_dt'
-    make_object_list= True
-
-class PostMAV(MonthArchiveView) :
-    model = Post
-    date_field = 'modify_dt'
-
-class PostDAV(DayArchiveView):
-    model = Post
-    date_field = 'modify_dt'
-
-class PostTAV(TodayArchiveView):
-    model=Post
-    date_field = 'modify_dt'
 
 class TagCloudTV(TemplateView):
     template_name = 'taggit/taggit_cloud.html'
@@ -221,7 +206,7 @@ class PostUserLV(ListView):
     def get_context_data(self, **kwargs):
         context= super().get_context_data(**kwargs)
         context['owner_name']=self.kwargs['owner_name']
-        context['owner']= self.kwargs['owner']  
+        context['owner']= self.kwargs['owner']
         return context
 
     def get_queryset(self):

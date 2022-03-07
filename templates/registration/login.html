@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
 {% block title %}로그인{% endblock title %}
-
+{% load socialaccount %}
 {% block content %}
-    <h2 style="font-family:'abc'">로그인</h2>
+<h2 style="font-family:'abc'">로그인</h2></center>
+
+    
     <br>
     <br>
 
@@ -11,8 +13,14 @@
         {% csrf_token %}
         {% bootstrap_form form %}
         <br>
+        
         <input type="submit" id= "subbutton" class="btn btn-outline-info" value="로그인"> 
-    </form>
+    </center></form>
+    <div class="col-md-6">
+        <a role="button" class= "btn  btn-block btn-lg" style="background-color: yellow; font-weight:bold"
+        href="{% url 'kakao' %}">
+        <i class="fas fa-comment"></i> 카카오로그인</a>
+    </div>
 
 {% endblock content %}
 {% block extra-script%}

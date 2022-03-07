@@ -19,9 +19,9 @@
 {{ form.media }}
 <div class="post-body">
     <div class="row text-left" style="margin-bottom:0px">
-      <div style="overflow-wrap: break-word;" class="col-9"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="fs-3 title text-dark"> {{object.title}}</a></div>
+      <div style="overflow-wrap: break-word;" class="col-10 fw-bold"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="fs-3 title"> {{object.title}}</a></div>
       
-        <div class="text-right col-3" style="margin-top:10px">
+        <div class="text-right col-2" style="margin-top:10px; padding:0px">
         {% if user == object.owner %}
 
            <a href="{% url 'free:update' object.id %}" style="color:black; float:right;"><span style="border:1px solid; border-radius:5px;margin-left:10px;">수정</span></a>
@@ -53,56 +53,47 @@
           <form action="{% url 'free:blogpost_like' object.id %}" method="POST">
             {% csrf_token %}
             {% if post_is_liked %}
-              <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-outline-danger"><i class="fas fa-thumbs-up"></i><strong class="text-danger">  {{ number_of_likes }}<br>추천 취소</strong></button>
+              <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-sm btn-outline-danger"><i class="fas fa-thumbs-up"></i><strong class="text-danger">  {{ number_of_likes }}<br>추천 취소</strong></button>
             {% else %}
-              <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-outline-danger"><i class="fas fa-thumbs-up"></i><strong class="text-danger"> {{ number_of_likes }}<br>추천</strong></button>
+              <button type="submit" name="blogpost_id" value="{{object.id}}" class="btn btn-sm btn-outline-danger"><i class="fas fa-thumbs-up"></i><strong class="text-danger"> {{ number_of_likes }}<br>추천</strong></button>
             {% endif %}
           </form>
           {% else %}
-            <a class="btn btn-outline-danger" href="{% url 'login' %}?next={{request.path}}"><i class="fas fa-thumbs-up"></i><strong class="text-danger">{{ number_of_likes }}<br>좋아요를 누르기 위해서 로그인해주세요</strong></a>
+            <a class="btn btn-outline-danger btn-sm" href="{% url 'login' %}?next={{request.path}}"><i class="fas fa-thumbs-up"></i><strong class="text-danger">{{ number_of_likes }}<br>좋아요를 누르기 위해서 로그인해주세요</strong></a>
           {%endif%}
 
     </div>
     <hr style="margin-top:10px; margin-bottom:10px">
     
-    <div >
-        <b>종목명 <i class="fas fa-tag"></i></b>
-        {% load taggit_templatetags2_tags %}
-        {% get_tags_for_object object as "tags" %}
-        {% for tag in tags %}
-        <a href="{% url 'free:tagged_object_list' tag.name %}" style="color:red">{{tag.name}}</a>
-        {% endfor %}
-        &emsp;
 
-    <a href="{% url 'free:tag_cloud' %}"> <span class= "btn btn-outline-info btn-sm">종목저장소</span> </a>
-    </div>
 <hr style=" border:dotted 5px skyblue; background:none" >
 
 
-
-<div class="list-group-flush row">
+<div class="row">
 
 {% for comment in comments %}
-        <div class="text-dark"style="font-family:'beauty';border-radius:40px 80px;border: 1px solid #e9e9e9;text-decoration:none;background-color:#DCEBFF;margin-bottom:10px;margin-top:0px; margin-left:3px">
-        <span><i class="fas fa-user"></i></span>&ensp;{{comment.writer.first_name}} 
+        <div class="text-dark "style="height:30px; font-family:'nanum_roundB';border-radius:40px 80px;border: 1px solid #e9e9e9;text-decoration:none;background-color:#DCEBFF;margin-bottom:10px;margin-top:0px; padding-left:5px; padding-right:5px;">
+        <a href='{{comment.owner_absolute_url}}' style="color:black;height:30px; vertical-align:middle">&ensp;<i class="fas fa-user"></i>&ensp;{{comment.writer.first_name}}</a>
          
+
+         <span style="float:right;line-height:30px; vertical-align: middle;"><i class="far fa-clock"></i>{{comment.created_string}}</span><span style="float:right">
          {% if comment.writer == user %}<span style="float:right">
-         <form action="{% url 'free:comment_delete' comment.id %}" onclick="return confirm('정말 삭제하시겠습니까?');" method="post" style="display: inline;">{%csrf_token%}
-            {% csrf_token %}
+         <form action="{% url 'domestic:comment_delete' comment.id %}" onclick="return confirm('정말 삭제하시겠습니까?');" method="post" style="display: inline;">{%csrf_token%}
             <input type="hidden" name="comment_id" value="{{ comment.id }}" />
 
-<button type="submit" class="btn" style="padding-top:0px; padding-bottom:0px">
-    <i class="fas fa-trash-alt"></i> 
-</button>
+            <button type="submit" class="btn" style="padding-top:0px; padding-bottom:0px">
+                <i class="fas fa-trash-alt"></i> 
             </button>
+
         </form>
-         
+        </span>
         {%endif%}
-         <span style="float:right"><i class="far fa-clock"></i>{{comment.created_string}}</span><span style="float:right">
         </div>
         <div style="margin-bottom:7px;overflow-wrap: break-word;"> {{ comment.content|linebreaks }} </div>
 {% endfor %}
 </div>
+
+
 <hr>
 {%if comment_form == '1' %}
 <div style="border-bottom:1px solid #e9e9e9; width:100%; overflow:hidden; height:auto; padding-bottom:10px">
@@ -130,21 +121,21 @@
 
 
 
-<div class="list-group-flush row" style=>
+<div>
     
     {% for post in object_list %}
 
     {%if post.id is object.id %}
     <div class="row text-dark"style=" background:#F0FFFF;box-sizing: border-box;border-bottom: 1px 
-    solid #e9e9e9;text-decoration:none;padding-bottom:4px;padding-top:4px; margin-left:1px">
+    solid #e9e9e9;text-decoration:none;padding-bottom:4px;padding-top:4px; ">
     {% else %}
     <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
-    solid #e9e9e9;text-decoration:none; padding-bottom:4px;padding-top:4px; margin-left:1px">
+    solid #e9e9e9;text-decoration:none; padding-bottom:4px;padding-top:4px;">
     {% endif%}
-    <div class="col-7"style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}'  class="post" >{{post.title}}<br><span style="color:red;"><i class="fas fa-thumbs-up"></i>{{post.number_of_likes}}{% if post.number_of_comments > 0 %}&ensp;&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
+    <div class="col-7"style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}'  class="post" >{{post.title}}<br><span class="theme-color"><i class="fas fa-thumbs-up"></i>{{post.number_of_likes}}{% if post.number_of_comments > 0 %}&ensp;&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
       {% endif %}</div></a>
     <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black; "><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
-    <div class="col-2 text-center" style="font-family:'beauty'"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
+    <div class="col-2 text-center"style="color:grey" >{{post.created_string}}</div>
     </div>
     </a>
 
@@ -224,7 +215,7 @@
   <form  action="/free/search/"  method="GET" style="text-align:center; padding-top:20px">
       검색: &ensp;<input type= "text" name="search_word" required>
 
-      <input type="submit" value="검색" class = "btn btn-primary btn-sm">
+      <input type="submit" value="검색" class = "btn btn-success btn-sm">
   </form>
   <br>
   <br>

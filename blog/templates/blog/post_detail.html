@@ -27,7 +27,7 @@ a {
       <div style="overflow-wrap: break-word;" class="col-10 fw-bold"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="fs-3 title"> {{object.title}}</a></div>
       
         <div class="text-right col-2" style="margin-top:10px;padding:0px  ">
-        {% if user == object.owner %}
+        {% if user == object.owner or user.is_superuser %}
 
            <a href="{% url 'blog:update' object.id %}" style="color:black; float:right;"><span style="border:1px solid; border-radius:5px;margin-left:10px;">수정</span></a>
           <a href="{% url 'blog:delete' object.id %}" style="color:black; float:right;"><i class="fas fa-trash-alt"></i></a>
@@ -91,13 +91,15 @@ a {
 
 
 
-<div class="list-group-flush row">
+<div class="row">
 
 {% for comment in comments %}
-        <div class="text-dark"style="font-family:'nanum_roundB';border-radius:40px 80px;border: 1px solid #e9e9e9;text-decoration:none;background-color:#DCEBFF;margin-bottom:10px;margin-top:0px; margin-left:3px">
-        <a href='{{object.owner_absolute_url}}' style="color:black">&ensp;<i class="fas fa-user"></i>&ensp;{{comment.writer.first_name}}</a>
+        <div class="text-dark "style="height:30px; font-family:'nanum_roundB';border-radius:40px 80px;border: 1px solid #e9e9e9;text-decoration:none;background-color:#DCEBFF;margin-bottom:10px;margin-top:0px; padding-left:5px; padding-right:5px;">
+        <a href='{{comment.owner_absolute_url}}' style="color:black;height:30px; vertical-align:middle">&ensp;<i class="fas fa-user"></i>&ensp;{{comment.writer.first_name}}</a>
          
-         {% if comment.writer == user %}<span style="float:right">
+
+         <span style="float:right;line-height:30px; vertical-align: middle;"><i class="far fa-clock"></i>{{comment.created_string}}</span><span style="float:right">
+         {% if comment.writer == user or user.is_superuser %}<span style="float:right">
          <form action="{% url 'blog:comment_delete' comment.id %}" onclick="return confirm('정말 삭제하시겠습니까?');" method="post" style="display: inline;">{%csrf_token%}
             <input type="hidden" name="comment_id" value="{{ comment.id }}" />
 
@@ -108,7 +110,6 @@ a {
         </form>
         </span>
         {%endif%}
-         <span style="float:right"><i class="far fa-clock"></i>{{comment.created_string}}</span><span style="float:right">
         </div>
         <div style="margin-bottom:7px;overflow-wrap: break-word;"> {{ comment.content|linebreaks }} </div>
 {% endfor %}
@@ -128,7 +129,7 @@ a {
 
 <div style="height:100px"></div>
  <div>
-    <a href="{% url 'blog:index'%}" style="text-decoration:none; font-family:'title';font-size:20px;width:fit-content;"class="text-dark">해외주식 </a>
+    <a href="{% url 'blog:index'%}" style="text-decoration:none; font-family:'title';font-size:20px;width:fit-content;"class="text-dark">주식 토론방 </a>
         <button type="button" OnClick="location.href='/foreign/'" class= "btn btn-sm btn-dark text-light" style="width:fit-content; margin-top:5px;float:right;margin-right:5px">
     <i class="fas fa-check" style="color:green"></i>전체글</button>
     
@@ -162,13 +163,13 @@ a {
     <div class="col-7" style="overflow-wrap: break-word; ">
       <a href='{{post.get_absolute_url}}?page={{page_obj.number}}'  class="post" >{{post.title}}<br>
     
-        <span style="color:red"><i class="fas fa-thumbs-up"></i>{{ post.number_of_likes }} 
+        <span class="theme-color"><i class="fas fa-thumbs-up"></i>{{ post.number_of_likes }} 
           {% if post.number_of_comments > 0 %}&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}{% endif %}
         </span></a>
       
     </div>
     <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black; "><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
-    <div class="col-2 text-center" style="padding:0px">{{post.created_string}}</div>
+    <div class="col-2 text-center" style="padding:0px; color:grey">{{post.created_string}}</div>
     </div>
     </a>
 
@@ -250,11 +251,11 @@ a {
   <form  action="/foreign/search/"  method="GET" style="text-align:center; padding-top:20px">
       검색: &ensp;<input type= "text" name="search_word" required>
 
-      <input type="submit" value="검색" class = "btn btn-primary btn-sm">
+      <input type="submit" value="검색" class = "btn btn-success btn-sm">
   </form>
   <br>
   <br>
-
+  <br>
 </div>
 {% endblock %}
 {% block extra-script %}

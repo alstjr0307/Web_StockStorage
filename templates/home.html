@@ -73,7 +73,7 @@
     *{margin:0;padding:0;}
     ul,li{list-style:none;}
     .slide{height:30px;overflow:hidden;}
-    .slide ul{height:calc(100% * 4);animation:slide 16s infinite;}
+    .slide ul{height:calc(100% * 4);animation:slide 8s infinite;}
     .slide li{height:calc(100% / 4);}
     .slide li:nth-child(1){background:#ffa;}
     .slide li:nth-child(2){background:#faa;}
@@ -82,11 +82,11 @@
     @keyframes slide {
       0% {margin-top:0;}
       10% {margin-top:0;}
-      25% {margin-top:-28px;}
+
       35% {margin-top:-28px;}
-      50% {margin-top:-56px;}
+
       60% {margin-top:-56px;}
-      75% {margin-top:-84px;}
+
       85% {margin-top:-84px;}
       100% {margin-top:0;}
     }
@@ -98,11 +98,9 @@
     <div  class="slide"style= "border:1px solid #e0ffff; margin-bottom:20px;">
 <span style="font-family:'경기천년바탕'"><i class="fas fa-fire"></i>실시간 인기종목</span>
 <ul style="padding-left:5px; width:60%; float:right">
-
-  <li class="4">제넥신</li>
-  <li class="1">효성중공업</li>
-  <li class="5">한국전력공사</li>
-  <li>X</li>
+{% for popular in populars %}
+  <li class="4">{{popular}}</li>
+{% endfor %}
 
 </ul>
 </div>
@@ -142,8 +140,8 @@
         <div class="text-body col-sm-6 " style="margin-bottom:15px;">
             
             <a href="{% url 'domestic:index' %}"class="text-decoration-none fw-bold" style="display:block;width:fit-content;color:#2E3235" >
-            <h5 style="margin-bottom:0px;font-family: '경기천년제목'; width:fit-content ">국내주식 게시판</h5></a>
-            <hr  width="180px" style="border:0;margin-top:2px;color:#5A78AF; height:2px">
+            <h5 style="margin-bottom:0px;font-family: '경기천년제목'; width:fit-content ">주식 정보글</h5></a>
+            <hr  width="180px" style="border:0;margin-top:2px; height:2px" class="theme-color">
            
 
     
@@ -153,11 +151,11 @@
             solid #e9e9e9;text-decoration:none;margin-bottom:1px;margin-top:0px;">
 
                 <div class="col-7" style="overflow-wrap:'hidden'"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="post">{{post.title}}<br>
-                    <span style="color:red;"><i class="fas fa-thumbs-up"></i>{{post.number_of_likes}}{% if post.number_of_comments > 0 %}<span style="color:red">&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>{%endif%}
+                    <span class="theme-color"><i class="fas fa-thumbs-up"></i>{{post.number_of_likes}}{% if post.number_of_comments > 0 %}<span class="theme-color">&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>{%endif%}
                     </a>
                 </div>
                 <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black; center"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
-                <div class="col-2 text-center" style="padding:0px">{{post.created_string}}</div>
+                <div class="col-2 text-center" style="padding:0px; color:grey; ">{{post.created_string}}</div>
             </div>
 
 
@@ -176,22 +174,22 @@
         
         <div class="text-body col-sm-6"  >
             <a href="{% url 'blog:index' %}" class="text-decoration-none fw-bold"  style="display:block;width:fit-content;color:#2E3235">
-            <h5  style="margin-bottom:0px; font-family:'경기천년제목';">해외주식 게시판</h5></a>
-            <hr  width="170px" style="border:0;margin-top:2px;color:#5A78AF; height:2px">
+            <h5  style="margin-bottom:0px; font-family:'경기천년제목';">주식 토론방</h5></a>
+            <hr  width="170px" class="theme-color"style="border:0;margin-top:2px; height:2px">
             
 
                     {% for post in post_foreigns|slice:":9" %}
 
                         
-                        <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
-                        solid #e9e9e9;text-decoration:none;margin-bottom:1px;margin-top:0px;">
+                    <div class="row text-dark"style="box-sizing: border-box; border-bottom: 1px solid #e9e9e9;text-decoration:none;margin-bottom:1px;margin-top:0px;">
 
-                        <div class="col-7 "style="overflow-wrap: break-word;"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class='post' >{{post.title}}<br>
-                            <span style="color:red"><i class="fas fa-thumbs-up"></i>{{post.number_of_likes}}{% if post.number_of_comments > 0 %}&ensp;&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}{%endif%}</span>
-                            </a></div>
-                        <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black; center"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
-                        <div class="col-2 text-center" style="padding:0px">{{post.created_string}}</div>
+                        <div class="col-7" style="overflow-wrap:'hidden'"><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="post">{{post.title}}<br>
+                            <span class="theme-color"><i class="fas fa-thumbs-up"></i>{{post.number_of_likes}}{% if post.number_of_comments > 0 %}<span class="theme-color">&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>{%endif%}
+                            </a>
                         </div>
+                        <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black; center"><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
+                        <div class="col-2 text-center" style="padding:0px; color:grey; ">{{post.created_string}}</div>
+                    </div>
 
 
                     {% endfor %}
@@ -199,38 +197,16 @@
         </div>
 
 
-<br>
-<br>
-<br>
+
  </div>
 
-
+<br>
+<br>
+<br>
+<br>
+<br>
 {%endblock%}
-{% block extra-script %}
-<script>
-function sortList() {
-  var list = document.getElementById("listToSort");
-  
-  var item = list.firstElementChild;
-  while(item) {
-  	item.style.marginTop = ((parseFloat(item.className) - 1) * 20) + "px";
-    item = item.nextElementSibling;
-  }
-  
-}
-sortList();
 
-
-// Testing example below
-var item1 = document.getElementById("listToSort").getElementsByClassName("1")[0];
-var item2 = document.getElementById("listToSort").getElementsByClassName("2")[0];
-
-item1.className = "2";
-item2.className = "1";
-
-setTimeout(function() {sortList();},1500);
-</script>
-{% endblock%}
 {%block footer%}
 
 {% endblock %}

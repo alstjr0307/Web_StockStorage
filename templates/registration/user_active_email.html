@@ -1,7 +1,9 @@
 {% load i18n %}{% autoescape off %}
 {% blocktrans %}
-Please click on the link to confirm your registration,
+주식저장소
+
+회원가입 완료를 위해 아래 링크를 클릭해주세요,
 {% endblocktrans %}
 
-http://{{127.0.0.1:8000}}{% url 'activate' uidb64=uid token=token %}
+http://{{domain}}{% url 'activate' uidb64=uid token=token %}
 {% endautoescape %}

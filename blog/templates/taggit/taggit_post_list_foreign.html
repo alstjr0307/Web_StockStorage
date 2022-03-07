@@ -29,14 +29,14 @@ a{
         <div class="col-7" style="overflow-wrap: break-word; ">
             <a href='{{post.get_absolute_url}}?page={{page_obj.number}}'  class="post" >{{post.title}}<br>
         
-            <span style="color:red"><i class="fas fa-thumbs-up"></i>{{ post.number_of_likes }} 
+            <span class="theme-color"><i class="fas fa-thumbs-up"></i>{{ post.number_of_likes }} 
                 {% if post.number_of_comments > 0 %}&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}{% endif %}
             </span>
             </a>
             
         </div>
         <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black; "><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
-        <div class="col-2 text-center"style="padding:0px">{{post.created_string}}</div>
+        <div class="col-2 text-center"style="padding:0px;color:grey">{{post.created_string}}</div>
         </div>
 
     {%endfor%}

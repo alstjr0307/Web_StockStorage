@@ -35,17 +35,10 @@
         </div>
         <br>
 
-        <div class="form-group row">
-            종목명:
-            <div class="col-sm-5">
-                {{form.tags|add_class:"form-control"}}
-            </div>
-            <small class="form-text text-muted">,로 구분해주세요</small>
-        </div>
 
         <div class= "form-group">
             <div class="offset-sm-2 col-sm-5">
-            <input type="submit" value="제출" class= "btn btn-info"/>
+ <input id="btnForm" type="submit" value="내용을 입력하셔야 등록이 가능합니다" class= "btn btn-info" style="width:100%"disabled/>
             </div>
         </div>
 
@@ -54,7 +47,7 @@
             <div class="col-sm-5">
                 {{form.category|add_class:"form-control"}}
             </div>
-            <small class="form-text text-muted">&ensp;,로 구분해주세요</small>
+
         </div>
     
 
@@ -75,6 +68,21 @@
             placeholder: '내용을 입력해주세요'	//placeholder 설정
             
         });
+        $('[id="summernote"]').summernote({ //content 비어있을 시 제출버튼 비활성화
+        }).on('summernote.keyup', function() {
+
+            var text = $("#summernote").summernote("code").replace(/&nbsp;|<\/?[^>]+(>|$)/g, "").trim();
+
+            if (text.length == 0) {
+                $("#btnForm").attr("disabled", "disabled");
+                $("#btnForm").attr("value","내용을 입력하셔야 등록 가능합니다.");
+
+            } else {
+                $("#btnForm").removeAttr("disabled");
+                $("#btnForm").attr("value","등록");
+            }
+        });
+
     });
 </script>
 {%endblock%}

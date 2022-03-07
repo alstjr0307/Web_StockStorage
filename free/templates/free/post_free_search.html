@@ -26,10 +26,10 @@
 
   <div class="row text-dark"style="box-sizing: border-box;border-bottom: 1px 
     solid #e9e9e9;text-decoration:none;padding-bottom:4px;padding-top:4px; margin-left:1px">
-    <div class="col-7"style="overflow-wrap: break-word; "><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="post" >{{post.title}}<br>   <span style="color:red;"><i class="fas fa-thumbs-up"></i>{{post.number_of_likes}}{% if post.number_of_comments > 0 %}&ensp;&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
+    <div class="col-7"style="overflow-wrap: break-word; "><a href='{{post.get_absolute_url}}?page={{page_obj.number}}' class="post" >{{post.title}}<br>   <span class="theme-color"><i class="fas fa-thumbs-up"></i>{{post.number_of_likes}}{% if post.number_of_comments > 0 %}&ensp;&ensp;<i class="far fa-comment"></i>{{post.number_of_comments}}</span>
       {% endif %}</a></div>
     <div class="col-3 text-center"><a href="{{post.owner_absolute_url}}" style="color:black; "><i class="far fa-user"></i>&ensp;{{post.owner.first_name}}</a></div>
-    <div class="col-2 text-center" style="font-family:'beauty'"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
+    <div class="col-2 text-center" style="color:grey"><i class="fas fa-clock"></i>&ensp;{{post.created_string}}</div>
     </div>
 
 
@@ -107,5 +107,8 @@
     {{ form.as_table }}
     <input type="submit" value="검색" class = "btn btn-primary btn-sm" style="font-family:'aab'">
 </form>
+<br>
+<br>
+<br>
 </div>
 {% endblock %}

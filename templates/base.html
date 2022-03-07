@@ -3,112 +3,17 @@
 
 {% load static %}
 
-<style type="text/css">
-img {
-  max-width:100%;
-  height:auto;
-}
-  a, div, button{
-   font-family: '본고딕';
-   text-decoration:none;
- }
- a{
-   color:black;
-   text-decoration:none;
- }
-.navbar-custom {
-  height: 60px;
-}
-.writer{
-  font-family: 'beauty';
-}
-@media (min-width: 992px) {
-  .animate {
-    animation-duration: 0.3s;
-    -webkit-animation-duration: 0.3s;
-    animation-fill-mode: both;
-    -webkit-animation-fill-mode: both;
-  }
-}
-.powered {
-    position: relative;
-    top: 77%;
-    color: #cc0;
-    font-style: italic;
-}
-.footer{
-    width: 100%;
-    height: 50px;
-    position:absolute;
-    bottom:0;
-    background:black;
-    text-align:center;
-    color:white; 
+
+<head>
+    <html lang="ko">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content = "IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <style>
+   html {
+  height: 100%;
 }
 
-@keyframes slideIn {
-  0% {
-    transform: translateY(1rem);
-    opacity: 0;
-  }
-  100% {
-    transform:translateY(0rem);
-    opacity: 1;
-  }
-  0% {
-    transform: translateY(1rem);
-    opacity: 0;
-  }
-}
-
-@-webkit-keyframes slideIn {
-  0% {
-    -webkit-transform: transform;
-    -webkit-opacity: 0;
-  }
-  100% {
-    -webkit-transform: translateY(0);
-    -webkit-opacity: 1;
-  }
-  0% {
-    -webkit-transform: translateY(1rem);
-    -webkit-opacity: 0;
-  }
-}
-
-.slideIn {
-  -webkit-animation-name: slideIn;
-  animation-name: slideIn;
-}
-.div_body{
-    position:relative;
-}
-
-.pagination-detail {
-    display:none;
-}
-@keyframes bounce {
-  0%, 20%, 60%, 100% {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-
-  40% {
-    -webkit-transform: translateY(-20px);
-    transform: translateY(-20px);
-  }
-
-  80% {
-    -webkit-transform: translateY(-10px);
-    transform: translateY(-10px);
-  }
-}
-h5:hover {transform: skew(-10deg);}
-
-a.post:hover {color:red}
-
-a.post:visited {color:grey}
-/* Other styles for the page not related to the animated dropdown */
 @font-face {
     font-family:'nanum';
 
@@ -141,104 +46,22 @@ a.post:visited {color:grey}
         url("{% static 'font/NanumFontSetup_TTF_SQUARE_ROUND/NanumSquareRoundEB.ttf' %}") format("truetype");
 }
 @font-face{
-  font-family:'경기천년바탕';
-  src: local('경기천년바탕'),
+    font-family:'경기천년바탕';
+    src: local('경기천년바탕'),
     url("{% static 'font/Gyeonggi_font_OTF_TTF_0602/TTF/경기천년바탕_Regular.ttf' %}") format("truetype");
 }
 @font-face{
-  font-family:'경기천년제목';
-  src: local('경기천년제목'),
+    font-family:'경기천년제목';
+    src: local('경기천년제목'),
     url("{% static 'font/Gyeonggi_font_OTF_TTF_0602/TTF/경기천년제목_Medium.ttf' %}") format("truetype");
 }
 @font-face{
-  font-family:'본고딕';
-  src: local('본고딕'),
+    font-family:'본고딕';
+    src: local('본고딕'),
     url("{% static 'font/Noto_Sans_KR/NotoSansKR-Light.otf' %}") format("opentype");
 }
+
 </style>
-<head>
-    <html lang="ko">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content = "IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type="text/css">
-
-      .post-body {
-          width: 95%;
-          margin: auto;
-
-          font-size: 14px;
-          text-decoration:none;
-
-      }
-      .responsive{
-        font-size:14px;
-      }
-@media (max-width: 1024px) {
-    .responsive{
-        font-size: 14px;}
-    }
-
-@media (max-width: 767px) {
-    .responsive{
-        font-size: 12px;
-
-      }
-}
-      @media (max-width: 1024px) {
-          .post-body{
-            font-size: 14px;
-            width: 95%;
-            margin: auto;
-
-
-            text-decoration:none;}
-      }
-
-      @media (max-width: 767px) {
-          .post-body{
-            font-size: 12px;
-            width: 100%;
-            margin: auto;
-
-
-            text-decoration:none;}
-
-      }
-      .container {
-        padding-right: 15px;
-        padding-left: 15px;
-        margin-right: auto;
-        margin-left: auto;
-      }
-
-      /*반응형 container 크기 */
-      @media (min-width: 768px) {
-        .container {
-          max-width: 970px !important;
-        }
-      }
-      @media (min-width: 576px) {
-        .container {
-          max-width: 970px !important;
-        }
-      }
-      @media (min-width: 992px) {
-        .container {
-          max-width: 970x !important;
-        }
-      }
-
-      @media (min-width: 1200px) {
-        .container {
-          max-width: 970px !important;
-        }
-      }
-
-
-
-    </style>
-
     <title>{% block title %}두부개미 주식저장소{% endblock %}</title>
       <!-- include libraries(jQuery, bootstrap, fontawesome) -->
 
@@ -248,57 +71,59 @@ a.post:visited {color:grey}
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     
     <!-- static 파일 -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}"/>
+ 
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
     <script src="{% static 'js/summernote/summernote-lite.js' %}"></script>
     <script src="{% static 'js/summernote/lang/summernote-ko-KR.js' %}"></script>
     <link rel="icon" href="{% static 'favicon.ico'%}">
     <link rel="stylesheet" href="{% static 'css/summernote/summernote-lite.css' %}">
-    
     <!-- 부트스트랩 테이블 -->
     <link href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css" rel="stylesheet">
   
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font.css' %}"/>
     {% block extra-style %}{%endblock%}
 
     
 </head>
 
-<body style="background-color:grey">
+<body style="background-color:rgb(229, 246, 223);height: 100%;">
 
 
-<nav class="navbar navbar-custom navbar-expand-lg navbar-dark bg-dark fixed-top" >
-  <div style="margin-left=10%"class="container-fluid">
+<nav class="navbar navbar-custom navbar-expand-lg" >
+  <div class=" container-fluid ">
     <span class="navbar-brand" ><a href="{% url 'home'%}" style="font-family:'title';text-decoration:none; font-size:25px;color:white"><i class="fas fa-won-sign"></i>주식저장소</a></span>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-      <span class="navbar-toggler-icon"></span>
+
+      <span><i class="fas fa-bars" style="color:white"></i></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
 
-        <li class="nav-item dropdown mx-1 btn btn-dark">
-        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          국내주식
+        <li class="nav-item dropdown mx-1 btn">
+        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          주식 정보글
         </a>
         <div class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{% url 'domestic:index' %}">전체글</a>
           <a class="dropdown-item" href="{% url 'domestic:popular_index' %}">인기글</a>
         </div>
         </li>
-        <li class="nav-item dropdown mx-1 btn btn-dark">
-        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          해외주식
+        <li class="nav-item dropdown mx-1 btn">
+        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          주식 토론방
         </a>
         <div class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{% url 'blog:index' %}">전체글</a>
           <a class="dropdown-item" href="{% url 'blog:popular_index' %}">인기글</a>
         </div>
         </li>
-        <li class="nav-item mx-1 btn btn-dark">
+        <li class="nav-item mx-1 btn">
           <a class="nav-link text-white" href="{% url 'free:index' %}">자유게시판</a>
         </li>
 
-        <li class="nav-item dropdown mx-1 btn btn-dark">
-        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <li class="nav-item dropdown mx-1 btn">
+        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           종목저장소
         </a>
         <div class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
@@ -310,13 +135,14 @@ a.post:visited {color:grey}
 
       </ul>
 
+      
       <form class="form-inline my-2" action="/search/" method="GET">
         <input class="form-control mr-sm-2" type="search" placeholder="검색" name="search_word" required>
         
       </form>
 
-      <ul class= "navbar-nav ml-5 mr-5 position-absolute end-0">
-        <li class="nav-item dropdown mx-1 btn btn-dark">
+      <ul class= "navbar-nav login-nav" >
+        <li class="nav-item dropdown btn">
           {% if user.is_active %}
           <a class = "nav-link dropdown-toggle text-white" href="#" data-bs-toggle="dropdown">
             <i class="fas fa-user"></i>&ensp;{% firstof user.get_short_name  %}&ensp;</a>
@@ -324,6 +150,7 @@ a.post:visited {color:grey}
               <a class="dropdown-item" href="{% url 'logout' %}">로그아웃</a>
               <a class = "dropdown-item" href="{% url 'password_change' %}"> 비밀번호 변겅</a>
               <a class = "dropdown-item" href="{% url 'profile' user.pk %}"> 닉네임 변경</a>
+              <a class = "dropdown-item" href="{% url 'blog:post_user' user.pk user.first_name %}"> 내가 쓴글</a>
             </div>
           
           {% else %}
@@ -341,8 +168,8 @@ a.post:visited {color:grey}
   </div>
 </nav>
 
-<div class ="container responsive"  style="padding-top:60px; background-color:white; min-height:1100px;height:auto">
-    <div style="padding-top:30px;"></div>
+<div class ="container responsive"  style="padding-top:60px; background-color:white; min-height:100%;">
+    <div style="padding-top:10px;"></div>
     
     {%block list%} {%endblock%}
     {%block content%}{%endblock%}

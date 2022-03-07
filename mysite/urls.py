@@ -14,10 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from bookmark.views  import BookmarkDV, BookmarkLV
-from mysite.views import HomeView, SearchFormView
-from mysite.views import UserCreateDoneTV, SignUp, ProfileView, ActivateAccount
+from django.urls import path, include,re_path
+from mysite.views import KakaoSignInCallBackView,HomeView, SearchFormView, KakaoSignInView
+from mysite.views import UserCreateDoneTV, SignUp, ProfileView, ActivateAccount,Ads
 from django.conf.urls.static import static
 from mysite import settings
 from froala_editor import views
@@ -26,7 +25,6 @@ from .views import CustomLoginView
 urlpatterns = [
 
     path('admin/', admin.site.urls),
-    path('bookmark/', include('bookmark.urls')),
     path('foreign/', include('blog.urls')),
     path('domestic/',include('domestic.urls')),
     path('', HomeView.as_view(), name= 'home'),
@@ -38,6 +36,9 @@ urlpatterns = [
     path('login/', CustomLoginView.as_view(template_name='registration/login.html'), name='login'),
     path('search/', SearchFormView.as_view(), name='search'),
     path('free/', include('free.urls')),
-    path('froala_editor/',include('froala_editor.urls'))
-    
+    path('froala_editor/',include('froala_editor.urls')),
+    path('account/', include('allauth.urls')),
+    path('kakaologin/', KakaoSignInView.as_view(), name='kakao'),
+    path('users/signin/kakao/callback/', KakaoSignInCallBackView.as_view(), name='kakaoback'),
+    path('app-ads.txt',Ads),
 ] #+  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

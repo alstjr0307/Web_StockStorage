@@ -53,7 +53,7 @@ MESSAGE_TAGS = {
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG =  True
 
-ALLOWED_HOSTS = ['127.0.0.1', '15.164.164.21', 'www.stockstorage.net', 'stockstorage.net']
+ALLOWED_HOSTS = [ 'www.stockstorage.net', 'stockstorage.net', '172.31.15.211', 'localhost','127.0.0.1']
 
 
 
@@ -66,7 +66,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bookmark.apps.BookmarkConfig',
     'blog.apps.BlogConfig',
     'taggit.apps.TaggitAppConfig',
     'taggit_templatetags2',
@@ -77,9 +76,12 @@ INSTALLED_APPS = [
     'free.apps.FreeConfig',
     'hitcount',
     'storages',
-    'yahoo_fin',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.kakao',
+  
 
-    
 ]
 
 MIDDLEWARE = [
@@ -163,7 +165,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -183,11 +185,14 @@ TAGGIT_LIMIT= 50
 
 SERVER_EMAIL= 'django@my-domain.com'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'alswp26@gmail.com'
+EMAIL_HOST_USER = 'tofustock@gmail.com'
 EMAIL_HOST_PASSWORD = 'alstjr0307!!'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend',)
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.AllowAllUsersModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 
 #S3에
@@ -200,3 +205,4 @@ AWS_S3_REGION_NAME= 'ap-northeast-2'
 AWS_STORAGE_BUCKET_NAME=  'tofuant'
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com"
 AWS_DEFAULT_ACL='public-read'
+SITE_ID = 1

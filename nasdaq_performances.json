@@ -1,0 +1,137 @@
+{
+    "QQQ": {
+        "week": -4.77,
+        "month": -6.59,
+        "three_month": -14.58
+    },
+    "QLD": {
+        "week": -9.67,
+        "month": -13.5,
+        "three_month": -28.85
+    },
+    "TQQQ": {
+        "week": -14.24,
+        "month": -20.71,
+        "three_month": -41.99
+    },
+    "UPRO": {
+        "week": -9.18,
+        "month": -16.14,
+        "three_month": -19.23
+    },
+    "UDOW": {
+        "week": -8.1,
+        "month": -17.34,
+        "three_month": -10.16
+    },
+    "URTY": {
+        "week": -11.03,
+        "month": -4.35,
+        "three_month": -26.4
+    },
+    "FNGU": {
+        "week": -17.52,
+        "month": -27.77,
+        "three_month": -54.78
+    },
+    "SOXL": {
+        "week": -22.69,
+        "month": -25.63,
+        "three_month": -49.79
+    },
+    "TECL": {
+        "week": -14.57,
+        "month": -23.75,
+        "three_month": -36.08
+    },
+    "CURE": {
+        "week": 0.39,
+        "month": -6.62,
+        "three_month": 0.23
+    },
+    "PILL": {
+        "week": -2.58,
+        "month": -1.74,
+        "three_month": -17.92
+    },
+    "LABU": {
+        "week": -16.03,
+        "month": -18.35,
+        "three_month": -63.5
+    },
+    "FAS": {
+        "week": -17.67,
+        "month": -24.15,
+        "three_month": -15.29
+    },
+    "BNKU": {
+        "week": -23.45,
+        "month": -35.62,
+        "three_month": -24.76
+    },
+    "DPST": {
+        "week": -24.45,
+        "month": -18.75,
+        "three_month": -8.88
+    },
+    "WANT": {
+        "week": -19.02,
+        "month": -23.21,
+        "three_month": -47.42
+    },
+    "NRGU": {
+        "week": 9.87,
+        "month": 21.75,
+        "three_month": 151.25
+    },
+    "RETL": {
+        "week": -13.38,
+        "month": -19.26,
+        "three_month": -49.66
+    },
+    "DEFN": {
+        "week": 0.0,
+        "month": 2.21,
+        "three_month": -0.64
+    },
+    "DUSL": {
+        "week": -3.49,
+        "month": -8.29,
+        "three_month": -3.89
+    },
+    "NAIL": {
+        "week": -14.52,
+        "month": -28.73,
+        "three_month": -47.24
+    },
+    "DRN": {
+        "week": 6.89,
+        "month": -5.04,
+        "three_month": -1.9
+    },
+    "TPOR": {
+        "week": -6.74,
+        "month": -11.31,
+        "three_month": -13.29
+    },
+    "UTSL": {
+        "week": 14.55,
+        "month": 8.59,
+        "three_month": 25.89
+    },
+    "BULZ": {
+        "week": -25.12,
+        "month": -26.82,
+        "three_month": -60.27
+    },
+    "VTI": {
+        "week": -3.32,
+        "month": -4.78,
+        "three_month": -6.76
+    },
+    "SPY": {
+        "week": -2.87,
+        "month": -5.03,
+        "three_month": -5.52
+    }
+}

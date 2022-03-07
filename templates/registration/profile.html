@@ -15,3 +15,11 @@
         <a href="{% url 'home' %}" style="text-decoration:none">메인화면</a>
     </form>
 {% endblock content %}
+
+<script>
+$('input').on('keydown', function (e) {
+  if (e.keyCode == 32) {
+    e.stopPropagation();
+  }
+});
+</script>

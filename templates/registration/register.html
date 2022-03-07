@@ -14,19 +14,19 @@ small{
     <h2 style="font-family:'abc'">회원가입</h2>
     <br>
     <br>
-    <form method="post" class="form-profile"  ">
+    <form method="post" class="form-profile" >
         {% csrf_token %}
         {% bootstrap_form form onblur="this.value=removeSpaces(this.value);" %}
         <br>
         <input type="submit" id= "subbutton" class="btn btn-outline-info" value="회원가입"> 
+    </form>
 
 {% endblock content %}
 {% block extra-script%}
 <script>
-function onSubmit() {
-    document.getElementById("subbutton").disabled = true; 
-}
-
+$('form').submit(function() {
+  $(this).find("input[type='submit']").prop('disabled',true);
+});
 </script>
 
 {% endblock%}

@@ -5,8 +5,8 @@
 {%block list%}
 
     <div class="post-body content">
-    <a href="{% url 'domestic:index'%}" style="text-decoration:none; font-family:'title';font-size:20px; width:fit-content;"class="text-dark">국내주식</a>
-    {% if request.get_full_path != "/domestic/add/" and request.get_full_path|slice:':17' != "/domestic/update/" %}<button  type="button" OnClick="location.href='/domestic/add'" class="btn btn-sm btn-dark text-light" style="float:right; margin-top:0px; width:fit-content"><i class="fas fa-pencil-alt"></i></button>
+    <a href="{% url 'domestic:index'%}" style="text-decoration:none; font-family:'title';font-size:20px; width:fit-content;"class="text-dark">주식 정보글</a>
+    {% if request.get_full_path != "/domestic/add/" and request.get_full_path|slice:':17' != "/domestic/update/" and request.user.is_superuser %}<button  type="button" OnClick="location.href='/domestic/add'" class="btn btn-sm btn-dark text-light" style="float:right; margin-top:0px; width:fit-content"><i class="fas fa-pencil-alt"></i></button>
     
         <button type="button" OnClick="location.href='/domestic/'" class= "btn btn-sm btn-dark text-light" style="width:fit-content; margin-top:0px;float:right;margin-right:0.5vw">
     <i class="fas fa-check" style="color:green"></i>전체글</button>
@@ -14,7 +14,7 @@
     
      <button type="button" OnClick="location.href='/domestic/popular'" class= "btn btn-sm btn-outline-dark " style="width:fit-content; margin-top:0px;float:right;margin-right:0.2vw">인기글</button>
     {% endif%}
-       <hr style="height:5px; width: 85px;color:#D5C2EE; margin-top:0px"> 
+       <hr style="height:5px; width: 110px;margin-top:0px"class="theme-color"> 
     </div>
 
 

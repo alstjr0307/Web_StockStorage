@@ -24,7 +24,7 @@ class Post(models.Model):
     Category_CHOICES=(('F','해외주식'),('D', '국내주식'), ('R', '자유게시판'))
     category=models.CharField(verbose_name='게시판', max_length=1, choices=Category_CHOICES, default='F' )
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
-     related_query_name='hit_count_generic_relation')
+    related_query_name='hit_count_generic_relation')
     likes = models.ManyToManyField(User, related_name='blogpost_like')
 
 
@@ -75,7 +75,7 @@ class Post(models.Model):
 
     def created_string(self):
         
-        time = datetime.now(timezone.utc) - self.create_dt
+        time = datetime.now() - self.create_dt
 
         if time < timedelta(minutes=1):
             return '방금 전'
@@ -84,10 +84,10 @@ class Post(models.Model):
         elif time < timedelta(days=1):
             return str(int(time.seconds / 3600)) + '시간전'
         elif time < timedelta(days=7):
-            time = datetime.now(tz=timezone.utc).date() - self.create_dt.date()
+            time = datetime.now().date() - self.create_dt.date()
             return str(time.days) + '일전'
         else:
-            return self.create_dt
+            return str(self.create_dt.year) + '.' + str(self.create_dt.month) +'.' + str(self.create_dt.day)
 
     @property
     def number_of_comments(self):
@@ -115,7 +115,7 @@ class PostComment(models.Model):
 
     def created_string(self):
         
-        time = datetime.now(timezone.utc) - self.created
+        time = datetime.now() - self.created
 
         if time < timedelta(minutes=1):
             return '방금 전'
@@ -124,7 +124,9 @@ class PostComment(models.Model):
         elif time < timedelta(days=1):
             return str(int(time.seconds / 3600)) + '시간전'
         elif time < timedelta(days=7):
-            time = datetime.now(tz=timezone.utc).date() - self.created.date()
+            time = datetime.now().date() - self.created.date()
             return str(time.days) + '일전'
         else:
-            return self.likes.count()
+            return '오래전'
+    def owner_absolute_url(self):
+        return reverse('blog:post_user', args=(self.writer.id, self.writer.first_name))

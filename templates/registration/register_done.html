@@ -3,10 +3,15 @@
 {% block title %}register_done.html {%endblock %}
 
 {% block content %}
-    <h1>회원가입 완료 </h1>
+<center>
+    <h1>주식 저장소 회원가입 완료 </h1>
 
     <br>
-    
-    <p class = "font-italic"><a  style="text-decoration:none; bg:light" href="{% url 'login'%}">로그인</a></p>
-
+    <div class="btn btn-success">
+    <a  style="text-decoration:none; bg:light; color:white" href="{% url 'login'%}">로그인</a>
+    </div>
+</center>
+<br>
+<br>
+<br>
 {% endblock %}
