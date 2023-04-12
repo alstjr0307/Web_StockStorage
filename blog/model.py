@@ -27,7 +27,7 @@ class AuthGroupPermissions(models.Model):
 
 
 class AuthPermission(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=254)
     content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING)
     codename = models.CharField(max_length=100)
 
@@ -136,8 +136,8 @@ class DjangoContentType(models.Model):
 
 
 class DjangoMigrations(models.Model):
-    app = models.CharField(max_length=255)
-    name = models.CharField(max_length=255)
+    app = models.CharField(max_length=254)
+    name = models.CharField(max_length=254)
     applied = models.DateTimeField()
 
     class Meta:

@@ -16,6 +16,9 @@ from django.contrib.messages import constants as messages_constants
 from django.contrib.messages import constants as messages
 from django.core.exceptions import ImproperlyConfigured
 import json
+import pymysql
+pymysql.version_info = (1, 4,3, "final", 0)
+pymysql.install_as_MySQLdb()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -126,7 +129,7 @@ DATABASES = {
         'NAME': get_secret("DATABASE_NAME"),
         'USER': get_secret("DATABASE_USER"),
         'PASSWORD': get_secret("DATABASE_PASSWORD"),
-        'HOST' : 'database-2.c1ifp11mkwo5.ap-northeast-2.rds.amazonaws.com',
+        'HOST' : 'tofuant.csuarvlkp9bt.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",

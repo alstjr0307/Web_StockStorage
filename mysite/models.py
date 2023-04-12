@@ -8,9 +8,7 @@ class User(models.Model):
     first_name=models.CharField(max_length=6, unique=True)
     email=models.charField(unique=True)
     is_active = models.BooleanField(default=False)
-    
-    get
-    
+
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
     if created:
